@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: #2463eb;
+  --color-accent: #06B6D4;
+  --color-background-light: #f6f6f8;
+  --color-background-dark: #0B1120;
+  --color-neutral-gray: #E5E7EB;
+  
+  /* New Digicore Palette */
+  --color-deepblue: #0A1A2F;
+  --color-electricblue: #3A7BFF;
+  --color-graphite: #1E1E1E;
+  --color-lightgray: #E5E7EB;
+  --color-purewhite: #FFFFFF;
+  
+  --font-display: var(--font-manrope);
+
+  --animate-spin-slow: spin-slow 3s linear infinite;
+
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+}
+
+/* Custom Utilities */
+.glass-nav {
+  background: rgba(11, 17, 32, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.bg-gradient-blob {
+  background: radial-gradient(circle, rgba(36, 99, 235, 0.15) 0%, rgba(11, 17, 32, 0) 70%);
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
