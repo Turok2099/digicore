@@ -1,147 +1,169 @@
-import { CheckCircle2, BadgeCheck, Plus } from "lucide-react";
+"use client";
+
+import { Check, Sparkles } from "lucide-react";
+
 export default function PricingContent() {
-    return (
-        <>
-            {/* Hero Section */}
-            <div className="px-6 pt-10 pb-6 text-center">
-                <h1 className="text-white text-3xl font-black leading-tight tracking-tight mb-3">
-                    Planes diseñados para convertir
-                </h1>
-                <p className="text-slate-400 text-base max-w-xs mx-auto">
-                    Inversión estratégica enfocada en maximizar tu adquisición de clientes y ROI.
+  const packages = [
+    {
+      name: "Consigue más clientes",
+      tagline: "MARKETING & LEAD GEN",
+      description: "Creamos la infraestructura de marketing digital que tu negocio necesita para capturar prospectos de forma constante.",
+      cta: "Cotizar Solución",
+      highlight: true,
+      badge: "Más Solicitado",
+      accentColor: "border-neon-cyan/30 bg-black shadow-[0_0_30px_rgba(0,240,255,0.05)] hover:-translate-y-2",
+      btnClass: "bg-neon-cyan text-black hover:bg-white hover:shadow-[0_0_25px_rgba(0,240,255,0.4)]",
+      features: [
+        "Sitio Web Profesional o Landing Page",
+        "Diseño a medida & optimización móvil",
+        "Posicionamiento SEO local y nacional",
+        "Configuración de Google Business Profile",
+        "Embudos y captura cualificada de leads"
+      ]
+    },
+    {
+      name: "Vende por Internet",
+      tagline: "E-COMMERCE & PROCESAMIENTO",
+      description: "Digitaliza tus canales de venta y automatiza el procesamiento y cobro de tus productos de forma segura.",
+      cta: "Cotizar Solución",
+      highlight: false,
+      badge: "",
+      accentColor: "border-white/5 bg-bg-card hover:border-neon-emerald/20 hover:-translate-y-2",
+      btnClass: "bg-white text-black hover:bg-neon-emerald hover:shadow-[0_0_20px_rgba(0,255,135,0.3)]",
+      features: [
+        "Tiendas en línea y catálogos digitales",
+        "Integración para cobrar desde tu sitio",
+        "Checkout ultra rápido sin fricción",
+        "Flujos de facturación automáticos",
+        "Gestión de inventario y pedidos"
+      ]
+    },
+    {
+      name: "Automatiza tu negocio",
+      tagline: "IA & INTEGRACIONES",
+      description: "Libera a tu equipo de tareas repetitivas y responde a tus prospectos al instante con Inteligencia Artificial.",
+      cta: "Cotizar Solución",
+      highlight: false,
+      badge: "",
+      accentColor: "border-white/5 bg-bg-card hover:border-neon-emerald/20 hover:-translate-y-2",
+      btnClass: "bg-white text-black hover:bg-neon-emerald hover:shadow-[0_0_20px_rgba(0,255,135,0.3)]",
+      features: [
+        "Agentes Chatbot de WhatsApp con IA",
+        "Integración bidireccional con CRM",
+        "Flujos automatizados de email marketing",
+        "Cotizadores automáticos y APIs",
+        "Generación de reportes automáticos"
+      ]
+    },
+    {
+      name: "Haz crecer tu empresa",
+      tagline: "SOFTWARE & ANALÍTICA",
+      description: "Construimos herramientas internas de negocio adaptadas exactamente a tus necesidades operativas y métricas.",
+      cta: "Cotizar Solución",
+      highlight: false,
+      badge: "",
+      accentColor: "border-white/5 bg-bg-card hover:border-neon-emerald/20 hover:-translate-y-2",
+      btnClass: "bg-white text-black hover:bg-neon-emerald hover:shadow-[0_0_20px_rgba(0,255,135,0.3)]",
+      features: [
+        "Plataformas web y software a medida",
+        "Dashboards y paneles de control internos",
+        "Arquitectura Cloud escalable",
+        "Infraestructura DevOps",
+        "Auditoría de rendimiento de sistemas"
+      ]
+    },
+    {
+      name: "Nosotros nos encargamos",
+      tagline: "SOPORTE & MANTENIMIENTO",
+      description: "Nos convertimos en tu departamento de tecnología. Mantenemos tus sistemas al día mientras tú creces.",
+      cta: "Cotizar Solución",
+      highlight: false,
+      badge: "",
+      accentColor: "border-white/5 bg-bg-card hover:border-neon-emerald/20 hover:-translate-y-2",
+      btnClass: "bg-white text-black hover:bg-neon-emerald hover:shadow-[0_0_20px_rgba(0,255,135,0.3)]",
+      features: [
+        "Hosting premium de alta velocidad",
+        "Monitoreo de caídas en tiempo real",
+        "Respaldos diarios automáticos",
+        "Actualizaciones de seguridad continuas",
+        "Soporte técnico y mantenimiento directo"
+      ]
+    }
+  ];
+
+  return (
+    <section id="paquetes" className="px-6 py-24 bg-black relative border-t border-white/5">
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 mb-4">
+            <span className="h-1.5 w-1.5 rounded-full bg-neon-cyan"></span>
+            <span className="text-xs font-mono text-neon-cyan uppercase tracking-widest">Lo que incluyen</span>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight mb-6">
+            Nuestros <br />
+            <span className="text-neon-cyan">
+              Paquetes de Soluciones.
+            </span>
+          </h2>
+          <p className="text-lg sm:text-xl text-text-muted max-w-xl mx-auto font-light">
+            Explora las características y entregables clave que conforman cada una de nuestras soluciones tecnológicas.
+          </p>
+        </div>
+
+        {/* Pricing Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+          {packages.map((pkg, idx) => (
+            <div
+              key={idx}
+              className={`relative flex flex-col justify-between p-8 rounded-2xl border transition-all duration-300 ${pkg.accentColor}`}
+            >
+              {pkg.highlight && (
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-neon-cyan text-black text-xs font-black uppercase tracking-[0.15em] px-4 py-1 rounded-full flex items-center gap-1">
+                  <Sparkles className="size-3" />
+                  {pkg.badge}
+                </div>
+              )}
+
+              <div>
+                {/* Header Card */}
+                <div className="flex justify-between items-start mb-6">
+                  <div>
+                    <span className={`text-xs font-mono tracking-widest uppercase block mb-1 ${pkg.highlight ? 'text-neon-cyan' : 'text-neon-emerald'}`}>
+                      {pkg.tagline}
+                    </span>
+                    <h3 className="text-xl md:text-2xl font-bold text-white">{pkg.name}</h3>
+                  </div>
+                </div>
+
+                <p className="text-base text-text-muted font-light mb-8 leading-relaxed">
+                  {pkg.description}
                 </p>
+
+                {/* Features List */}
+                <ul className="space-y-4 mb-8">
+                  {pkg.features.map((feat, fIdx) => (
+                    <li key={fIdx} className="flex items-start gap-3">
+                      <div className="mt-0.5 rounded-full p-0.5 bg-white/[0.05] border border-white/10 flex items-center justify-center shrink-0">
+                        <Check className="size-3 text-neon-emerald" />
+                      </div>
+                      <span className="text-base text-white/90 font-light leading-snug">{feat}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Action Button */}
+              <a
+                href="#contacto"
+                className={`w-full h-14 rounded-lg flex items-center justify-center font-bold text-base transition-all duration-300 ${pkg.btnClass}`}
+              >
+                {pkg.cta}
+              </a>
             </div>
-
-            {/* Pricing Cards Stack */}
-            <div className="flex flex-col gap-6 px-4 py-4 max-w-lg mx-auto">
-                {/* Starter Plan */}
-                <div className="flex flex-col gap-6 rounded-xl border border-slate-800 bg-slate-900/50 p-6">
-                    <div className="flex flex-col gap-2">
-                        <div className="flex justify-between items-start">
-                            <h2 className="text-slate-300 text-lg font-bold">Starter</h2>
-                            <span className="text-xs font-medium text-slate-400 bg-slate-800 px-2.5 py-1 rounded-full uppercase tracking-wider">
-                                Presencia Digital
-                            </span>
-                        </div>
-                        <div className="flex items-baseline gap-1">
-                            <span className="text-white text-4xl font-black tracking-tighter">$499</span>
-                            <span className="text-slate-400 text-sm font-medium">/proyecto</span>
-                        </div>
-                        <p className="text-slate-500 text-sm">
-                            Ideal para nuevos negocios que buscan velocidad y estabilidad.
-                        </p>
-                    </div>
-                    <button className="w-full flex items-center justify-center rounded-lg h-12 bg-slate-800 hover:bg-slate-700 text-white font-bold transition-colors">
-                        Get Started
-                    </button>
-                    <div className="flex flex-col gap-3">
-                        {[
-                            "Carga ultra-rápida < 2s",
-                            "Diseño Mobile-First",
-                            "SEO On-page Básico",
-                            "Soporte Técnico Email",
-                        ].map((feature, i) => (
-                            <div key={i} className="flex items-center gap-3 text-sm text-slate-300">
-                                <CheckCircle2 className="text-primary" />
-                                {feature}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Growth Plan (Most Popular) */}
-                <div className="flex flex-col gap-6 rounded-xl border-2 border-accent bg-slate-900/80 p-6 relative">
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-slate-900 text-[10px] font-black uppercase tracking-[0.2em] px-4 py-1 rounded-full">
-                        Most Popular
-                    </div>
-                    <div className="flex flex-col gap-2">
-                        <div className="flex justify-between items-start">
-                            <h2 className="text-white text-lg font-bold">Growth</h2>
-                            <span className="text-xs font-medium text-accent bg-accent/10 px-2.5 py-1 rounded-full uppercase tracking-wider">
-                                Escalabilidad
-                            </span>
-                        </div>
-                        <div className="flex items-baseline gap-1">
-                            <span className="text-white text-4xl font-black tracking-tighter">$999</span>
-                            <span className="text-slate-400 text-sm font-medium">/proyecto</span>
-                        </div>
-                        <p className="text-slate-400 text-sm">
-                            Diseñado para negocios en expansión que necesitan leads calificados.
-                        </p>
-                    </div>
-                    <button className="w-full flex items-center justify-center rounded-lg h-12 bg-primary hover:bg-blue-700 text-white font-bold shadow-lg shadow-primary/20 transition-all">
-                        Start Growing
-                    </button>
-                    <div className="flex flex-col gap-3">
-                        {[
-                            "Optimización de Conversión (CRO)",
-                            "Integración CRM y Analytics",
-                            "SEO Avanzado Competitivo",
-                            "A/B Testing de Landing Page",
-                        ].map((feature, i) => (
-                            <div key={i} className="flex items-center gap-3 text-sm text-slate-200">
-                                <BadgeCheck className="text-accent" />
-                                {feature}
-                            </div>
-                        ))}
-                        <div className="flex items-center gap-3 text-sm text-slate-200 font-bold">
-                            <Plus className="text-accent" />
-                            Todo lo del Plan Starter
-                        </div>
-                    </div>
-                </div>
-
-                {/* Elite Plan */}
-                <div className="flex flex-col gap-6 rounded-xl border border-slate-800 bg-slate-900/50 p-6">
-                    <div className="flex flex-col gap-2">
-                        <div className="flex justify-between items-start">
-                            <h2 className="text-slate-300 text-lg font-bold">Elite</h2>
-                            <span className="text-xs font-medium text-slate-400 bg-slate-800 px-2.5 py-1 rounded-full uppercase tracking-wider">
-                                Dominio Total
-                            </span>
-                        </div>
-                        <div className="flex items-baseline gap-1">
-                            <span className="text-white text-4xl font-black tracking-tighter">$1999</span>
-                            <span className="text-slate-400 text-sm font-medium">/proyecto</span>
-                        </div>
-                        <p className="text-slate-500 text-sm">
-                            Solución integral con monitoreo de ROI en tiempo real.
-                        </p>
-                    </div>
-                    <button className="w-full flex items-center justify-center rounded-lg h-12 bg-slate-800 hover:bg-slate-700 text-white font-bold transition-colors">
-                        Get Started Elite
-                    </button>
-                    <div className="flex flex-col gap-3">
-                        {[
-                            "Embudos de Venta Automatizados",
-                            "Dashboard ROI Personalizado",
-                            "Soporte VIP 24/7 Dedicado",
-                            "Auditoría Mensual de Performance",
-                        ].map((feature, i) => (
-                            <div key={i} className="flex items-center gap-3 text-sm text-slate-300">
-                                <CheckCircle2 className="text-primary" />
-                                {feature}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-
-            {/* Trust Stats */}
-            <div className="px-6 py-10 grid grid-cols-2 gap-4 max-w-lg mx-auto">
-                <div className="flex flex-col p-4 bg-slate-900/30 rounded-lg border border-slate-800/50">
-                    <span className="text-accent text-2xl font-black">99.9%</span>
-                    <span className="text-slate-500 text-xs uppercase font-bold tracking-widest">
-                        Uptime
-                    </span>
-                </div>
-                <div className="flex flex-col p-4 bg-slate-900/30 rounded-lg border border-slate-800/50">
-                    <span className="text-accent text-2xl font-black">2.5x</span>
-                    <span className="text-slate-500 text-xs uppercase font-bold tracking-widest">
-                        Conversion
-                    </span>
-                </div>
-            </div>
-        </>
-    );
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }

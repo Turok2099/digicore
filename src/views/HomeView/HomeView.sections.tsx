@@ -1,9 +1,7 @@
-export { default as Hero } from '@/components/marketing/Hero';
-export { default as Features } from '@/components/marketing/Features';
-export { default as PerformanceShowcase } from '@/components/marketing/PerformanceShowcase';
-export { default as CTA } from '@/components/marketing/CTA';
-export { default as Navbar } from '@/components/shared/Navbar';
+export { default as Navigation } from '@/components/shared/Navbar';
+export { default as HeroSection } from '@/components/marketing/Hero';
+export { default as SolutionsGrid } from '@/components/marketing/Features';
+export { default as PricingSection } from '@/components/marketing/PricingContent';
+export { default as LeadCaptureForm } from '@/components/marketing/CTA';
+export { default as Footer } from '@/components/shared/Footer';
 export { default as MobileNav } from '@/components/shared/MobileNav';
-export { default as ValueProposition } from '@/components/marketing/ValueProposition';
-export { default as Process } from '@/components/marketing/Process';
-export { default as Showcase } from '@/components/marketing/Showcase';
