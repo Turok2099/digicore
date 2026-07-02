@@ -1,4 +1,4 @@
-import { Cpu, Github, Twitter, Linkedin } from "lucide-react";
+import { Github, Twitter, Linkedin } from "lucide-react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -8,8 +8,10 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
         {/* Brand */}
         <div className="md:col-span-2 space-y-4">
-          <div className="flex items-center gap-2">
-            <Cpu className="text-neon-cyan size-6" />
+          <div className="flex items-center gap-3">
+            <div className="size-8 bg-black border border-neon-cyan/50 rounded-lg overflow-hidden flex items-center justify-center shadow-[0_0_8px_rgba(0,128,255,0.2)]">
+              <img src="/logo.svg" alt="Digicore Studio Logo" className="size-full object-cover" />
+            </div>
             <span className="font-bold tracking-wider text-lg text-white">
               DIGICORE<span className="text-neon-cyan font-black">STUDIO</span>
             </span>

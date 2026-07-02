@@ -11,8 +11,8 @@ export default function PricingContent() {
       cta: "Cotizar Solución",
       highlight: true,
       badge: "Más Solicitado",
-      accentColor: "border-neon-cyan/30 bg-black shadow-[0_0_30px_rgba(0,240,255,0.05)] hover:-translate-y-2",
-      btnClass: "bg-neon-cyan text-black hover:bg-white hover:shadow-[0_0_25px_rgba(0,240,255,0.4)]",
+      accentColor: "border-neon-cyan/30 bg-black shadow-[0_0_30px_rgba(0,128,255,0.05)] hover:-translate-y-2",
+      btnClass: "bg-neon-cyan text-black hover:bg-white hover:shadow-[0_0_25px_rgba(0,128,255,0.4)]",
       features: [
         "Sitio Web Profesional o Landing Page",
         "Diseño a medida & optimización móvil",

@@ -40,7 +40,7 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <a
               href="#contacto"
-              className="h-16 px-8 bg-neon-cyan text-black font-extrabold rounded-lg flex items-center justify-center gap-2 hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(0,240,255,0.2)] hover:shadow-[0_0_30px_rgba(0,240,255,0.4)] hover:-translate-y-0.5 text-base"
+              className="h-16 px-8 bg-neon-cyan text-black font-extrabold rounded-lg flex items-center justify-center gap-2 hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(0,128,255,0.2)] hover:shadow-[0_0_30px_rgba(0,128,255,0.4)] hover:-translate-y-0.5 text-base"
             >
               Cotiza tu proyecto
               <ArrowRight className="size-5" />

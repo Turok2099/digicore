@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Cpu, Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,8 +20,8 @@ export default function Navigation() {
       
       {/* Brand Logo (Left) */}
       <a href="/" className="flex items-center gap-3">
-        <div className="size-10 bg-black border border-neon-cyan/50 rounded-lg flex items-center justify-center shadow-[0_0_10px_rgba(0,240,255,0.2)]">
-          <Cpu className="text-neon-cyan size-6" />
+        <div className="size-10 bg-black border border-neon-cyan/50 rounded-lg overflow-hidden flex items-center justify-center shadow-[0_0_10px_rgba(0,128,255,0.2)]">
+          <img src="/logo.svg" alt="Digicore Studio Logo" className="size-full object-cover" />
         </div>
         <span className="font-bold tracking-wider text-xl text-white">
           DIGICORE<span className="text-neon-cyan font-black">STUDIO</span>

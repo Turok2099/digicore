@@ -285,7 +285,7 @@ export default function Features() {
                 <span className="text-xs font-mono uppercase tracking-widest text-text-muted">Desarrollo Profesional</span>
                 <a
                   href={displaySolution.href}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-black font-bold text-base transition-all duration-300 hover:bg-neon-cyan hover:shadow-[0_0_15px_rgba(0,240,255,0.2)]"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-black font-bold text-base transition-all duration-300 hover:bg-neon-cyan hover:shadow-[0_0_15px_rgba(0,128,255,0.2)]"
                 >
                   Explorar Solución
                   <ArrowRight className="size-5" />

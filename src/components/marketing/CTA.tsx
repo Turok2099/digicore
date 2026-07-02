@@ -168,7 +168,7 @@ export default function LeadCaptureForm() {
                   <button
                     type="submit"
                     disabled={status === "loading"}
-                    className="w-full h-16 bg-neon-cyan text-black font-extrabold rounded-lg flex items-center justify-center gap-2 hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(0,240,255,0.1)] hover:shadow-[0_0_25px_rgba(0,240,255,0.3)] disabled:opacity-50 text-base"
+                    className="w-full h-16 bg-neon-cyan text-black font-extrabold rounded-lg flex items-center justify-center gap-2 hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(0,128,255,0.1)] hover:shadow-[0_0_25px_rgba(0,128,255,0.3)] disabled:opacity-50 text-base"
                   >
                     {status === "loading" ? (
                       <>

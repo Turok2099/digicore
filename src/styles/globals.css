@@ -3,9 +3,9 @@
 @theme inline {
   --color-bg-black: #030303;
   --color-bg-card: #080808;
-  --color-neon-cyan: #00f0ff;
+  --color-neon-cyan: #0080ff;
   --color-neon-emerald: #00ff87;
-  --color-neon-blue: #0055ff;
+  --color-neon-blue: #0080ff;
   --color-border-dark: #141414;
   --color-text-muted: #a3a3a3;
   
@@ -48,7 +48,7 @@
 
 .neon-border:hover {
   border-color: var(--color-neon-cyan);
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+  box-shadow: 0 0 15px rgba(0, 128, 255, 0.15);
 }
 
 .neon-border-emerald:hover {

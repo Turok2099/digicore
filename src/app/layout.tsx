@@ -9,8 +9,21 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Agencia Web - High Performance Acquisition",
-  description: "High-Performance Sites for Measurable Acquisition.",
+  title: "Digicore Studio - Alta Adquisición Tecnológica",
+  description: "Soluciones de digitalización, automatización e Inteligencia Artificial. Maximizamos el rendimiento de tu negocio.",
+  openGraph: {
+    title: "Digicore Studio - Alta Adquisición Tecnológica",
+    description: "Soluciones de digitalización, automatización e Inteligencia Artificial. Maximizamos el rendimiento de tu negocio.",
+    url: "https://digicorestudio.com",
+    siteName: "Digicore Studio",
+    locale: "es_MX",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Digicore Studio - Alta Adquisición Tecnológica",
+    description: "Soluciones de digitalización, automatización e Inteligencia Artificial. Maximizamos el rendimiento de tu negocio.",
+  },
 };
 
 export default function RootLayout({

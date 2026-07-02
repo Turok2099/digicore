@@ -57,7 +57,7 @@ export default function AutomatizaTuNegocio() {
             <div className="pt-6">
               <a
                 href="/#contacto"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-black font-extrabold text-base hover:bg-neon-cyan hover:shadow-[0_0_15px_rgba(0,240,255,0.2)] transition-all duration-300"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-black font-extrabold text-base hover:bg-neon-cyan hover:shadow-[0_0_15px_rgba(0,128,255,0.2)] transition-all duration-300"
               >
                 Cotizar Automatización
                 <ArrowRight className="size-4" />

@@ -11,7 +11,7 @@ export default function Process() {
       icon: Eye,
       color: "text-neon-cyan",
       borderColor: "group-hover:border-neon-cyan/50",
-      shadowColor: "group-hover:shadow-[0_0_15px_rgba(0,240,255,0.1)]",
+      shadowColor: "group-hover:shadow-[0_0_15px_rgba(0,128,255,0.1)]",
     },
     {
       stepNumber: "02",
@@ -29,7 +29,7 @@ export default function Process() {
       icon: RefreshCw,
       color: "text-neon-cyan",
       borderColor: "group-hover:border-neon-cyan/50",
-      shadowColor: "group-hover:shadow-[0_0_15px_rgba(0,240,255,0.1)]",
+      shadowColor: "group-hover:shadow-[0_0_15px_rgba(0,128,255,0.1)]",
     },
   ];
 
