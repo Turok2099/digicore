@@ -44,7 +44,7 @@ export default function Footer() {
             </a>
           </div>
           <p className="text-sm text-text-muted">
-            Email: <a href="mailto:hola@digicore.studio" className="hover:text-neon-cyan">hola@digicore.studio</a>
+            Email: <a href="mailto:contacto@digicorestudio.com" className="hover:text-neon-cyan">contacto@digicorestudio.com</a>
           </p>
         </div>
       </div>

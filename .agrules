@@ -1,0 +1,18 @@
+# Global AI Context & Token Optimization Rules
+
+## Stack Context
+- Core: Next.js 16 (App Router, Server Components), React 19, TypeScript.
+- Styling: Tailwind CSS v4 (Strictly use CSS-variables/CSS-driven configuration, DO NOT generate tailwind.config.js).
+- Icons: Lucide React.
+- Future Backend: Supabase (Prepare for client/server component architecture, clean service role vs anon client initialization).
+
+## Token Optimization & Response Rules
+- DO NOT wrap code blocks in lengthy conversational pleasantries (e.g., "Sure, I can help with that...").
+- DO NOT rewrite entire files. Only output the specific functions, components, or lines that changed. Use comments like `// ... existing code ...` to indicate omitted parts.
+- Keep explanations strictly concise. Prioritize code delivery over prose.
+- When generating UI/UX elements, strictly follow the design tokens and architectural standards established in the project.
+
+## Agent Orchestration
+- Respect the specialized behaviors defined in `.agents/skills/`. 
+- For frontend tasks and Tailwind v4 styling, align with the `frontend_developer` guidelines.
+- For architectural patterns and database design, defer to `system_architect`.
