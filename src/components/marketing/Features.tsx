@@ -208,7 +208,7 @@ export default function Features() {
                 ? isEmerald
                   ? "text-neon-emerald font-black border-b-2 border-b-neon-emerald lg:border-b-0 lg:border-l-2 lg:border-l-neon-emerald pl-1 lg:pl-4"
                   : "text-neon-cyan font-black border-b-2 border-b-neon-cyan lg:border-b-0 lg:border-l-2 lg:border-l-neon-cyan pl-1 lg:pl-4"
-                : "text-white/40 hover:text-white/80 border-b-2 border-transparent lg:border-b-0 lg:border-l-2 lg:border-l-transparent pl-1 lg:hover:pl-2";
+                : "text-white/60 hover:text-white/95 border-b-2 border-transparent lg:border-b-0 lg:border-l-2 lg:border-l-transparent pl-1 lg:hover:pl-2";
 
               return (
                 <button
@@ -217,7 +217,7 @@ export default function Features() {
                   className={`shrink-0 py-3 lg:py-4 px-3 rounded-lg flex items-center justify-between transition-all duration-300 group cursor-pointer text-left ${activeTextClass}`}
                 >
                   <div className="flex items-center gap-2 lg:gap-4">
-                    <span className="text-xs font-mono opacity-50">0{sol.id}</span>
+                    <span className={`text-xs font-mono transition-colors duration-300 ${isSelected ? (isEmerald ? 'text-neon-emerald' : 'text-neon-cyan') : 'text-text-muted'}`}>0{sol.id}</span>
                     <span className="text-sm sm:text-base lg:text-lg tracking-wide whitespace-nowrap lg:whitespace-normal">{sol.title}</span>
                   </div>
                   <ChevronRight

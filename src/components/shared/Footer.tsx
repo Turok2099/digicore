@@ -1,4 +1,4 @@
-import { Github, Twitter, Linkedin } from "lucide-react";
+
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -23,7 +23,7 @@ export default function Footer() {
 
         {/* Links */}
         <div>
-          <h4 className="text-xs uppercase tracking-widest text-white font-bold mb-4">Navegación</h4>
+          <h3 className="text-xs uppercase tracking-widest text-white font-bold mb-4">Navegación</h3>
           <ul className="space-y-2 text-base text-text-muted">
             <li><a href="#soluciones" className="hover:text-neon-cyan transition-colors">Soluciones</a></li>
             <li><a href="#paquetes" className="hover:text-neon-cyan transition-colors">Paquetes</a></li>
@@ -33,18 +33,7 @@ export default function Footer() {
 
         {/* Legales & Redes */}
         <div>
-          <h4 className="text-xs uppercase tracking-widest text-white font-bold mb-4">Contacto & Redes</h4>
-          <div className="flex gap-4 mb-4">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-2 bg-bg-card rounded-md hover:text-neon-cyan text-text-muted transition-colors border border-border-dark">
-              <Github className="size-4" />
-            </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="p-2 bg-bg-card rounded-md hover:text-neon-cyan text-text-muted transition-colors border border-border-dark">
-              <Twitter className="size-4" />
-            </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-2 bg-bg-card rounded-md hover:text-neon-cyan text-text-muted transition-colors border border-border-dark">
-              <Linkedin className="size-4" />
-            </a>
-          </div>
+          <h3 className="text-xs uppercase tracking-widest text-white font-bold mb-4">Contacto</h3>
           <p className="text-sm text-text-muted">
             Email: <a href="mailto:contacto@digicorestudio.com" className="hover:text-neon-cyan">contacto@digicorestudio.com</a>
           </p>
