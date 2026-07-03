@@ -6,22 +6,11 @@ export default function Hero() {
     <>
       {/* Mobile Hero (lg:hidden) */}
       <section 
-        className="lg:hidden relative w-full flex flex-col justify-between px-6 overflow-hidden"
-        style={{ backgroundColor: "#ffffff", height: "100dvh", minHeight: "660px", paddingTop: "110px", paddingBottom: "48px" }}
+        className="lg:hidden relative w-full flex flex-col justify-start items-center bg-white"
+        style={{ height: "100dvh", minHeight: "660px", paddingTop: "88px" }}
       >
-        {/* Background SVG Image */}
-        <div className="absolute inset-0 z-0 select-none pointer-events-none">
-          <Image
-            src="/hero-mobile.svg"
-            alt="Digicore Mobile Hero Background"
-            fill
-            priority
-            className="object-contain object-center"
-          />
-        </div>
-
-        {/* Top Text Content (Title & Subtitle) */}
-        <div className="relative z-10 w-full text-center max-w-sm mx-auto flex flex-col items-center pt-2">
+        {/* Top Text Content (Above the image) */}
+        <div className="relative z-10 w-full text-center max-w-sm mx-auto flex flex-col items-center pb-6">
           <h1 className="text-3xl sm:text-4xl font-black text-black leading-tight tracking-tight">
             Obtén clientes <br />
             <span className="text-neon-cyan">más rápido</span>
@@ -34,15 +23,29 @@ export default function Hero() {
           </p>
         </div>
 
-        {/* Bottom Button (Call to Action) */}
-        <div className="relative z-10 w-full flex flex-col items-center pb-2">
-          <a
-            href="#contacto"
-            className="w-full max-w-xs h-16 bg-black hover:bg-zinc-900 text-white font-extrabold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-[0_6px_25px_rgba(0,0,0,0.25)] text-base"
-          >
-            Cotiza Gratis
-            <ArrowRight className="size-5 text-neon-cyan" />
-          </a>
+        {/* Aspect Square Image and Content Wrapper */}
+        <div className="relative w-full" style={{ aspectRatio: "1 / 1" }}>
+          {/* Background PNG Image */}
+          <div className="absolute inset-0 z-0 select-none pointer-events-none">
+            <Image
+              src="/hero-mobile.png"
+              alt="Digicore Mobile Hero Background"
+              fill
+              priority
+              className="object-cover object-center"
+            />
+          </div>
+
+          {/* Bottom Button (Call to Action) - Half on, Half off */}
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-20 w-full flex flex-col items-center">
+            <a
+              href="#contacto"
+              className="w-64 h-16 bg-black hover:bg-zinc-900 text-white font-extrabold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-[0_6px_25px_rgba(0,0,0,0.35)] text-base"
+            >
+              Cotiza Gratis
+              <ArrowRight className="size-5 text-neon-cyan" />
+            </a>
+          </div>
         </div>
       </section>
 
