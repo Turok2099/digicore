@@ -7,7 +7,7 @@ export default function Hero() {
       {/* Mobile Hero (lg:hidden) */}
       <section 
         className="lg:hidden relative w-full flex flex-col justify-start items-center bg-white"
-        style={{ height: "100dvh", minHeight: "660px", paddingTop: "88px" }}
+        style={{ height: "100svh", minHeight: "660px", paddingTop: "88px" }}
       >
         {/* Top Text Content (Above the image) */}
         <div className="relative z-10 w-full text-center max-w-sm mx-auto flex flex-col items-center pb-6">
