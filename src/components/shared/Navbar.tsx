@@ -1,11 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [mobileSolOpen, setMobileSolOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 40) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const logoTextColor = (isScrolled || isOpen) ? "text-white" : "text-black md:text-white";
+  const btnTextColor = (isScrolled || isOpen) ? "text-text-muted" : "text-black md:text-text-muted";
+  const navBgClass = (isScrolled || isOpen)
+    ? "bg-black/95 backdrop-blur-md border-b border-border-dark" 
+    : "bg-transparent md:bg-black/75 md:backdrop-blur-md md:border-b md:border-border-dark border-b border-transparent";
 
   const soluciones = [
     { label: "Consigue más clientes", href: "/soluciones/consigue-mas-clientes" },
@@ -16,14 +35,14 @@ export default function Navigation() {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass-nav h-20 flex items-center justify-between px-6 md:px-12 border-b border-border-dark">
+    <nav className={`fixed top-0 left-0 right-0 z-50 h-20 flex items-center justify-between px-6 md:px-12 transition-all duration-300 ${navBgClass}`}>
       
       {/* Brand Logo (Left) */}
       <a href="/" className="flex items-center gap-3">
         <div className="size-10 bg-black border border-neon-cyan/50 rounded-lg overflow-hidden flex items-center justify-center shadow-[0_0_10px_rgba(0,128,255,0.2)]">
           <img src="/logo.svg" alt="Digicore Studio Logo" className="size-full object-cover" />
         </div>
-        <span className="font-bold tracking-wider text-xl text-white">
+        <span className={`font-bold tracking-wider text-xl transition-colors duration-300 ${logoTextColor}`}>
           DIGICORE<span className="text-neon-cyan font-black">STUDIO</span>
         </span>
       </a>
@@ -62,7 +81,7 @@ export default function Navigation() {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden p-2 text-text-muted hover:text-neon-emerald transition-colors"
+        className={`md:hidden p-2 hover:text-neon-emerald transition-colors duration-300 ${btnTextColor}`}
         aria-label="Toggle Menu"
       >
         {isOpen ? <X className="size-6" /> : <Menu className="size-6" />}
