@@ -7,7 +7,7 @@ export default function Hero() {
       {/* Mobile Hero (lg:hidden) */}
       <section 
         className="lg:hidden relative w-full flex flex-col justify-start items-center bg-white"
-        style={{ height: "100svh", minHeight: "660px", paddingTop: "88px" }}
+        style={{ height: "100svh", minHeight: "720px", paddingTop: "88px" }}
       >
         {/* Top Text Content (Above the image) */}
         <div className="relative z-10 w-full text-center max-w-sm mx-auto flex flex-col items-center pb-6">
@@ -40,7 +40,7 @@ export default function Hero() {
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-20 w-full flex flex-col items-center">
             <a
               href="#contacto"
-              className="w-64 h-16 bg-black hover:bg-zinc-900 text-white font-extrabold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-[0_6px_25px_rgba(0,0,0,0.35)] text-base"
+              className="w-56 h-14 bg-black hover:bg-zinc-900 text-white font-extrabold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-[0_6px_25px_rgba(0,0,0,0.35)] text-base"
             >
               Cotiza Gratis
               <ArrowRight className="size-5 text-neon-cyan" />
