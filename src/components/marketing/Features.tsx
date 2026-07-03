@@ -229,69 +229,82 @@ export default function Features() {
             })}
           </div>          {/* Right Column: Display Active Card with smooth fade-in */}
           <div
-            className="lg:col-span-7 flex flex-col justify-center order-2 h-full min-h-[400px] lg:min-h-[460px]"
+            className="lg:col-span-7 flex flex-col justify-center order-2 lg:min-h-[460px]"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
-            {/* The transition CSS handles the smooth opacity and scale fade */}
-            <div
-              className={`w-full h-full bg-bg-card rounded-2xl p-6 sm:p-10 border border-white/5 shadow-2xl relative overflow-hidden flex flex-col justify-between transition-all duration-300 ease-in-out ${isFading ? "opacity-0 scale-[0.985] blur-[2px]" : "opacity-100 scale-100 blur-0"
-                }`}
-            >
-              {/* Top border accent line */}
-              <div className={`absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-${displaySolution.accentColor === 'text-neon-cyan' ? 'neon-cyan/30' : 'neon-emerald/30'} to-transparent`}></div>
+            {/* Wrapper to hold card and outside mobile button */}
+            <div className="flex flex-col gap-4">
+              {/* Active Card Body */}
+              <div
+                className={`w-full bg-bg-card rounded-2xl p-5 sm:p-10 border border-white/5 shadow-2xl relative overflow-hidden transition-all duration-300 ease-in-out ${isFading ? "opacity-0 scale-[0.985] blur-[2px]" : "opacity-100 scale-100 blur-0"
+                  }`}
+              >
+                {/* Top border accent line */}
+                <div className={`absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-${displaySolution.accentColor === 'text-neon-cyan' ? 'neon-cyan/30' : 'neon-emerald/30'} to-transparent`}></div>
 
-              <div className="space-y-6">
-                {/* Tagline & Badge */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/5">
-                  <span className="text-[12px] sm:text-xs font-mono tracking-widest text-text-muted">{displaySolution.tagline}</span>
-                  <span className="text-[12px] sm:text-xs px-3 py-1 rounded-full bg-white/[0.03] border border-white/5 text-white/90 flex items-center gap-1.5 font-semibold font-mono uppercase tracking-wider w-fit">
-                    <displaySolution.badgeIcon className="size-3.5" />
-                    {displaySolution.badgeText}
-                  </span>
-                </div>
-
-                {/* Main Card Icon and Title */}
-                <div className="flex items-center gap-4">
-                  <div className={`p-4 bg-black border border-white/10 rounded-xl ${displaySolution.accentColor} shadow-[0_0_15px_rgba(255,255,255,0.02)]`}>
-                    <DisplayIcon className="size-8" />
+                <div className="space-y-4 sm:space-y-6">
+                  {/* Tagline & Badge */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 pb-3 sm:pb-4 border-b border-white/5">
+                    <span className="text-[11px] sm:text-xs font-mono tracking-widest text-text-muted">{displaySolution.tagline}</span>
+                    <span className="text-[11px] sm:text-xs px-3 py-1 rounded-full bg-white/[0.03] border border-white/5 text-white/90 flex items-center gap-1.5 font-semibold font-mono uppercase tracking-wider w-fit">
+                      <displaySolution.badgeIcon className="size-3.5" />
+                      {displaySolution.badgeText}
+                    </span>
                   </div>
-                  <h3 className="text-3xl sm:text-4xl font-black text-white">
-                    {displaySolution.title}
-                  </h3>
+
+                  {/* Main Card Icon and Title */}
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <div className={`p-3 sm:p-4 bg-black border border-white/10 rounded-xl ${displaySolution.accentColor} shadow-[0_0_15px_rgba(255,255,255,0.02)]`}>
+                      <DisplayIcon className="size-6 sm:size-8" />
+                    </div>
+                    <h3 className="text-2xl sm:text-4xl font-black text-white">
+                      {displaySolution.title}
+                    </h3>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-sm sm:text-lg text-text-muted leading-relaxed font-light">
+                    {displaySolution.description}
+                  </p>
+
+                  {/* Sub Features Checklist */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 pt-2 sm:pt-4">
+                    {displaySolution.features.map((feat, idx) => {
+                      const FeatIcon = feat.icon;
+                      return (
+                        <div key={idx} className="flex items-center gap-3 bg-black/30 border border-white/[0.02] p-3 sm:p-4 rounded-lg">
+                          <FeatIcon className="size-4 sm:size-5 text-text-muted shrink-0" />
+                          <span className="text-xs sm:text-base text-white/90 font-light">{feat.label}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
 
-                {/* Description */}
-                <p className="text-base sm:text-lg text-text-muted leading-relaxed font-light">
-                  {displaySolution.description}
-                </p>
-
-                {/* Sub Features Checklist */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-                  {displaySolution.features.map((feat, idx) => {
-                    const FeatIcon = feat.icon;
-                    return (
-                      <div key={idx} className="flex items-center gap-3 bg-black/30 border border-white/[0.02] p-3 sm:p-4 rounded-lg">
-                        <FeatIcon className="size-5 text-text-muted shrink-0" />
-                        <span className="text-sm sm:text-base text-white/90 font-light">{feat.label}</span>
-                      </div>
-                    );
-                  })}
+                {/* Desktop-only Bottom CTA (inside card) */}
+                <div className="hidden sm:flex pt-8 mt-8 border-t border-white/5 items-center justify-between">
+                  <span className="text-xs font-mono uppercase tracking-widest text-text-muted">Desarrollo Profesional</span>
+                  <a
+                    href={displaySolution.href}
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-black font-bold text-base transition-all duration-300 hover:bg-neon-cyan hover:shadow-[0_0_15px_rgba(0,128,255,0.2)]"
+                  >
+                    Explorar Solución
+                    <ArrowRight className="size-5" />
+                  </a>
                 </div>
               </div>
 
-              {/* Bottom CTA to subpage */}
-              <div className="pt-8 border-t border-white/5 flex items-center justify-between">
-                <span className="text-xs font-mono uppercase tracking-widest text-text-muted">Desarrollo Profesional</span>
+              {/* Mobile-only Bottom CTA (outside card) */}
+              <div className="sm:hidden w-full flex justify-center pt-2">
                 <a
                   href={displaySolution.href}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-black font-bold text-base transition-all duration-300 hover:bg-neon-cyan hover:shadow-[0_0_15px_rgba(0,128,255,0.2)]"
+                  className="w-full text-center inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-white text-black font-extrabold text-base transition-all duration-300 hover:bg-neon-cyan hover:shadow-[0_0_15px_rgba(0,128,255,0.2)]"
                 >
                   Explorar Solución
                   <ArrowRight className="size-5" />
                 </a>
               </div>
-
             </div>
           </div>
 
