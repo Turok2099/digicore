@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-horizon: var(--font-horizon), 'Orbitron', sans-serif;
+  --font-orbitron: var(--font-orbitron), 'Orbitron', sans-serif;
+  --font-horizon: var(--font-orbitron), 'Orbitron', sans-serif;
   --font-poppins: var(--font-poppins), 'Poppins', sans-serif;
   --font-montserrat: var(--font-montserrat), 'Montserrat', sans-serif;
 
@@ -38,8 +39,9 @@
   }
 }
 
+.font-orbitron,
 .font-horizon {
-  font-family: var(--font-horizon), 'Orbitron', sans-serif;
+  font-family: var(--font-orbitron), 'Orbitron', sans-serif;
 }
 
 .font-poppins {

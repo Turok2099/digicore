@@ -9,11 +9,12 @@ export default function Footer() {
         {/* Brand */}
         <div className="md:col-span-2 space-y-4">
           <div className="flex items-center gap-3">
-            <div className="size-8 bg-black border border-neon-cyan/50 rounded-lg overflow-hidden flex items-center justify-center shadow-[0_0_8px_rgba(0,128,255,0.2)]">
-              <img src="/logo.svg" alt="Digicore Studio Logo" className="size-full object-cover" />
+            <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center">
+              <img src="https://res.cloudinary.com/dxbtafe9u/image/upload/v1785450043/logo_digicore_cwddqe.svg" alt="Digicore Studio Logo" className="size-full object-cover" />
             </div>
-            <span className="font-bold tracking-wider text-lg text-white">
-              DIGICORE<span className="text-neon-cyan font-black">STUDIO</span>
+            <span className="font-orbitron font-black tracking-wider text-base sm:text-lg">
+              <span className="text-[#39FF14]">DIGICORE</span>
+              <span className="text-[#00E5FF] ml-1">STUDIO</span>
             </span>
           </div>
           <p className="text-base text-text-muted max-w-sm leading-relaxed">

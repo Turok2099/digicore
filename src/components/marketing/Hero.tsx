@@ -16,10 +16,10 @@ export default function Hero() {
         <div className="relative z-10 w-full max-w-md mx-auto flex flex-col items-stretch space-y-6 my-auto">
           {/* Top Brand Header Block */}
           <div className="w-full text-left">
-            <h2 className="font-horizon text-4xl sm:text-5xl font-black text-[#39FF14] tracking-wider leading-none">
+            <h2 className="font-orbitron text-4xl sm:text-5xl font-black text-[#39FF14] tracking-wider leading-none">
               DIGICORE
             </h2>
-            <h2 className="font-horizon text-4xl sm:text-5xl font-black text-[#00E5FF] tracking-wider leading-none mt-1">
+            <h2 className="font-orbitron text-4xl sm:text-5xl font-black text-[#00E5FF] tracking-wider leading-none mt-1">
               STUDIO
             </h2>
             

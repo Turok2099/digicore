@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local documentation ignored from git
+GUIA_COLORES.md
+GUIA_COLORES.local.md
+
