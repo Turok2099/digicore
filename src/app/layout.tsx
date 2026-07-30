@@ -20,9 +20,11 @@ const orbitron = Orbitron({
   weight: ["400", "500", "600", "700", "800", "900"],
 });
 
-const logoUrl = "https://res.cloudinary.com/dxbtafe9u/image/upload/v1785450043/logo_digicore_cwddqe.svg";
+const logoSvgUrl = "https://res.cloudinary.com/dxbtafe9u/image/upload/v1785450043/logo_digicore_cwddqe.svg";
+const ogPngUrl = "https://res.cloudinary.com/dxbtafe9u/image/upload/f_png,w_1200,h_630,c_pad,b_rgb_030303/v1785450043/logo_digicore_cwddqe.png";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://digicorestudio.com"),
   title: "Digicore Studio | Agencia de Desarrollo Web y Diseño Profesional",
   description:
     "Agencia de desarrollo web especializada en la elaboración de páginas web profesionales a medida. Diseñador y desarrollador web experto para empresas y negocios.",
@@ -36,33 +38,35 @@ export const metadata: Metadata = {
     "elaboracion de paginas web",
   ],
   icons: {
-    icon: logoUrl,
-    shortcut: logoUrl,
-    apple: logoUrl,
+    icon: logoSvgUrl,
+    shortcut: logoSvgUrl,
+    apple: logoSvgUrl,
   },
   openGraph: {
-    title: "Digicore Studio | Agencia de Desarrollo Web",
+    title: "Digicore Studio | Agencia de Desarrollo Web y Diseño Profesional",
     description:
-      "Desarrollo de páginas web profesionales y soluciones digitales a medida.",
+      "Agencia de desarrollo web especializada en la elaboración de páginas web profesionales a medida.",
     url: "https://digicorestudio.com",
     siteName: "Digicore Studio",
     locale: "es_MX",
     type: "website",
     images: [
       {
-        url: logoUrl,
+        url: ogPngUrl,
+        secureUrl: ogPngUrl,
         width: 1200,
         height: 630,
+        type: "image/png",
         alt: "Digicore Studio Logo",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Digicore Studio | Agencia de Desarrollo Web",
+    title: "Digicore Studio | Agencia de Desarrollo Web y Diseño Profesional",
     description:
-      "Desarrollo de páginas web profesionales y soluciones digitales a medida.",
-    images: [logoUrl],
+      "Agencia de desarrollo web especializada en la elaboración de páginas web profesionales a medida.",
+    images: [ogPngUrl],
   },
 };
 
@@ -76,12 +80,12 @@ export default function RootLayout({
       <head>
         <link
           rel="icon"
-          href={logoUrl}
+          href={logoSvgUrl}
           type="image/svg+xml"
         />
         <link
           rel="apple-touch-icon"
-          href={logoUrl}
+          href={logoSvgUrl}
         />
         <link
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
