@@ -74,15 +74,24 @@ export default function Hero() {
         <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center my-auto">
           {/* Left Column: Headline & Value Proposition */}
           <div className="lg:col-span-7 flex flex-col justify-center space-y-6">
-            {/* Top Tag */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#39FF14]/10 border border-[#39FF14]/30 w-fit">
-              <span className="w-2 h-2 rounded-full bg-[#39FF14] animate-ping" />
-              <span className="font-poppins text-xs font-bold text-[#39FF14] tracking-widest uppercase">
-                Agencia de desarrollo web
-              </span>
+            {/* Top Brand Header Block (Same style as Mobile) */}
+            <div className="w-full max-w-lg">
+              <h2 className="font-orbitron text-5xl md:text-6xl font-black text-[#39FF14] tracking-wider leading-none">
+                DIGICORE
+              </h2>
+              <h2 className="font-orbitron text-5xl md:text-6xl font-black text-[#00E5FF] tracking-wider leading-none mt-1">
+                STUDIO
+              </h2>
+              
+              {/* Divider Line */}
+              <div className="w-full h-[1.5px] bg-[#F5F7FF]/40 my-3" />
+
+              <p className="font-poppins text-sm md:text-base font-bold text-[#39FF14] tracking-widest uppercase">
+                AGENCIA DE DESARROLLO WEB
+              </p>
             </div>
 
-            <h1 className="font-poppins text-4xl sm:text-5xl md:text-6xl font-black text-[#F5F7FF] leading-[1.1] tracking-tight">
+            <h1 className="font-poppins text-3xl sm:text-4xl md:text-5xl font-black text-[#F5F7FF] leading-[1.15] tracking-tight">
               Páginas Web Profesionales{" "}
               <span className="text-[#00E5FF]">
                 y Soluciones a Medida.
