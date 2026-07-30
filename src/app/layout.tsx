@@ -9,11 +9,22 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Digicore Studio - Alta Adquisición Tecnológica",
-  description: "Soluciones de digitalización, automatización e Inteligencia Artificial. Maximizamos el rendimiento de tu negocio.",
+  title: "Digicore Studio | Agencia de Desarrollo Web y Diseño Profesional",
+  description:
+    "Agencia de desarrollo web especializada en la elaboración de páginas web profesionales a medida. Diseñador y desarrollador web experto para empresas y negocios.",
+  keywords: [
+    "agencia de desarrollo web",
+    "desarrollo de paginas web",
+    "agencia de diseno web",
+    "desarrolladores de sitios web",
+    "diseñador y desarrollador web",
+    "paginas web profesionales",
+    "elaboracion de paginas web",
+  ],
   openGraph: {
-    title: "Digicore Studio - Alta Adquisición Tecnológica",
-    description: "Soluciones de digitalización, automatización e Inteligencia Artificial. Maximizamos el rendimiento de tu negocio.",
+    title: "Digicore Studio | Agencia de Desarrollo Web",
+    description:
+      "Desarrollo de páginas web profesionales y soluciones digitales a medida.",
     url: "https://digicorestudio.com",
     siteName: "Digicore Studio",
     locale: "es_MX",
@@ -21,8 +32,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Digicore Studio - Alta Adquisición Tecnológica",
-    description: "Soluciones de digitalización, automatización e Inteligencia Artificial. Maximizamos el rendimiento de tu negocio.",
+    title: "Digicore Studio | Agencia de Desarrollo Web",
+    description:
+      "Desarrollo de páginas web profesionales y soluciones digitales a medida.",
   },
 };
 
@@ -32,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="es" className="dark">
       <head>
         <link
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"

@@ -11,9 +11,9 @@ export default function Hero() {
       >
         {/* Top Text Content (Above the image) */}
         <div className="relative z-10 w-full text-center max-w-sm mx-auto flex flex-col items-center pb-6">
-          <h1 className="text-3xl sm:text-4xl font-black text-black leading-tight tracking-tight">
-            Obtén clientes <br />
-            <span className="text-neon-cyan">más rápido</span>
+          <h1 className="text-2xl sm:text-3xl font-black text-black leading-tight tracking-tight">
+            Agencia de <br />
+            <span className="text-neon-cyan">desarrollo web</span> y páginas web profesionales
           </h1>
           <p 
             className="text-sm mt-3 font-bold max-w-[280px]"
@@ -58,11 +58,11 @@ export default function Hero() {
           {/* Left Column: Headline & Value Proposition */}
           <div className="lg:col-span-7 flex flex-col justify-center space-y-6">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.1] tracking-tight">
-              Consigue{" "}
+              Agencia de{" "}
               <span className="text-neon-cyan">
-                nuevos clientes
+                desarrollo web
               </span>{" "}
-              y automatiza tus procesos.
+              y páginas web profesionales.
             </h1>
 
             <p className="text-xl text-text-muted max-w-xl leading-relaxed">
