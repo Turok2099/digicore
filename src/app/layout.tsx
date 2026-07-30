@@ -35,9 +35,9 @@ export const metadata: Metadata = {
     "elaboracion de paginas web",
   ],
   icons: {
-    icon: "/icon.svg",
-    shortcut: "/icon.svg",
-    apple: "/icon.svg",
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/icon.png",
   },
   openGraph: {
     title: "Digicore Studio | Agencia de Desarrollo Web y Diseño Profesional",
