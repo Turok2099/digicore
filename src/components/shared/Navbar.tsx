@@ -23,8 +23,8 @@ export default function Navigation() {
   const logoTextColor = (isScrolled || isOpen) ? "text-white" : "text-black md:text-white";
   const btnTextColor = (isScrolled || isOpen) ? "text-text-muted" : "text-black md:text-text-muted";
   const navBgClass = (isScrolled || isOpen)
-    ? "bg-black/95 backdrop-blur-md border-b border-border-dark" 
-    : "bg-transparent md:bg-black/75 md:backdrop-blur-md md:border-b md:border-border-dark border-b border-transparent";
+    ? "bg-[#030303]/95 backdrop-blur-md border-b border-white/10" 
+    : "bg-[#030303]/80 backdrop-blur-md border-b border-white/10";
 
   const soluciones = [
     { label: "Consigue más clientes", href: "/soluciones/consigue-mas-clientes" },
@@ -39,11 +39,12 @@ export default function Navigation() {
       
       {/* Brand Logo (Left) */}
       <a href="/" className="flex items-center gap-3">
-        <div className="size-10 bg-black border border-neon-cyan/50 rounded-lg overflow-hidden flex items-center justify-center shadow-[0_0_10px_rgba(0,128,255,0.2)]">
+        <div className="size-10 bg-[#030303] border border-[#39FF14]/50 rounded-lg overflow-hidden flex items-center justify-center shadow-[0_0_10px_rgba(57,255,20,0.25)]">
           <img src="/logo.svg" alt="Digicore Studio Logo" className="size-full object-cover" />
         </div>
-        <span className={`font-bold tracking-wider text-xl transition-colors duration-300 ${logoTextColor}`}>
-          DIGICORE<span className="text-neon-cyan font-black">STUDIO</span>
+        <span className="font-horizon font-black tracking-wider text-base sm:text-lg">
+          <span className="text-[#39FF14]">DIGICORE</span>
+          <span className="text-[#00E5FF] ml-1">STUDIO</span>
         </span>
       </a>
 
@@ -51,18 +52,18 @@ export default function Navigation() {
       <div className="hidden md:flex items-center gap-8">
         {/* Dropdown for Soluciones */}
         <div className="relative group">
-          <button className="flex items-center gap-1.5 text-base font-semibold text-text-muted hover:text-neon-emerald transition-colors duration-200 py-2 cursor-pointer">
+          <button className="flex items-center gap-1.5 font-poppins text-base font-semibold text-[#F5F7FF]/80 hover:text-[#39FF14] transition-colors duration-200 py-2 cursor-pointer">
             Soluciones
             <ChevronDown className="size-4.5 group-hover:rotate-180 transition-transform duration-200" />
           </button>
           
-          {/* Dropdown Menu aligned to the right of the button to prevent screen overflow */}
-          <div className="absolute top-full right-0 mt-1 w-64 bg-black border border-white/10 rounded-xl p-3 shadow-[0_15px_30px_rgba(0,0,0,0.8)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col gap-1 backdrop-blur-md">
+          {/* Dropdown Menu aligned to the right of the button */}
+          <div className="absolute top-full right-0 mt-1 w-64 bg-[#030303] border border-white/10 rounded-xl p-3 shadow-[0_15px_30px_rgba(0,0,0,0.8)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col gap-1 backdrop-blur-md">
             {soluciones.map((sol) => (
               <a
                 key={sol.label}
                 href={sol.href}
-                className="text-sm text-text-muted hover:text-neon-emerald hover:bg-white/[0.03] px-3.5 py-2.5 rounded-lg transition-colors border border-transparent hover:border-white/5"
+                className="font-montserrat text-sm text-[#F5F7FF]/80 hover:text-[#39FF14] hover:bg-white/[0.04] px-3.5 py-2.5 rounded-lg transition-colors border border-transparent hover:border-white/5"
               >
                 {sol.label}
               </a>
@@ -70,10 +71,10 @@ export default function Navigation() {
           </div>
         </div>
 
-        <a href="/#paquetes" className="text-base font-semibold text-text-muted hover:text-neon-emerald transition-colors duration-200">
+        <a href="/#paquetes" className="font-poppins text-base font-semibold text-[#F5F7FF]/80 hover:text-[#39FF14] transition-colors duration-200">
           Paquetes
         </a>
-        <a href="/contacto" className="text-base font-semibold text-text-muted hover:text-neon-emerald transition-colors duration-200">
+        <a href="/contacto" className="font-poppins text-base font-semibold text-[#F5F7FF]/80 hover:text-[#39FF14] transition-colors duration-200">
           Contacto
         </a>
       </div>
@@ -81,7 +82,7 @@ export default function Navigation() {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`md:hidden p-2 hover:text-neon-emerald transition-colors duration-300 ${btnTextColor}`}
+        className="md:hidden p-2 text-[#F5F7FF] hover:text-[#39FF14] transition-colors duration-300"
         aria-label="Toggle Menu"
       >
         {isOpen ? <X className="size-6" /> : <Menu className="size-6" />}
@@ -89,15 +90,15 @@ export default function Navigation() {
 
       {/* Mobile Drawer */}
       {isOpen && (
-        <div className="absolute top-20 left-0 right-0 bg-black/95 backdrop-blur-md border-b border-border-dark flex flex-col p-6 gap-5 md:hidden animate-fade-in max-h-[calc(100vh-5rem)] overflow-y-auto">
+        <div className="absolute top-20 left-0 right-0 bg-[#030303]/95 backdrop-blur-md border-b border-white/10 flex flex-col p-6 gap-5 md:hidden animate-fade-in max-h-[calc(100vh-5rem)] overflow-y-auto">
           {/* Soluciones Accordion */}
           <div className="flex flex-col gap-2">
             <button 
               onClick={() => setMobileSolOpen(!mobileSolOpen)}
-              className="flex items-center justify-between text-xl font-semibold text-text-muted hover:text-neon-emerald w-full py-1 text-left"
+              className="flex items-center justify-between font-poppins text-xl font-semibold text-[#F5F7FF]/80 hover:text-[#39FF14] w-full py-1 text-left"
             >
               <span>Soluciones</span>
-              <ChevronDown className={`size-5 transition-transform duration-200 ${mobileSolOpen ? 'rotate-180 text-neon-emerald' : ''}`} />
+              <ChevronDown className={`size-5 transition-transform duration-200 ${mobileSolOpen ? 'rotate-180 text-[#39FF14]' : ''}`} />
             </button>
             
             {mobileSolOpen && (
@@ -107,7 +108,7 @@ export default function Navigation() {
                     key={sol.label}
                     href={sol.href}
                     onClick={() => setIsOpen(false)}
-                    className="text-base text-text-muted hover:text-neon-emerald transition-colors py-1"
+                    className="font-montserrat text-base text-[#F5F7FF]/80 hover:text-[#39FF14] transition-colors py-1"
                   >
                     {sol.label}
                   </a>
@@ -119,14 +120,14 @@ export default function Navigation() {
           <a
             href="/#paquetes"
             onClick={() => setIsOpen(false)}
-            className="text-xl font-semibold text-text-muted hover:text-neon-emerald transition-colors py-1"
+            className="font-poppins text-xl font-semibold text-[#F5F7FF]/80 hover:text-[#39FF14] transition-colors py-1"
           >
             Paquetes
           </a>
           <a
             href="/contacto"
             onClick={() => setIsOpen(false)}
-            className="text-xl font-semibold text-text-muted hover:text-neon-emerald transition-colors py-1 border-t border-white/10 pt-3"
+            className="font-poppins text-xl font-semibold text-[#F5F7FF]/80 hover:text-[#39FF14] transition-colors py-1 border-t border-white/10 pt-3"
           >
             Contacto
           </a>

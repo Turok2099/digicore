@@ -1,11 +1,23 @@
 import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
+import { Montserrat, Poppins, Orbitron } from "next/font/google";
 import "../styles/globals.css";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["300", "400", "500", "600", "700"],
+});
+
+const poppins = Poppins({
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+});
+
+const horizon = Orbitron({
+  variable: "--font-horizon",
+  subsets: ["latin"],
+  weight: ["700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -52,7 +64,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${manrope.variable} font-display antialiased bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100`}
+        className={`${montserrat.variable} ${poppins.variable} ${horizon.variable} font-montserrat antialiased bg-[#030303] text-[#F5F7FF]`}
       >
         {children}
       </body>
