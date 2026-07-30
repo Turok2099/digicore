@@ -9,9 +9,8 @@ export default function Hero() {
       <section 
         className="lg:hidden relative w-full min-h-screen flex flex-col justify-center items-center px-6 pt-28 pb-12 bg-[#030303] text-[#F5F7FF] overflow-hidden"
       >
-        {/* Ambient Glows */}
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-72 h-72 bg-[#39FF14]/10 blur-[100px] pointer-events-none rounded-full" />
-        <div className="absolute bottom-10 right-0 w-72 h-72 bg-[#00E5FF]/10 blur-[100px] pointer-events-none rounded-full" />
+        {/* Background Neon Grid (Same as Desktop) */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff14_1px,transparent_1px),linear-gradient(to_bottom,#ffffff14_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_60%,transparent_100%)] animate-pulse-slow"></div>
 
         <div className="relative z-10 w-full max-w-md mx-auto flex flex-col items-stretch space-y-6 my-auto">
           {/* Top Brand Header Block */}
@@ -70,7 +69,7 @@ export default function Hero() {
       {/* Desktop Hero (hidden lg:flex) */}
       <section className="hidden lg:flex relative min-h-screen items-center justify-center pt-32 pb-20 px-6 md:px-12 overflow-hidden bg-[#030303] text-[#F5F7FF]">
         {/* Background Neon Grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff06_1px,transparent_1px),linear-gradient(to_bottom,#ffffff06_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_60%,transparent_100%)] animate-pulse-slow"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff14_1px,transparent_1px),linear-gradient(to_bottom,#ffffff14_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_60%,transparent_100%)] animate-pulse-slow"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center my-auto">
           {/* Left Column: Headline & Value Proposition */}
