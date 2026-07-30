@@ -20,8 +20,7 @@ const orbitron = Orbitron({
   weight: ["400", "500", "600", "700", "800", "900"],
 });
 
-const logoSvgUrl = "https://res.cloudinary.com/dxbtafe9u/image/upload/v1785450043/logo_digicore_cwddqe.svg";
-const ogPngUrl = "https://res.cloudinary.com/dxbtafe9u/image/upload/f_png,w_1200,h_630,c_pad,b_rgb_030303/v1785450043/logo_digicore_cwddqe.png";
+const logoSvgUrl = "/logo_digicore.svg";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://digicorestudio.com"),
@@ -52,8 +51,8 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: ogPngUrl,
-        secureUrl: ogPngUrl,
+        url: "/logo_digicore.png", // NOTE: Needs a PNG version for WhatsApp
+        secureUrl: "/logo_digicore.png",
         width: 1200,
         height: 630,
         type: "image/png",
@@ -66,7 +65,7 @@ export const metadata: Metadata = {
     title: "Digicore Studio | Agencia de Desarrollo Web y Diseño Profesional",
     description:
       "Agencia de desarrollo web especializada en la elaboración de páginas web profesionales a medida.",
-    images: [ogPngUrl],
+    images: ["/logo_digicore.png"],
   },
 };
 

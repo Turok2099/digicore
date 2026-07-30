@@ -40,7 +40,7 @@ export default function Navigation() {
       {/* Brand Logo (Left) */}
       <a href="/" className="flex items-center gap-3">
         <div className="w-[52px] h-[52px] rounded-full overflow-hidden flex items-center justify-center">
-          <img src="https://res.cloudinary.com/dxbtafe9u/image/upload/v1785450043/logo_digicore_cwddqe.svg" alt="Digicore Studio Logo" className="size-full object-cover" />
+          <img src="/logo_digicore.svg" alt="Digicore Studio Logo" className="size-full object-cover" />
         </div>
         <span className="font-orbitron font-black tracking-wider text-base sm:text-lg">
           <span className="text-[#39FF14]">DIGICORE</span>

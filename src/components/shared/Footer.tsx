@@ -10,7 +10,7 @@ export default function Footer() {
         <div className="md:col-span-2 space-y-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center">
-              <img src="https://res.cloudinary.com/dxbtafe9u/image/upload/v1785450043/logo_digicore_cwddqe.svg" alt="Digicore Studio Logo" className="size-full object-cover" />
+              <img src="/logo_digicore.svg" alt="Digicore Studio Logo" className="size-full object-cover" />
             </div>
             <span className="font-orbitron font-black tracking-wider text-base sm:text-lg">
               <span className="text-[#39FF14]">DIGICORE</span>
