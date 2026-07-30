@@ -20,8 +20,6 @@ const orbitron = Orbitron({
   weight: ["400", "500", "600", "700", "800", "900"],
 });
 
-const logoSvgUrl = "/logo_digicore.svg";
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://digicorestudio.com"),
   title: "Digicore Studio | Agencia de Desarrollo Web y Diseño Profesional",
@@ -37,9 +35,9 @@ export const metadata: Metadata = {
     "elaboracion de paginas web",
   ],
   icons: {
-    icon: logoSvgUrl,
-    shortcut: logoSvgUrl,
-    apple: logoSvgUrl,
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
   },
   openGraph: {
     title: "Digicore Studio | Agencia de Desarrollo Web y Diseño Profesional",
@@ -77,15 +75,6 @@ export default function RootLayout({
   return (
     <html lang="es" className="dark">
       <head>
-        <link
-          rel="icon"
-          href={logoSvgUrl}
-          type="image/svg+xml"
-        />
-        <link
-          rel="apple-touch-icon"
-          href={logoSvgUrl}
-        />
         <link
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
           rel="stylesheet"
