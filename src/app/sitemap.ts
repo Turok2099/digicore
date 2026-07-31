@@ -7,11 +7,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/contacto",
     "/planes",
-    "/soluciones/automatiza-tu-negocio",
-    "/soluciones/consigue-mas-clientes",
-    "/soluciones/haz-crecer-tu-empresa",
-    "/soluciones/nosotros-nos-encargamos",
-    "/soluciones/vende-por-internet",
+    "/soluciones/posicionamiento-seo",
+    "/soluciones/sitios-web-profesionales",
+    "/soluciones/e-commerce",
+    "/soluciones/pasarelas-de-pago",
+    "/soluciones/automatizacion-de-procesos",
   ];
 
   return routes.map((route) => ({

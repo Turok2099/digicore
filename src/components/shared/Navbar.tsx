@@ -27,11 +27,11 @@ export default function Navigation() {
     : "bg-[#030303]/80 backdrop-blur-md border-b border-white/10";
 
   const soluciones = [
-    { label: "Consigue más clientes", href: "/soluciones/consigue-mas-clientes" },
-    { label: "Vende por Internet", href: "/soluciones/vende-por-internet" },
-    { label: "Automatiza tu negocio", href: "/soluciones/automatiza-tu-negocio" },
-    { label: "Haz crecer tu empresa", href: "/soluciones/haz-crecer-tu-empresa" },
-    { label: "Nosotros nos encargamos", href: "/soluciones/nosotros-nos-encargamos" },
+    { label: "Posicionamiento SEO & Marketing", href: "/soluciones/posicionamiento-seo" },
+    { label: "Sitios Web Profesionales", href: "/soluciones/sitios-web-profesionales" },
+    { label: "E-commerce & Tiendas Online", href: "/soluciones/e-commerce" },
+    { label: "Pasarelas de Pago", href: "/soluciones/pasarelas-de-pago" },
+    { label: "Automatización de Procesos", href: "/soluciones/automatizacion-de-procesos" },
   ];
 
   return (
@@ -71,9 +71,6 @@ export default function Navigation() {
           </div>
         </div>
 
-        <a href="/#paquetes" className="font-poppins text-base font-semibold text-[#F5F7FF]/80 hover:text-[#39FF14] transition-colors duration-200">
-          Paquetes
-        </a>
         <a href="/contacto" className="font-poppins text-base font-semibold text-[#F5F7FF]/80 hover:text-[#39FF14] transition-colors duration-200">
           Contacto
         </a>
@@ -117,13 +114,6 @@ export default function Navigation() {
             )}
           </div>
 
-          <a
-            href="/#paquetes"
-            onClick={() => setIsOpen(false)}
-            className="font-poppins text-xl font-semibold text-[#F5F7FF]/80 hover:text-[#39FF14] transition-colors py-1"
-          >
-            Paquetes
-          </a>
           <a
             href="/contacto"
             onClick={() => setIsOpen(false)}

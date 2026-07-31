@@ -27,7 +27,6 @@ export default function Footer() {
           <h3 className="text-xs uppercase tracking-widest text-white font-bold mb-4">Navegación</h3>
           <ul className="space-y-2 text-base text-text-muted">
             <li><a href="#soluciones" className="hover:text-neon-cyan transition-colors">Soluciones</a></li>
-            <li><a href="#paquetes" className="hover:text-neon-cyan transition-colors">Paquetes</a></li>
             <li><a href="#contacto" className="hover:text-neon-cyan transition-colors">Contacto</a></li>
           </ul>
         </div>

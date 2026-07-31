@@ -2,7 +2,7 @@ import {
   Navigation,
   HeroSection,
   SolutionsGrid,
-  PricingSection,
+  DiagnosticQuiz,
   LeadCaptureForm,
   Footer
 } from "@/views/HomeView/HomeView.sections";
@@ -17,7 +17,7 @@ export default function HomeView() {
       <main>
         <HeroSection />
         <SolutionsGrid />
-        <PricingSection />
+        <DiagnosticQuiz />
         <LeadCaptureForm />
       </main>
 

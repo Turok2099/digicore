@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Send, CheckCircle, Sparkles, Loader2 } from "lucide-react";
+import { CheckCircle, Loader2, Check } from "lucide-react";
 
 export default function LeadCaptureForm() {
   const [formData, setFormData] = useState({
@@ -32,160 +32,156 @@ export default function LeadCaptureForm() {
   ];
 
   return (
-    <section id="contacto" className="px-6 py-24 bg-black relative border-t border-white/5">
-      <div className="max-w-4xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <section id="contacto" className="px-6 py-24 bg-black relative border-t border-white/5 overflow-hidden">
+      <div className="max-w-3xl mx-auto relative z-10">
 
-          {/* Left info column */}
-          <div className="lg:col-span-5 space-y-6">
+        {/* Highlithed Brand Blue Card Container (#0057FF) */}
+        <div className="bg-[#0057FF] rounded-3xl p-8 sm:p-12 text-white shadow-[0_20px_60px_rgba(0,87,255,0.45)] border border-white/20 relative overflow-hidden">
 
-            <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight leading-tight">
-              ¿Listo para dar el salto digital?
+          {/* Form Header Info (Integrated inside Card) */}
+          <div className="space-y-4 mb-8 text-left">
+            <h2 className="text-3xl sm:text-4xl font-orbitron font-bold text-white tracking-wide leading-tight">
+              ¿Hablamos sobre cómo escalar tu negocio?
             </h2>
-            <p className="text-text-muted text-base leading-relaxed font-light">
-              Cuéntanos brevemente sobre tu negocio y tu mayor obstáculo. Nuestro equipo analizará tu caso sin costo y te enviaremos una propuesta de arquitectura tecnológica e IA a la medida.
+            <p className="text-white/90 font-montserrat text-sm sm:text-base font-medium leading-relaxed">
+              Cuéntanos brevemente sobre tu proyecto y tu mayor desafío actual. Analizaremos tu caso sin costo y te diremos exactamente qué necesitas para atraer más clientes y automatizar tu operación.
             </p>
-            <div className="space-y-3 text-sm text-text-muted">
-              <div className="flex items-center gap-2.5">
-                <div className="size-2 rounded-full bg-neon-emerald"></div>
-                <span>Auditoría estratégica en menos de 48 horas</span>
+
+            {/* Bullet Points */}
+            <div className="flex flex-col sm:flex-row gap-3 pt-2">
+              <div className="flex items-center gap-2 bg-black/20 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-montserrat font-bold text-white border border-white/10">
+                <Check className="size-4 text-[#39FF14] shrink-0" />
+                <span>Sin costo inicial ni ataduras.</span>
               </div>
-              <div className="flex items-center gap-2.5">
-                <div className="size-2 rounded-full bg-neon-emerald"></div>
-                <span>100% personalizado para tu tipo de negocio</span>
+              <div className="flex items-center gap-2 bg-black/20 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-montserrat font-bold text-white border border-white/10">
+                <Check className="size-4 text-[#39FF14] shrink-0" />
+                <span>Propuesta clara adaptada a tu presupuesto y metas.</span>
               </div>
             </div>
           </div>
 
-          {/* Right form column */}
-          <div className="lg:col-span-7">
-            <div className="bg-bg-card border border-white/5 p-8 rounded-2xl relative overflow-hidden shadow-2xl">
-              {/* Glossy top border */}
-              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-neon-cyan/20 to-transparent"></div>
+          <div className="w-full h-[1px] bg-white/20 my-8" />
 
-              {status === "success" ? (
-                <div className="text-center py-10 space-y-4 animate-fade-in">
-                  <div className="size-16 bg-neon-emerald/10 border border-neon-emerald/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle className="text-neon-emerald size-8" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-white">¡Solicitud Recibida!</h3>
-                  <p className="text-base text-text-muted max-w-sm mx-auto leading-relaxed">
-                    Gracias por tu interés, <strong className="text-white">{formData.nombre}</strong>. Analizaremos tu obstáculo actual ("{formData.obstaculo}") y te contactaremos a <strong className="text-white">{formData.correo}</strong> muy pronto.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setStatus("idle");
-                      setFormData({ nombre: "", correo: "", tipoNegocio: "Profesionista", obstaculo: "Conseguir clientes" });
-                    }}
-                    className="mt-6 text-sm text-neon-cyan hover:underline font-mono"
-                  >
-                    Enviar otra solicitud
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Name field */}
-                  <div className="space-y-2">
-                    <label htmlFor="nombre" className="text-sm uppercase tracking-widest text-text-muted font-bold block">
-                      Nombre Completo
-                    </label>
-                    <input
-                      type="text"
-                      id="nombre"
-                      required
-                      placeholder="Ej. Carlos Mendoza"
-                      value={formData.nombre}
-                      onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
-                      className="w-full h-14 px-4 rounded-lg bg-black border border-white/10 hover:border-white/20 focus:border-neon-cyan focus:outline-none text-white text-base transition-all placeholder:text-white/20"
-                    />
-                  </div>
+          {/* Success State vs Active Form */}
+          {status === "success" ? (
+            <div className="text-center py-8 space-y-4 animate-fade-in">
+              <div className="size-16 bg-white text-[#0057FF] rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <CheckCircle className="size-8 text-[#0057FF]" />
+              </div>
+              <h3 className="text-2xl font-poppins font-black text-white">¡Solicitud Recibida!</h3>
+              <p className="text-sm sm:text-base text-white/90 max-w-md mx-auto font-montserrat font-medium leading-relaxed">
+                Gracias por tu interés, <strong className="text-white">{formData.nombre}</strong>. Analizaremos tu obstáculo actual ("{formData.obstaculo}") y te contactaremos a <strong className="text-white">{formData.correo}</strong> muy pronto.
+              </p>
+              <button
+                onClick={() => {
+                  setStatus("idle");
+                  setFormData({ nombre: "", correo: "", tipoNegocio: "Profesionista", obstaculo: "Conseguir clientes" });
+                }}
+                className="mt-6 text-sm text-[#39FF14] underline font-mono font-bold hover:text-white cursor-pointer"
+              >
+                Enviar otra solicitud
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Name field */}
+              <div className="space-y-2">
+                <label htmlFor="nombre" className="text-xs uppercase tracking-widest text-white/90 font-extrabold block">
+                  Nombre Completo
+                </label>
+                <input
+                  type="text"
+                  id="nombre"
+                  required
+                  placeholder="Ej. Carlos Mendoza"
+                  value={formData.nombre}
+                  onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
+                  className="w-full h-14 px-4 rounded-xl bg-black/30 border border-white/20 focus:border-white focus:bg-black/50 text-white font-medium text-base transition-all placeholder:text-white/40 focus:outline-none"
+                />
+              </div>
 
-                  {/* Email field */}
-                  <div className="space-y-2">
-                    <label htmlFor="correo" className="text-sm uppercase tracking-widest text-text-muted font-bold block">
-                      Correo Electrónico
-                    </label>
-                    <input
-                      type="email"
-                      id="correo"
-                      required
-                      placeholder="carlos@miempresa.com"
-                      value={formData.correo}
-                      onChange={(e) => setFormData({ ...formData, correo: e.target.value })}
-                      className="w-full h-14 px-4 rounded-lg bg-black border border-white/10 hover:border-white/20 focus:border-neon-cyan focus:outline-none text-white text-base transition-all placeholder:text-white/20"
-                    />
-                  </div>
+              {/* Email field */}
+              <div className="space-y-2">
+                <label htmlFor="correo" className="text-xs uppercase tracking-widest text-white/90 font-extrabold block">
+                  Correo Electrónico
+                </label>
+                <input
+                  type="email"
+                  id="correo"
+                  required
+                  placeholder="carlos@miempresa.com"
+                  value={formData.correo}
+                  onChange={(e) => setFormData({ ...formData, correo: e.target.value })}
+                  className="w-full h-14 px-4 rounded-xl bg-black/30 border border-white/20 focus:border-white focus:bg-black/50 text-white font-medium text-base transition-all placeholder:text-white/40 focus:outline-none"
+                />
+              </div>
 
-                  {/* Business Type selector */}
-                  <div className="space-y-2">
-                    <label className="text-sm uppercase tracking-widest text-text-muted font-bold block">
-                      Tipo de Negocio
-                    </label>
-                    <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                      {businessTypes.map((type) => (
-                        <button
-                          key={type}
-                          type="button"
-                          onClick={() => setFormData({ ...formData, tipoNegocio: type })}
-                          className={`h-12 rounded-lg border text-xs sm:text-sm font-bold transition-all ${formData.tipoNegocio === type
-                              ? "bg-white text-black border-white"
-                              : "bg-black text-text-muted border-white/10 hover:border-white/20 hover:text-white"
-                            }`}
-                        >
-                          {type}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Obstacle selector */}
-                  <div className="space-y-2">
-                    <label htmlFor="obstaculo" className="text-sm uppercase tracking-widest text-text-muted font-bold block">
-                      ¿Cuál es tu mayor obstáculo actual?
-                    </label>
-                    <select
-                      id="obstaculo"
-                      value={formData.obstaculo}
-                      onChange={(e) => setFormData({ ...formData, obstaculo: e.target.value })}
-                      className="w-full h-14 px-4 rounded-lg bg-black border border-white/10 focus:border-neon-cyan focus:outline-none text-white text-base transition-all appearance-none"
-                      style={{
-                        backgroundImage: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`,
-                        backgroundPosition: 'right 1rem center',
-                        backgroundSize: '1.25rem',
-                        backgroundRepeat: 'no-repeat',
-                        paddingRight: '2.5rem'
-                      }}
+              {/* Business Type selector */}
+              <div className="space-y-2">
+                <label className="text-xs uppercase tracking-widest text-white/90 font-extrabold block">
+                  Tipo de Negocio
+                </label>
+                <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                  {businessTypes.map((type) => (
+                    <button
+                      key={type}
+                      type="button"
+                      onClick={() => setFormData({ ...formData, tipoNegocio: type })}
+                      className={`h-12 rounded-xl border text-xs sm:text-sm font-extrabold transition-all cursor-pointer ${
+                        formData.tipoNegocio === type
+                          ? "bg-white text-[#0057FF] border-white shadow-md"
+                          : "bg-black/30 text-white border-white/20 hover:bg-black/40"
+                      }`}
                     >
-                      {obstacles.map((obs) => (
-                        <option key={obs.value} value={obs.value} className="bg-black text-white">
-                          {obs.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                      {type}
+                    </button>
+                  ))}
+                </div>
+              </div>
 
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={status === "loading"}
-                    className="w-full h-16 bg-neon-cyan text-black font-extrabold rounded-lg flex items-center justify-center gap-2 hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(0,128,255,0.1)] hover:shadow-[0_0_25px_rgba(0,128,255,0.3)] disabled:opacity-50 text-base"
-                  >
-                    {status === "loading" ? (
-                      <>
-                        <Loader2 className="size-5.5 animate-spin" />
-                        Procesando Solicitud...
-                      </>
-                    ) : (
-                      <>
-                        <span>Agendar Auditoría Tecnológica</span>
-                        <Send className="size-4.5" />
-                      </>
-                    )}
-                  </button>
-                </form>
-              )}
-            </div>
-          </div>
+              {/* Obstacle selector */}
+              <div className="space-y-2">
+                <label htmlFor="obstaculo" className="text-xs uppercase tracking-widest text-white/90 font-extrabold block">
+                  ¿Cuál es tu mayor obstáculo actual?
+                </label>
+                <select
+                  id="obstaculo"
+                  value={formData.obstaculo}
+                  onChange={(e) => setFormData({ ...formData, obstaculo: e.target.value })}
+                  className="w-full h-14 px-4 rounded-xl bg-black/30 border border-white/20 focus:border-white focus:bg-black/50 text-white font-medium text-base transition-all appearance-none focus:outline-none"
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`,
+                    backgroundPosition: 'right 1rem center',
+                    backgroundSize: '1.25rem',
+                    backgroundRepeat: 'no-repeat',
+                    paddingRight: '2.5rem'
+                  }}
+                >
+                  {obstacles.map((obs) => (
+                    <option key={obs.value} value={obs.value} className="bg-[#0057FF] text-white">
+                      {obs.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={status === "loading"}
+                className="w-full h-16 bg-[#39FF14] hover:bg-white text-black font-poppins font-extrabold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-[0_0_30px_rgba(57,255,20,0.35)] hover:shadow-[0_0_40px_rgba(57,255,20,0.55)] disabled:opacity-50 text-base sm:text-lg cursor-pointer"
+              >
+                {status === "loading" ? (
+                  <>
+                    <Loader2 className="size-5.5 animate-spin text-black" />
+                    Procesando Solicitud...
+                  </>
+                ) : (
+                  <span>Agendar Auditoría Tecnológica</span>
+                )}
+              </button>
+            </form>
+          )}
 
         </div>
       </div>
