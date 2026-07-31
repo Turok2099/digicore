@@ -39,7 +39,7 @@ export default function Navigation() {
       
       {/* Brand Logo (Left) */}
       <a href="/" className="flex items-center gap-3 shrink-0">
-        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden flex items-center justify-center shrink-0">
+        <div className="w-[60px] h-[60px] sm:w-12 sm:h-12 rounded-full overflow-hidden flex items-center justify-center shrink-0">
           <img src="/logo_DS.png" alt="Digicore Studio Logo" className="size-full object-cover" />
         </div>
         <span className="font-orbitron font-black tracking-wider text-sm sm:text-lg md:text-xl">
