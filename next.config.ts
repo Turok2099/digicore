@@ -33,6 +33,11 @@ const nextConfig: NextConfig = {
         destination: "/soluciones/automatizacion-de-procesos",
         permanent: true,
       },
+      {
+        source: "/planes",
+        destination: "/#contacto",
+        permanent: true,
+      },
     ];
   },
 };
