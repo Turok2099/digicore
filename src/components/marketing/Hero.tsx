@@ -118,19 +118,13 @@ export default function Hero() {
             </div>
 
             {/* Action buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <div className="pt-4">
               <a
                 href="#contacto"
-                className="h-16 px-8 bg-[#00E5FF] hover:bg-white text-black font-poppins font-extrabold rounded-lg flex items-center justify-center gap-2 transition-all duration-300 shadow-[0_0_30px_rgba(0,229,255,0.45)] hover:shadow-[0_0_40px_rgba(0,229,255,0.65)] hover:-translate-y-0.5 text-base cursor-pointer"
+                className="h-16 px-8 bg-[#00E5FF] hover:bg-white text-black font-poppins font-extrabold rounded-lg inline-flex items-center justify-center gap-2 transition-all duration-300 shadow-[0_0_30px_rgba(0,229,255,0.45)] hover:shadow-[0_0_40px_rgba(0,229,255,0.65)] hover:-translate-y-0.5 text-base cursor-pointer"
               >
                 Solicita tu propuesta gratuita
                 <ArrowRight className="size-5 text-black" />
-              </a>
-              <a
-                href="#soluciones"
-                className="h-16 px-8 bg-transparent text-[#F5F7FF] font-poppins font-bold rounded-lg flex items-center justify-center gap-2 hover:bg-white/5 border border-white/10 hover:border-[#00E5FF]/40 transition-all duration-300 hover:-translate-y-0.5 text-base"
-              >
-                Explorar Soluciones
               </a>
             </div>
           </div>
