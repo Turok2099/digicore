@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sql, initDb } from "@/lib/db";
+import { sendLeadNotification } from "@/lib/email";
 
 export async function POST(req: Request) {
   try {
@@ -16,11 +17,18 @@ export async function POST(req: Request) {
     // Asegurar que la estructura de la base de datos esté lista
     await initDb();
 
-    // Insertar en la tabla leads
+    // 1. Guardar primero en Neon Postgres
     await sql`
       INSERT INTO leads (nombre, correo, tipo_negocio, obstaculo)
       VALUES (${nombre}, ${correo}, ${tipoNegocio || null}, ${obstaculo || null})
     `;
+
+    // 2. Enviar notificación por correo mediante Resend
+    try {
+      await sendLeadNotification({ nombre, correo, tipoNegocio, obstaculo });
+    } catch (emailErr) {
+      console.error("Error no bloqueante al enviar correo con Resend:", emailErr);
+    }
 
     return NextResponse.json({
       success: true,

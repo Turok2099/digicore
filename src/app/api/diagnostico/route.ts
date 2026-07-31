@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sql, initDb } from "@/lib/db";
+import { sendQuizNotification } from "@/lib/email";
 
 export async function POST(req: Request) {
   try {
@@ -19,11 +20,23 @@ export async function POST(req: Request) {
     // Convertir objeto de respuestas a string JSON para la columna JSONB
     const respuestasJson = JSON.stringify(respuestas || {});
 
-    // Insertar en la tabla quiz_submissions
+    // 1. Guardar primero en Neon Postgres
     await sql`
       INSERT INTO quiz_submissions (nombre, correo, whatsapp, respuestas)
       VALUES (${nombre}, ${correo}, ${whatsapp}, ${respuestasJson})
     `;
+
+    // 2. Enviar notificación por correo mediante Resend
+    try {
+      await sendQuizNotification({
+        nombre,
+        correo,
+        whatsapp,
+        respuestas: respuestas || {},
+      });
+    } catch (emailErr) {
+      console.error("Error no bloqueante al enviar correo con Resend:", emailErr);
+    }
 
     return NextResponse.json({
       success: true,
