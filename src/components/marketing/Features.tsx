@@ -2,12 +2,13 @@
 
 import { useState, useEffect, useRef } from "react";
 import {
-  TrendingUp,
+  Search,
+  Layout,
   ShoppingBag,
+  CreditCard,
   Cpu,
-  BarChart3,
-  ShieldCheck,
-  ArrowRight
+  ArrowRight,
+  CheckCircle2
 } from "lucide-react";
 
 export default function Features() {
@@ -17,58 +18,83 @@ export default function Features() {
   const solutions = [
     {
       id: 1,
-      title: "Consigue más clientes",
-      tagline: "SITIOS DE ALTA CONVERSIÓN & TRÁFICO",
-      icon: TrendingUp,
-      badgeText: "Crecimiento",
-      href: "/soluciones/consigue-mas-clientes",
-      gradient: "from-[#00E5FF] to-[#0055FF]",
-      shadow: "shadow-[0_20px_40px_rgba(0,229,255,0.3)]",
-      description: "Creamos la infraestructura de marketing digital que tu negocio necesita para capturar y nutrir prospectos de forma constante."
+      title: "Posicionamiento SEO & Marketing",
+      subtitle: "Haz que tus clientes te encuentren en Google sin pagar anuncios eternos.",
+      badgeText: "SEO & Tráfico",
+      icon: Search,
+      href: "#contacto",
+      ctaText: "Explorar Estrategia SEO",
+      bullets: [
+        "Optimización SEO Técnico (Next.js & Vercel).",
+        "Estrategia de palabras clave para atraer compradores.",
+        "Autoridad web y optimización de conversión (CRO)."
+      ],
+      gradient: "from-[#39FF14] to-[#15B800]",
+      shadow: "shadow-[0_20px_40px_rgba(57,255,20,0.35)]"
     },
     {
       id: 2,
-      title: "Vende por Internet",
-      tagline: "E-COMMERCE & PROCESAMIENTO",
-      icon: ShoppingBag,
-      badgeText: "Monetización",
-      href: "/soluciones/vende-por-internet",
-      gradient: "from-[#00E5FF] to-[#0055FF]",
-      shadow: "shadow-[0_20px_40px_rgba(0,229,255,0.3)]",
-      description: "Digitaliza tus canales de venta y automatiza el procesamiento y cobro de tus productos o servicios de forma 100% segura."
+      title: "Sitios Web & Landing Pages",
+      subtitle: "Tu negocio online funcionando rápido, profesional y con correo corporativo.",
+      badgeText: "Diseño & Web",
+      icon: Layout,
+      href: "#contacto",
+      ctaText: "Ver Opciones de Landings",
+      bullets: [
+        "Diseño a medida de alta velocidad.",
+        "Configuración de correo profesional (Resend).",
+        "Adaptado 100% a celulares y tablets."
+      ],
+      gradient: "from-[#39FF14] to-[#15B800]",
+      shadow: "shadow-[0_20px_40px_rgba(57,255,20,0.35)]"
     },
     {
       id: 3,
-      title: "Automatiza tu negocio",
-      tagline: "INTEGRACIONES & BOT CON IA",
-      icon: Cpu,
-      badgeText: "Eficiencia",
-      href: "/soluciones/automatiza-tu-negocio",
-      gradient: "from-[#00E5FF] to-[#0055FF]",
-      shadow: "shadow-[0_20px_40px_rgba(0,229,255,0.3)]",
-      description: "Libera a tu equipo de tareas repetitivas y responde a tus prospectos en segundos usando agentes de Inteligencia Artificial."
+      title: "E-commerce & Tiendas Online",
+      subtitle: "Vende tus productos o servicios en línea de forma segura y sencilla.",
+      badgeText: "Ventas Online",
+      icon: ShoppingBag,
+      href: "#contacto",
+      ctaText: "Conocer Soluciones de E-commerce",
+      bullets: [
+        "Catálogos de productos optimizados para venta.",
+        "Gestión de carritos y catálogos ligeros.",
+        "Experiencia de compra rápida y sin fricciones."
+      ],
+      gradient: "from-[#39FF14] to-[#15B800]",
+      shadow: "shadow-[0_20px_40px_rgba(57,255,20,0.35)]"
     },
     {
       id: 4,
-      title: "Haz crecer tu empresa",
-      tagline: "SOFTWARE A MEDIDA & ANALÍTICA",
-      icon: BarChart3,
-      badgeText: "Escala",
-      href: "/soluciones/haz-crecer-tu-empresa",
-      gradient: "from-[#00E5FF] to-[#0055FF]",
-      shadow: "shadow-[0_20px_40px_rgba(0,229,255,0.3)]",
-      description: "Construimos herramientas internas de negocio adaptadas exactamente a tus necesidades operativas, control y métricas."
+      title: "Pasarelas de Pago",
+      subtitle: "Integra cobros en línea seguros (Stripe, Fiserv) directo en tu plataforma.",
+      badgeText: "Cobros Seguros",
+      icon: CreditCard,
+      href: "#contacto",
+      ctaText: "Ver Integraciones de Pago",
+      bullets: [
+        "Integración segura de Stripe y Fiserv.",
+        "Configuración de webhooks y cobros automatizados.",
+        "Suscripciones o pagos únicos para tu negocio."
+      ],
+      gradient: "from-[#39FF14] to-[#15B800]",
+      shadow: "shadow-[0_20px_40px_rgba(57,255,20,0.35)]"
     },
     {
       id: 5,
-      title: "Nosotros nos encargamos",
-      tagline: "SOPORTE & MANTENIMIENTO",
-      icon: ShieldCheck,
-      badgeText: "Tranquilidad",
-      href: "/soluciones/nosotros-nos-encargamos",
-      gradient: "from-[#00E5FF] to-[#0055FF]",
-      shadow: "shadow-[0_20px_40px_rgba(0,229,255,0.3)]",
-      description: "Nos convertimos en tu departamento de tecnología. Mantenemos tus sistemas al día mientras tú haces crecer tu marca."
+      title: "Automatización de Procesos",
+      subtitle: "Ahorra horas de trabajo conectando tus formularios, correos y bases de datos.",
+      badgeText: "Eficiencia & IA",
+      icon: Cpu,
+      href: "#contacto",
+      ctaText: "Descubrir Automatizaciones",
+      bullets: [
+        "Respuestas automáticas para nuevos prospectos.",
+        "Conexión directa entre formularios y bases de datos.",
+        "Alertas y flujos de trabajo sin intervención manual."
+      ],
+      gradient: "from-[#39FF14] to-[#15B800]",
+      shadow: "shadow-[0_20px_40px_rgba(57,255,20,0.35)]"
     }
   ];
 
@@ -116,14 +142,10 @@ export default function Features() {
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="mb-16 text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/10">
-            <span className="h-2 w-2 rounded-full bg-neon-cyan animate-ping" />
-            <span className="text-xs font-mono text-neon-cyan uppercase tracking-widest">Nuestras Soluciones</span>
-          </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
-            Estructuras sólidas para <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00E5FF] to-[#39FF14]">
-              problemas reales de negocio.
+            Soluciones{" "}
+            <span className="text-[#39FF14]">
+              tecnológicas reales
             </span>
           </h2>
           <p className="mt-4 text-base sm:text-lg text-white/60 font-montserrat max-w-xl mx-auto">
@@ -145,8 +167,8 @@ export default function Features() {
                 href={sol.href}
                 className={`group relative flex flex-col items-center text-center p-6 sm:p-8 rounded-3xl overflow-hidden transition-all duration-500 ${
                   isActive
-                    ? `-translate-y-2 border-transparent ${sol.shadow}`
-                    : `bg-[#0A0B10] border border-white/10 hover:-translate-y-2 hover:border-transparent ${sol.shadow}`
+                    ? "-translate-y-2 border-transparent shadow-[0_20px_40px_rgba(57,255,20,0.35)]"
+                    : "bg-[#0A0B10] border border-[#0057FF]/30 shadow-[0_10px_30px_rgba(0,87,255,0.25)] hover:-translate-y-2 hover:border-transparent hover:shadow-[0_20px_40px_rgba(57,255,20,0.35)]"
                 }`}
               >
                 {/* Background Hover / Scroll Active Gradient */}
@@ -157,13 +179,13 @@ export default function Features() {
                 />
 
                 {/* Card Internal Layout */}
-                <div className="relative z-10 flex flex-col items-center justify-between h-full space-y-6 w-full">
+                <div className="relative z-10 flex flex-col items-center justify-between h-full space-y-5 w-full">
                   {/* Category Badge */}
                   <span
                     className={`text-[11px] font-mono uppercase tracking-widest px-3 py-1 rounded-full border font-semibold transition-colors duration-300 ${
                       isActive
                         ? "bg-black/20 border-black/20 text-black"
-                        : "bg-white/5 border-white/10 text-white/70 group-hover:bg-black/20 group-hover:border-black/20 group-hover:text-black"
+                        : "bg-[#0057FF]/10 border-[#0057FF]/30 text-[#0057FF] group-hover:bg-black/20 group-hover:border-black/20 group-hover:text-black"
                     }`}
                   >
                     {sol.badgeText}
@@ -173,8 +195,8 @@ export default function Features() {
                   <div
                     className={`p-4 rounded-2xl border transition-all duration-300 shadow-lg ${
                       isActive
-                        ? "bg-black border-black text-[#00E5FF] scale-110"
-                        : "bg-white/[0.04] border-white/10 text-[#00E5FF] group-hover:bg-black group-hover:border-black group-hover:text-[#00E5FF] group-hover:scale-110"
+                        ? "bg-black border-black text-[#39FF14] scale-110"
+                        : "bg-[#0057FF]/10 border-[#0057FF]/30 text-[#0057FF] group-hover:bg-black group-hover:border-black group-hover:text-[#39FF14] group-hover:scale-110"
                     }`}
                   >
                     <Icon className="size-12 sm:size-14" />
@@ -182,29 +204,49 @@ export default function Features() {
 
                   {/* Title */}
                   <h3
-                    className={`font-poppins font-extrabold text-xl sm:text-2xl transition-colors duration-300 leading-snug ${
+                    className={`font-poppins font-extrabold text-lg sm:text-xl transition-colors duration-300 leading-snug ${
                       isActive ? "text-black" : "text-white group-hover:text-black"
                     }`}
                   >
                     {sol.title}
                   </h3>
 
-                  {/* Description */}
+                  {/* Subtitle / Dolor */}
                   <p
-                    className={`font-montserrat text-xs sm:text-sm transition-colors duration-300 leading-relaxed font-normal flex-grow ${
+                    className={`font-montserrat text-xs sm:text-sm transition-colors duration-300 leading-relaxed font-medium italic ${
                       isActive ? "text-black/90" : "text-white/70 group-hover:text-black/90"
                     }`}
                   >
-                    {sol.description}
+                    "{sol.subtitle}"
                   </p>
+
+                  {/* Bullets List */}
+                  <div className="w-full text-left space-y-2 pt-3 my-2 border-t border-white/10 group-hover:border-black/15 transition-colors">
+                    {sol.bullets.map((bullet, i) => (
+                      <div key={i} className="flex items-start gap-2 text-xs font-montserrat font-medium">
+                        <CheckCircle2
+                          className={`size-3.5 mt-0.5 shrink-0 transition-colors ${
+                            isActive ? "text-black" : "text-[#0057FF] group-hover:text-black"
+                          }`}
+                        />
+                        <span
+                          className={`leading-tight transition-colors ${
+                            isActive ? "text-black/90" : "text-white/80 group-hover:text-black/90"
+                          }`}
+                        >
+                          {bullet}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
 
                   {/* Link / CTA */}
                   <div
                     className={`pt-2 flex items-center justify-center gap-1.5 text-xs font-poppins font-extrabold transition-colors duration-300 ${
-                      isActive ? "text-black" : "text-neon-cyan group-hover:text-black"
+                      isActive ? "text-black" : "text-[#0057FF] group-hover:text-black"
                     }`}
                   >
-                    <span>Explorar solución</span>
+                    <span>{sol.ctaText}</span>
                     <ArrowRight
                       className={`size-4 transition-transform duration-300 ${
                         isActive ? "translate-x-1" : "group-hover:translate-x-1"
