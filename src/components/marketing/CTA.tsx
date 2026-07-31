@@ -13,14 +13,32 @@ export default function LeadCaptureForm() {
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
+    setErrorMessage(null);
 
-    // Simular envío de datos a backend / CRM
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/contacto", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Ocurrió un error al enviar tu solicitud.");
+      }
+
       setStatus("success");
-    }, 1500);
+    } catch (err: any) {
+      console.error(err);
+      setErrorMessage(err.message || "Error al conectar con el servidor.");
+      setStatus("error");
+    }
   };
 
   const businessTypes = ["Profesionista", "PYME", "Empresa"];
@@ -84,6 +102,11 @@ export default function LeadCaptureForm() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
+              {errorMessage && (
+                <div className="p-4 bg-red-500/20 border border-red-500/50 rounded-xl text-red-200 text-sm font-montserrat">
+                  {errorMessage}
+                </div>
+              )}
               {/* Name field */}
               <div className="space-y-2">
                 <label htmlFor="nombre" className="text-xs uppercase tracking-widest text-white/90 font-extrabold block">

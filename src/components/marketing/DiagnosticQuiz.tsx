@@ -101,13 +101,36 @@ export default function DiagnosticQuiz() {
     }
   };
 
-  const handleLeadSubmit = (e: React.FormEvent) => {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
+    setErrorMessage(null);
+
+    try {
+      const res = await fetch("/api/diagnostico", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...leadForm,
+          respuestas: answers,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Ocurrió un error al enviar el diagnóstico.");
+      }
+
       setIsSubmitting(false);
       setStep(8); // Show final success confirmation
-    }, 1500);
+    } catch (err: any) {
+      console.error(err);
+      setErrorMessage(err.message || "Error al conectar con el servidor.");
+      setIsSubmitting(false);
+    }
   };
 
   const currentQuestion = questions.find((q) => q.id === step);
@@ -271,6 +294,11 @@ export default function DiagnosticQuiz() {
 
             {/* Clean Lead Capture Form */}
             <form onSubmit={handleLeadSubmit} className="space-y-5">
+              {errorMessage && (
+                <div className="p-4 bg-red-500/20 border border-red-500/50 rounded-xl text-red-200 text-sm font-montserrat">
+                  {errorMessage}
+                </div>
+              )}
               <div className="space-y-1.5">
                 <label htmlFor="quiz-nombre" className="text-xs uppercase tracking-widest text-white/70 font-bold block">
                   Nombre Completo
