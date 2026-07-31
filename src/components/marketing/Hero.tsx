@@ -7,7 +7,7 @@ export default function Hero() {
     <>
       {/* Mobile Hero (lg:hidden) - Exact replica of reference design */}
       <section 
-        className="lg:hidden relative w-full min-h-screen flex flex-col justify-center items-center px-6 pt-28 pb-12 bg-[#030303] text-[#F5F7FF] overflow-hidden"
+        className="lg:hidden relative w-full min-h-screen flex flex-col justify-center items-center px-6 pt-36 sm:pt-40 pb-12 bg-[#030303] text-[#F5F7FF] overflow-hidden"
       >
         {/* Background Neon Grid (Same as Desktop) */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff14_1px,transparent_1px),linear-gradient(to_bottom,#ffffff14_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_60%,transparent_100%)] animate-pulse-slow"></div>
@@ -25,9 +25,9 @@ export default function Hero() {
             {/* Divider Line */}
             <div className="w-full h-[1.5px] bg-[#F5F7FF]/40 my-3" />
 
-            <p className="font-poppins text-xs sm:text-sm font-bold text-[#39FF14] tracking-widest uppercase">
+            <h1 className="font-poppins text-xs sm:text-sm font-bold text-[#39FF14] tracking-widest uppercase">
               AGENCIA DE DESARROLLO WEB
-            </p>
+            </h1>
           </div>
 
           {/* Central Image Card with White Outline Frame */}
@@ -43,10 +43,10 @@ export default function Hero() {
 
           {/* Bottom Heading & Description Block */}
           <div className="w-full text-right space-y-3 pt-2">
-            <h1 className="font-poppins text-2xl sm:text-3xl font-bold text-[#F5F7FF] leading-tight">
+            <h2 className="font-poppins text-2xl sm:text-3xl font-bold text-[#F5F7FF] leading-tight">
               Páginas Web Profesionales <br />
               <span className="text-[#00E5FF]">Soluciones a Medida</span>
-            </h1>
+            </h2>
             
             <p className="font-montserrat text-sm text-[#F5F7FF]/90 font-medium leading-relaxed max-w-sm ml-auto">
               En DigicoreStudio somos un equipo de expertos y desarrollo web. Creamos sitios ultra-rapidos optimizados para SEO y conversión.
@@ -67,7 +67,7 @@ export default function Hero() {
       </section>
 
       {/* Desktop Hero (hidden lg:flex) */}
-      <section className="hidden lg:flex relative min-h-screen items-center justify-center pt-32 pb-20 px-6 md:px-12 overflow-hidden bg-[#030303] text-[#F5F7FF]">
+      <section className="hidden lg:flex relative min-h-screen items-center justify-center pt-40 pb-20 px-6 md:px-12 overflow-hidden bg-[#030303] text-[#F5F7FF]">
         {/* Background Neon Grid */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff14_1px,transparent_1px),linear-gradient(to_bottom,#ffffff14_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_60%,transparent_100%)] animate-pulse-slow"></div>
 
@@ -86,17 +86,17 @@ export default function Hero() {
               {/* Divider Line */}
               <div className="w-full h-[1.5px] bg-[#F5F7FF]/40 my-3" />
 
-              <p className="font-poppins text-sm md:text-base font-bold text-[#39FF14] tracking-widest uppercase">
+              <h1 className="font-poppins text-sm md:text-base font-bold text-[#39FF14] tracking-widest uppercase">
                 AGENCIA DE DESARROLLO WEB
-              </p>
+              </h1>
             </div>
 
-            <h1 className="font-poppins text-3xl sm:text-4xl md:text-5xl font-black text-[#F5F7FF] leading-[1.15] tracking-tight">
+            <h2 className="font-poppins text-3xl sm:text-4xl md:text-5xl font-black text-[#F5F7FF] leading-[1.15] tracking-tight">
               Páginas Web Profesionales{" "}
               <span className="text-[#00E5FF]">
                 y Soluciones a Medida.
               </span>
-            </h1>
+            </h2>
 
             <p className="font-montserrat text-xl text-[#F5F7FF]/80 max-w-xl leading-relaxed">
               En DigicoreStudio somos un equipo de expertos y desarrollo web. Creamos sitios ultra-rápidos optimizados para SEO y conversión.
