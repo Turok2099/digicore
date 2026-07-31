@@ -35,11 +35,11 @@ export default function Navigation() {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 h-20 flex items-center justify-between px-6 md:px-12 transition-all duration-300 ${navBgClass}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 h-20 sm:h-28 flex items-center justify-between px-6 md:px-12 transition-all duration-300 ${navBgClass}`}>
       
       {/* Brand Logo (Left) */}
-      <a href="/" className="flex items-center gap-3 shrink-0">
-        <div className="w-[60px] h-[60px] sm:w-12 sm:h-12 rounded-full overflow-hidden flex items-center justify-center shrink-0">
+      <a href="/" className="flex items-center gap-3.5 shrink-0">
+        <div className="w-[60px] h-[60px] sm:w-[96px] sm:h-[96px] rounded-full overflow-hidden flex items-center justify-center shrink-0">
           <img src="/logo_DS.png" alt="Digicore Studio Logo" className="size-full object-cover" />
         </div>
         <span className="font-orbitron font-black tracking-wider text-sm sm:text-lg md:text-xl">

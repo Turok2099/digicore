@@ -67,7 +67,7 @@ export default function Hero() {
       </section>
 
       {/* Desktop Hero (hidden lg:flex) */}
-      <section className="hidden lg:flex relative min-h-screen items-center justify-center pt-32 pb-20 px-6 md:px-12 overflow-hidden bg-[#030303] text-[#F5F7FF]">
+      <section className="hidden lg:flex relative min-h-screen items-center justify-center pt-36 pb-20 px-6 md:px-12 overflow-hidden bg-[#030303] text-[#F5F7FF]">
         {/* Background Neon Grid */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff14_1px,transparent_1px),linear-gradient(to_bottom,#ffffff14_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_60%,transparent_100%)] animate-pulse-slow"></div>
 
