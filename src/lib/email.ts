@@ -6,164 +6,69 @@ const fromEmail = process.env.FROM_EMAIL || "Digicore Studio <onboarding@resend.
 
 export const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
-interface ContactLeadData {
+export interface SolicitudData {
   nombre: string;
   correo: string;
-  tipoNegocio?: string;
-  obstaculo?: string;
+  telefono?: string;
+  profesion?: string;
+  paquete?: string;
+  mensaje?: string;
+  origen?: string;
 }
 
-interface QuizSubmissionData {
-  nombre: string;
-  correo: string;
-  whatsapp: string;
-  respuestas: Record<number, string>;
+function esc(valor: string | undefined): string {
+  return (valor ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
-export async function sendLeadNotification(data: ContactLeadData) {
+/** Devuelve true solo si Resend confirma el envío. Nunca lanza. */
+export async function sendLeadNotification(data: SolicitudData): Promise<boolean> {
   if (!resend) {
     console.warn("RESEND_API_KEY no está configurada. Envío de correo omitido.");
-    return;
+    return false;
   }
 
-  const htmlContent = `
-    <div style="font-family: Arial, sans-serif; background-color: #0a0b10; color: #ffffff; padding: 28px; border-radius: 16px; max-width: 600px; margin: 0 auto; border: 1px solid #0057FF;">
-      <div style="border-bottom: 2px solid #0057FF; padding-bottom: 16px; margin-bottom: 20px;">
-        <h2 style="color: #00E5FF; margin: 0; font-size: 24px; font-weight: bold;">🚀 Nuevo Lead de Contacto</h2>
-        <p style="color: #a0a0a0; margin-top: 6px; font-size: 14px;">Solicitud recibida desde la plataforma Digicore Studio</p>
-      </div>
+  const fila = (etiqueta: string, valor: string | undefined) =>
+    valor
+      ? `<tr><td style="padding:8px 0;color:#667085;width:140px;vertical-align:top;">${etiqueta}</td><td style="padding:8px 0;color:#101828;white-space:pre-wrap;">${esc(valor)}</td></tr>`
+      : "";
 
-      <table style="width: 100%; text-align: left; border-collapse: collapse;">
-        <tr>
-          <td style="padding: 10px 0; color: #888888; font-weight: bold; width: 140px;">Nombre:</td>
-          <td style="padding: 10px 0; color: #ffffff; font-size: 16px;"><strong>${data.nombre}</strong></td>
-        </tr>
-        <tr>
-          <td style="padding: 10px 0; color: #888888; font-weight: bold;">Correo:</td>
-          <td style="padding: 10px 0; color: #39FF14;"><a href="mailto:${data.correo}" style="color: #39FF14; text-decoration: none; font-weight: bold;">${data.correo}</a></td>
-        </tr>
-        <tr>
-          <td style="padding: 10px 0; color: #888888; font-weight: bold;">Tipo de Negocio:</td>
-          <td style="padding: 10px 0; color: #ffffff;">${data.tipoNegocio || "No especificado"}</td>
-        </tr>
-        <tr>
-          <td style="padding: 10px 0; color: #888888; font-weight: bold;">Obstáculo Actual:</td>
-          <td style="padding: 10px 0; color: #00E5FF; font-weight: bold;">${data.obstaculo || "No especificado"}</td>
-        </tr>
+  const html = `
+    <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:24px;color:#101828;">
+      <h2 style="margin:0 0 4px;color:#0B0F14;">Nueva solicitud de propuesta</h2>
+      <p style="margin:0 0 20px;color:#667085;font-size:14px;">Recibida desde el sitio de Digicore Studio</p>
+      <table style="width:100%;border-collapse:collapse;text-align:left;font-size:15px;">
+        ${fila("Nombre", data.nombre)}
+        ${fila("Correo", data.correo)}
+        ${fila("Teléfono", data.telefono)}
+        ${fila("Profesión o negocio", data.profesion)}
+        ${fila("Paquete de interés", data.paquete)}
+        ${fila("Mensaje", data.mensaje)}
+        ${fila("Origen", data.origen)}
       </table>
-
-      <div style="margin-top: 28px; padding-top: 16px; border-top: 1px solid #1e2029; text-align: center; color: #666666; font-size: 12px;">
-        Digicore Studio System Notification • Auto-Generated Email
-      </div>
     </div>
   `;
 
   try {
-    const { data: resData, error: resError } = await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: fromEmail,
       to: [notificationEmail],
-      subject: `🔥 Nuevo Lead: ${data.nombre} (${data.tipoNegocio || "Contacto"})`,
-      html: htmlContent,
+      replyTo: data.correo,
+      subject: `Nueva solicitud de propuesta: ${data.nombre}${data.paquete ? ` (${data.paquete})` : ""}`.replace(/[\r\n]+/g, " "),
+      html,
     });
 
-    if (resError) {
-      console.error("Resend API Error en sendLeadNotification:", resError);
-    } else {
-      console.log("Notificación por correo enviada con éxito:", resData);
+    if (error) {
+      console.error("Resend API Error en sendLeadNotification:", error);
+      return false;
     }
-  } catch (error) {
-    console.error("Error imprevisto al enviar correo con Resend:", error);
-  }
-}
-
-export async function sendQuizNotification(data: QuizSubmissionData) {
-  if (!resend) {
-    console.warn("RESEND_API_KEY no está configurada. Envío de correo omitido.");
-    return;
-  }
-
-  const questionLabels: Record<number, string> = {
-    1: "¿Sitio web profesional?",
-    2: "¿Cómo llegan clientes?",
-    3: "¿Ventas/contactos semanales?",
-    4: "Tipo de correo",
-    5: "Prioridad principales meses",
-  };
-
-  const optionLabels: Record<string, string> = {
-    lento_anticuado: "Sí, pero es lento o anticuado",
-    sin_web: "No tengo sitio web",
-    solo_redes: "Solo redes sociales (Instagram / Facebook)",
-    boca_a_boca: "Por recomendación o boca a boca",
-    redes_sociales: "Por redes sociales",
-    sin_flujo: "No tengo un flujo constante de clientes",
-    sin_ventas: "No me trae nada de prospectos",
-    ocasional: "A veces trae alguno ocasional",
-    gmail: "Gmail o correo personal",
-    hotmail: "Hotmail / Yahoo personal",
-    quiero_corporativo: "Quiero un correo corporativo profesional (@miempresa.com)",
-    clientes_google: "Conseguir más clientes por Google sin pagar anuncios eternos",
-    automatizar: "Automatizar procesos y ahorrar horas de trabajo",
-    vender_online: "Vender mis productos o servicios en línea 24/7",
-  };
-
-  const answersList = Object.entries(data.respuestas)
-    .map(([qId, val]) => {
-      const qText = questionLabels[Number(qId)] || `Pregunta ${qId}`;
-      const valText = optionLabels[val] || val;
-      return `<li style="margin-bottom: 10px;"><strong style="color: #00E5FF;">${qText}:</strong> <span style="color: #ffffff;">${valText}</span></li>`;
-    })
-    .join("");
-
-  const htmlContent = `
-    <div style="font-family: Arial, sans-serif; background-color: #0a0b10; color: #ffffff; padding: 28px; border-radius: 16px; max-width: 600px; margin: 0 auto; border: 1px solid #39FF14;">
-      <div style="border-bottom: 2px solid #39FF14; padding-bottom: 16px; margin-bottom: 20px;">
-        <h2 style="color: #39FF14; margin: 0; font-size: 24px; font-weight: bold;">📊 Nuevo Diagnóstico Completado</h2>
-        <p style="color: #a0a0a0; margin-top: 6px; font-size: 14px;">Diagnóstico técnico desde Digicore Studio</p>
-      </div>
-
-      <table style="width: 100%; text-align: left; border-collapse: collapse; margin-bottom: 24px;">
-        <tr>
-          <td style="padding: 10px 0; color: #888888; font-weight: bold; width: 140px;">Nombre:</td>
-          <td style="padding: 10px 0; color: #ffffff; font-size: 16px;"><strong>${data.nombre}</strong></td>
-        </tr>
-        <tr>
-          <td style="padding: 10px 0; color: #888888; font-weight: bold;">Correo:</td>
-          <td style="padding: 10px 0; color: #39FF14;"><a href="mailto:${data.correo}" style="color: #39FF14; text-decoration: none; font-weight: bold;">${data.correo}</a></td>
-        </tr>
-        <tr>
-          <td style="padding: 10px 0; color: #888888; font-weight: bold;">WhatsApp / Tel:</td>
-          <td style="padding: 10px 0; color: #00E5FF; font-weight: bold;"><a href="https://wa.me/${data.whatsapp.replace(/\D/g, '')}" style="color: #00E5FF; text-decoration: none;">${data.whatsapp}</a></td>
-        </tr>
-      </table>
-
-      <div style="background-color: #12141d; padding: 20px; border-radius: 12px; border: 1px solid #1e2029;">
-        <h3 style="color: #39FF14; margin-top: 0; font-size: 16px; border-bottom: 1px solid #2a2d3d; padding-bottom: 10px; margin-bottom: 14px;">Respuestas del Quiz Diagnóstico:</h3>
-        <ul style="padding-left: 20px; font-size: 14px; margin-bottom: 0;">
-          ${answersList}
-        </ul>
-      </div>
-
-      <div style="margin-top: 28px; padding-top: 16px; border-top: 1px solid #1e2029; text-align: center; color: #666666; font-size: 12px;">
-        Digicore Studio System Notification • Auto-Generated Email
-      </div>
-    </div>
-  `;
-
-  try {
-    const { data: resData, error: resError } = await resend.emails.send({
-      from: fromEmail,
-      to: [notificationEmail],
-      subject: `⚡ Nuevo Diagnóstico Quiz: ${data.nombre}`,
-      html: htmlContent,
-    });
-
-    if (resError) {
-      console.error("Resend API Error en sendQuizNotification:", resError);
-    } else {
-      console.log("Notificación de diagnóstico enviada con éxito:", resData);
-    }
-  } catch (error) {
-    console.error("Error imprevisto al enviar correo con Resend:", error);
+    return true;
+  } catch (err) {
+    console.error("Error imprevisto al enviar correo con Resend:", err);
+    return false;
   }
 }

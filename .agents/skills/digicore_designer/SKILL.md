@@ -14,8 +14,9 @@ Diseñar interfaces claras para una agencia de desarrollo web. Prioridades, en o
 - Referencias visuales: `GUIA_COLORES.md` y `globals.css`. Si difieren, seguir el código y anotar la discrepancia.
 
 ## Sistema visual
-- Tokens: fondo `#030303`, tarjetas `#0A0A0A`, acentos neón (lima, cian, azul) y texto `#F5F7FF`, definidos como variables en `@theme`. Usar los tokens; no introducir colores sueltos sin motivo.
-- Tipografía: Orbitron principalmente para la marca; Poppins para encabezados y CTAs; Montserrat para lectura. Cambiarlo solo por decisión explícita de diseño.
+- Tokens (`@theme` en `src/styles/globals.css`): fondo `#0B0F14` (`bg`), superficies `#141B24` (`surface`), texto `#F5F7FF` (`text`) y `#A7B0BE` (`muted`), acento y CTA `#00C8DE` (`accent`), verde `#39FF14` (`success`) solo en detalles o estados, bordes `#263140` (`border`) y `#5F6F85` (`border-strong`, para campos). Usar los tokens; no introducir colores sueltos. Sin resplandores, degradados decorativos ni animaciones continuas.
+- Tipografía: Poppins para marca, encabezados y botones; Montserrat para lectura. Orbitron ya no se usa. Cambiarlo solo por decisión explícita de diseño.
+- Logo: `public/brand/DigiCore-Studio-transparente.svg` (horizontal, transparente, wordmark claro: usar sobre fondos oscuros) y `public/brand/DigiCore-simbolo.svg` (solo el símbolo, también como favicon).
 - No imponer tendencias (glassmorphism, bento, neumorfismo). Usar lo que ya existe en el sitio y añadir efectos solo si ayudan a la jerarquía o a la acción.
 - Espaciado con escala de 4/8 px como guía, no como dogma.
 

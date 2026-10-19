@@ -2,21 +2,18 @@ import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://digicorestudio.com";
-  
+
   const routes = [
-    "",
-    "/contacto",
-    "/soluciones/posicionamiento-seo",
-    "/soluciones/sitios-web-profesionales",
-    "/soluciones/e-commerce",
-    "/soluciones/pasarelas-de-pago",
-    "/soluciones/automatizacion-de-procesos",
+    { path: "", priority: 1.0 },
+    { path: "/sitios-web", priority: 0.9 },
+    { path: "/planes", priority: 0.9 },
+    { path: "/contacto", priority: 0.7 },
   ];
 
-  return routes.map((route) => ({
-    url: `${baseUrl}${route}`,
+  return routes.map(({ path, priority }) => ({
+    url: `${baseUrl}${path}`,
     lastModified: new Date(),
-    changeFrequency: "weekly" as const,
-    priority: route === "" ? 1.0 : 0.8,
+    changeFrequency: "monthly" as const,
+    priority,
   }));
 }

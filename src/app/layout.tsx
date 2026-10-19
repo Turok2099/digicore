@@ -1,48 +1,33 @@
-import type { Metadata } from "next";
-import { Montserrat, Poppins, Orbitron } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Montserrat, Poppins } from "next/font/google";
+import Script from "next/script";
 import "../styles/globals.css";
+import Navbar from "@/components/shared/Navbar";
+import Footer from "@/components/shared/Footer";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
 });
 
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["500", "600", "700"],
 });
 
-const orbitron = Orbitron({
-  variable: "--font-orbitron",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-});
+const titulo = "Sitios web para profesionistas desde $5,900 MXN + IVA | Digicore Studio";
+const descripcion =
+  "Sitios web profesionales para profesionistas y pequeños negocios en México. Paquetes con alcance, plazos y costos posteriores claros, desarrollados por Jorge Castro.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://digicorestudio.com"),
-  title: "Digicore Studio | Agencia de Desarrollo Web y Diseño Profesional",
-  description:
-    "Agencia de desarrollo web especializada en la elaboración de páginas web profesionales a medida. Diseñador y desarrollador web experto para empresas y negocios.",
-  keywords: [
-    "agencia de desarrollo web",
-    "desarrollo de paginas web",
-    "agencia de diseno web",
-    "desarrolladores de sitios web",
-    "diseñador y desarrollador web",
-    "paginas web profesionales",
-    "elaboracion de paginas web",
-  ],
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/icon.png",
-  },
+  title: titulo,
+  description: descripcion,
   openGraph: {
-    title: "Digicore Studio | Agencia de Desarrollo Web y Diseño Profesional",
-    description:
-      "Agencia de desarrollo web especializada en la elaboración de páginas web profesionales a medida.",
+    title: titulo,
+    description: descripcion,
     url: "https://digicorestudio.com",
     siteName: "Digicore Studio",
     locale: "es_MX",
@@ -50,11 +35,18 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Digicore Studio | Agencia de Desarrollo Web y Diseño Profesional",
-    description:
-      "Agencia de desarrollo web especializada en la elaboración de páginas web profesionales a medida.",
+    title: titulo,
+    description: descripcion,
   },
 };
+
+export const viewport: Viewport = {
+  themeColor: "#0B0F14",
+};
+
+// Medición opcional: solo se carga si existe el identificador y tiene formato de GA4.
+const gaId = process.env.NEXT_PUBLIC_GA_ID;
+const gaValido = gaId && /^G-[A-Z0-9]{4,}$/.test(gaId) ? gaId : null;
 
 export default function RootLayout({
   children,
@@ -62,17 +54,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="dark">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body
-        className={`${montserrat.variable} ${poppins.variable} ${orbitron.variable} font-montserrat antialiased bg-[#030303] text-[#F5F7FF]`}
-      >
-        {children}
+    <html lang="es-MX">
+      <body className={`${montserrat.variable} ${poppins.variable} bg-bg font-montserrat text-text antialiased`}>
+        <a
+          href="#contenido"
+          className="sr-only z-60 rounded-lg bg-accent px-4 py-2 font-poppins font-semibold text-on-accent focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        >
+          Saltar al contenido
+        </a>
+        <Navbar />
+        <main id="contenido" className="pt-16">
+          {children}
+        </main>
+        <Footer />
+        {gaValido && (
+          <>
+            <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaValido}`} strategy="afterInteractive" />
+            <Script id="ga-init" strategy="afterInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','${gaValido}');`}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );

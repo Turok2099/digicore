@@ -1,19 +1,37 @@
-import PricingHeader from "@/components/shared/PricingHeader";
-import PricingContent from "@/components/marketing/PricingContent";
-import PricingBottomNav from "@/components/shared/PricingBottomNav";
-import Navbar from "@/components/shared/Navbar";
+import type { Metadata } from "next";
+import Paquetes from "@/components/marketing/Paquetes";
+import Comparacion from "@/components/marketing/Comparacion";
+import Incluye from "@/components/marketing/Incluye";
+import Faq from "@/components/marketing/Faq";
+import ContactForm from "@/components/marketing/ContactForm";
+import { container } from "@/lib/ui";
 
-export default function PricingPage() {
-    return (
-        <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden pb-24 bg-background-dark font-display text-slate-100">
-            <div className="hidden md:block">
-                <Navbar />
-            </div>
-            <PricingHeader />
-            <div className="md:pt-20">
-                <PricingContent />
-            </div>
-            <PricingBottomNav />
+export const metadata: Metadata = {
+  title: "Paquetes y precios de sitios web | Digicore Studio",
+  description:
+    "Presencia desde $5,900 MXN + IVA y Profesional desde $14,900 MXN + IVA. Alcance, plazos, renovación anual y costos aparte, explicados antes de contratar.",
+  alternates: { canonical: "/planes" },
+};
+
+export default function PlanesPage() {
+  return (
+    <>
+      <section className="border-b border-border">
+        <div className={`${container} py-14 sm:py-20`}>
+          <h1 className="font-poppins text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
+            Paquetes y precios de sitios web
+          </h1>
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted">
+            Todo el alcance de cada paquete en un solo lugar: qué incluye, cuánto cuesta crearlo, cuánto cuesta
+            mantenerlo desde el segundo año y qué se cotiza por separado.
+          </p>
         </div>
-    );
+      </section>
+      <Paquetes formBase="/planes" enlaceDetalle={false} />
+      <Comparacion detalle />
+      <Incluye />
+      <Faq />
+      <ContactForm />
+    </>
+  );
 }

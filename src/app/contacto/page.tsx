@@ -1,18 +1,13 @@
-import Navigation from "@/components/shared/Navbar";
-import Footer from "@/components/shared/Footer";
-import LeadCaptureForm from "@/components/marketing/CTA";
+import type { Metadata } from "next";
+import ContactForm from "@/components/marketing/ContactForm";
+
+export const metadata: Metadata = {
+  title: "Solicitar propuesta de sitio web | Digicore Studio",
+  description:
+    "Cuéntanos qué haces y qué quieres presentar. Jorge Castro te responde por correo con el alcance, el total con impuestos y la cotización del dominio.",
+  alternates: { canonical: "/contacto" },
+};
 
 export default function ContactoPage() {
-  return (
-    <div className="bg-black text-white min-h-screen font-sans antialiased flex flex-col justify-between">
-      <Navigation />
-      
-      {/* Contact Content Area */}
-      <main className="flex-grow pt-28">
-        <LeadCaptureForm />
-      </main>
-
-      <Footer />
-    </div>
-  );
+  return <ContactForm />;
 }

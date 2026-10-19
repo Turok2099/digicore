@@ -1,128 +1,77 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { useState } from "react";
+import Link from "next/link";
+import { Menu, X } from "lucide-react";
+import Logo from "@/components/shared/Logo";
+import CtaLink from "@/components/ui/CtaLink";
+import { btnPrimary } from "@/lib/ui";
 
-export default function Navigation() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [mobileSolOpen, setMobileSolOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+const enlaces = [
+  { label: "Paquetes", href: "/planes" },
+  { label: "Cómo trabajamos", href: "/sitios-web#proceso" },
+  { label: "Preguntas", href: "/sitios-web#preguntas" },
+];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 40) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const logoTextColor = (isScrolled || isOpen) ? "text-white" : "text-black md:text-white";
-  const btnTextColor = (isScrolled || isOpen) ? "text-text-muted" : "text-black md:text-text-muted";
-  const navBgClass = (isScrolled || isOpen)
-    ? "bg-[#030303]/95 backdrop-blur-md border-b border-white/10" 
-    : "bg-[#030303]/80 backdrop-blur-md border-b border-white/10";
-
-  const soluciones = [
-    { label: "Posicionamiento SEO & Marketing", href: "/soluciones/posicionamiento-seo" },
-    { label: "Sitios Web Profesionales", href: "/soluciones/sitios-web-profesionales" },
-    { label: "E-commerce & Tiendas Online", href: "/soluciones/e-commerce" },
-    { label: "Pasarelas de Pago", href: "/soluciones/pasarelas-de-pago" },
-    { label: "Automatización de Procesos", href: "/soluciones/automatizacion-de-procesos" },
-  ];
+export default function Navbar() {
+  const [abierto, setAbierto] = useState(false);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 h-20 sm:h-28 flex items-center justify-between px-6 md:px-12 transition-all duration-300 ${navBgClass}`}>
-      
-      {/* Brand Logo (Left) */}
-      <a href="/" className="flex items-center gap-3.5 shrink-0">
-        <div className="w-[60px] h-[60px] sm:w-[96px] sm:h-[96px] rounded-full overflow-hidden flex items-center justify-center shrink-0">
-          <img src="/logo_DS.png" alt="Digicore Studio Logo" className="size-full object-cover" />
-        </div>
-        <span className="font-orbitron font-black tracking-wider text-sm sm:text-lg md:text-xl">
-          <span className="text-[#39FF14]">DIGICORE</span>
-          <span className="text-[#00E5FF] ml-1">STUDIO</span>
-        </span>
-      </a>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-bg/95 backdrop-blur">
+      <nav aria-label="Principal" className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
+        <Link href="/" aria-label="DigiCore Studio, inicio" onClick={() => setAbierto(false)}>
+          <Logo />
+        </Link>
 
-      {/* Desktop Nav Links (Aligned to the Right) */}
-      <div className="hidden md:flex items-center gap-8">
-        {/* Dropdown for Soluciones */}
-        <div className="relative group">
-          <button className="flex items-center gap-1.5 font-poppins text-base font-semibold text-[#F5F7FF]/80 hover:text-[#39FF14] transition-colors duration-200 py-2 cursor-pointer">
-            Soluciones
-            <ChevronDown className="size-4.5 group-hover:rotate-180 transition-transform duration-200" />
-          </button>
-          
-          {/* Dropdown Menu aligned to the right of the button */}
-          <div className="absolute top-full right-0 mt-1 w-64 bg-[#030303] border border-white/10 rounded-xl p-3 shadow-[0_15px_30px_rgba(0,0,0,0.8)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col gap-1 backdrop-blur-md">
-            {soluciones.map((sol) => (
-              <a
-                key={sol.label}
-                href={sol.href}
-                className="font-montserrat text-sm text-[#F5F7FF]/80 hover:text-[#39FF14] hover:bg-white/[0.04] px-3.5 py-2.5 rounded-lg transition-colors border border-transparent hover:border-white/5"
-              >
-                {sol.label}
-              </a>
-            ))}
-          </div>
-        </div>
-
-        <a href="/contacto" className="font-poppins text-base font-semibold text-[#F5F7FF]/80 hover:text-[#39FF14] transition-colors duration-200">
-          Contacto
-        </a>
-      </div>
-
-      {/* Mobile Menu Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden p-2 text-[#F5F7FF] hover:text-[#39FF14] transition-colors duration-300 shrink-0"
-        aria-label="Toggle Menu"
-      >
-        {isOpen ? <X className="size-6" /> : <Menu className="size-6" />}
-      </button>
-
-      {/* Mobile Drawer */}
-      {isOpen && (
-        <div className="absolute top-20 left-0 right-0 bg-[#030303]/95 backdrop-blur-md border-b border-white/10 flex flex-col p-6 gap-5 md:hidden animate-fade-in max-h-[calc(100vh-5rem)] overflow-y-auto">
-          {/* Soluciones Accordion */}
-          <div className="flex flex-col gap-2">
-            <button 
-              onClick={() => setMobileSolOpen(!mobileSolOpen)}
-              className="flex items-center justify-between font-poppins text-xl font-semibold text-[#F5F7FF]/80 hover:text-[#39FF14] w-full py-1 text-left"
+        <div className="hidden items-center gap-8 md:flex">
+          {enlaces.map((e) => (
+            <Link
+              key={e.href}
+              href={e.href}
+              className="font-poppins text-sm font-medium text-muted transition-colors hover:text-text"
             >
-              <span>Soluciones</span>
-              <ChevronDown className={`size-5 transition-transform duration-200 ${mobileSolOpen ? 'rotate-180 text-[#39FF14]' : ''}`} />
-            </button>
-            
-            {mobileSolOpen && (
-              <div className="flex flex-col pl-4 border-l border-white/10 gap-3 mt-2">
-                {soluciones.map((sol) => (
-                  <a
-                    key={sol.label}
-                    href={sol.href}
-                    onClick={() => setIsOpen(false)}
-                    className="font-montserrat text-base text-[#F5F7FF]/80 hover:text-[#39FF14] transition-colors py-1"
-                  >
-                    {sol.label}
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
+              {e.label}
+            </Link>
+          ))}
+          <CtaLink href="/contacto" ubicacion="navbar" className={`${btnPrimary} !min-h-10 !px-4 !py-2 !text-sm`}>
+            Solicitar propuesta
+          </CtaLink>
+        </div>
 
-          <a
-            href="/contacto"
-            onClick={() => setIsOpen(false)}
-            className="font-poppins text-xl font-semibold text-[#F5F7FF]/80 hover:text-[#39FF14] transition-colors py-1 border-t border-white/10 pt-3"
+        <div className="flex items-center gap-1 md:hidden">
+          <CtaLink href="/contacto" ubicacion="navbar_movil" className={`${btnPrimary} !min-h-10 !px-3 !py-2 !text-sm whitespace-nowrap`}>
+            Solicitar propuesta
+          </CtaLink>
+          <button
+            type="button"
+            onClick={() => setAbierto((v) => !v)}
+            aria-expanded={abierto}
+            aria-controls="menu-movil"
+            aria-label={abierto ? "Cerrar menú" : "Abrir menú"}
+            className="inline-flex size-11 items-center justify-center rounded-lg text-text hover:bg-surface"
           >
-            Contacto
-          </a>
+            {abierto ? <X className="size-6" /> : <Menu className="size-6" />}
+          </button>
+        </div>
+      </nav>
+
+      {abierto && (
+        <div id="menu-movil" className="border-t border-border bg-bg md:hidden">
+          <ul className="mx-auto flex max-w-6xl flex-col px-5 py-2">
+            {enlaces.map((e) => (
+              <li key={e.href}>
+                <Link
+                  href={e.href}
+                  onClick={() => setAbierto(false)}
+                  className="block py-3 font-poppins text-base font-medium text-text"
+                >
+                  {e.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
-    </nav>
+    </header>
   );
 }

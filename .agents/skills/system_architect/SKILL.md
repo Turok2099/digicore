@@ -11,7 +11,7 @@ Elegir la solución más simple que cumpla el requisito. Este proyecto es una la
 ## Estado actual
 - Base de datos: Neon con `@neondatabase/serverless` (`src/lib/db.ts`); tablas `leads` y `quiz_submissions`, creadas con `initDb()` desde las rutas API.
 - Correo: Resend (`src/lib/email.ts`); si falta la API key, el envío se omite con un aviso.
-- Rutas: `src/app/api/contacto` y `src/app/api/diagnostico`.
+- Ruta: `src/app/api/contacto` (la de diagnóstico se retiró; la tabla `quiz_submissions` sigue en `initDb()` sin uso).
 - No migrar base de datos, autenticación ni infraestructura (p. ej. a Supabase) sin necesidad explícita del encargo.
 
 ## Nivel de rigor según el cambio

@@ -1,150 +1,64 @@
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
+import CtaLink from "@/components/ui/CtaLink";
+import { btnPrimary, btnSecondary, container, hrefSolicitar } from "@/lib/ui";
+import { PAQUETES, PRECIO_INICIAL } from "@/lib/paquetes";
 
-export default function Hero() {
-  const heroImageUrl = "https://res.cloudinary.com/dxbtafe9u/image/upload/v1785445816/portada-3_oo0pom.svg";
+interface Props {
+  /** Página que contiene el formulario: "/contacto" o la propia página. */
+  formBase: string;
+}
+
+export default function Hero({ formBase }: Props) {
+  const presencia = PAQUETES[0];
 
   return (
-    <>
-      {/* Mobile Hero (lg:hidden) - Exact replica of reference design */}
-      <section 
-        className="lg:hidden relative w-full min-h-screen flex flex-col justify-center items-center px-6 pt-28 pb-12 bg-[#030303] text-[#F5F7FF] overflow-hidden"
-      >
-        {/* Background Neon Grid (Same as Desktop) */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff14_1px,transparent_1px),linear-gradient(to_bottom,#ffffff14_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_60%,transparent_100%)] animate-pulse-slow"></div>
+    <section className="border-b border-border">
+      <div className={`${container} grid gap-10 py-14 sm:py-20 lg:grid-cols-12 lg:items-center`}>
+        <div className="lg:col-span-7">
+          <p className="mb-4 font-poppins text-sm font-medium text-accent">
+            Sitios web para profesionistas y pequeños negocios en México
+          </p>
+          <h1 className="font-poppins text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
+            Un sitio web profesional, con alcance y precio claros
+          </h1>
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
+            Antes de contratar sabrás qué incluye, cuánto cuesta y qué pagarás después. Tu sitio lo diseña y desarrolla
+            Jorge Castro, fundador de Digicore Studio.
+          </p>
 
-        <div className="relative z-10 w-full max-w-md mx-auto flex flex-col items-stretch space-y-6 my-auto">
-          {/* Top Brand Header Block */}
-          <div className="w-full text-left">
-            <h2 className="font-orbitron text-4xl sm:text-5xl font-black text-[#39FF14] tracking-wider leading-none">
-              DIGICORE
-            </h2>
-            <h2 className="font-orbitron text-4xl sm:text-5xl font-black text-[#00E5FF] tracking-wider leading-none mt-1">
-              STUDIO
-            </h2>
-            
-            {/* Divider Line */}
-            <div className="w-full h-[1.5px] bg-[#F5F7FF]/40 my-3" />
-
-            <h1 className="font-poppins text-xs sm:text-sm font-bold text-[#39FF14] tracking-widest uppercase">
-              AGENCIA DE DESARROLLO WEB
-            </h1>
-          </div>
-
-          {/* Central Image Card with White Outline Frame */}
-          <div className="relative w-full my-2">
-            <div className="relative rounded-tl-[36px] rounded-tr-[16px] rounded-bl-[16px] rounded-br-[16px] border-2 border-white/90 p-2 bg-[#030303]/60 backdrop-blur-sm shadow-[0_15px_35px_rgba(0,0,0,0.6)]">
-              <img
-                src={heroImageUrl}
-                alt="Agencia de Desarrollo Web - Digicore Studio"
-                className="w-full h-auto object-contain rounded-tl-[28px] rounded-tr-[10px] rounded-bl-[10px] rounded-br-[10px]"
-              />
-            </div>
-          </div>
-
-          {/* Bottom Heading & Description Block */}
-          <div className="w-full text-right space-y-3 pt-2">
-            <h2 className="font-poppins text-2xl sm:text-3xl font-bold text-[#F5F7FF] leading-tight">
-              Páginas Web Profesionales <br />
-              <span className="text-[#00E5FF]">Soluciones a Medida</span>
-            </h2>
-            
-            <p className="font-montserrat text-sm text-[#F5F7FF]/90 font-medium leading-relaxed max-w-sm ml-auto">
-              En DigicoreStudio somos un equipo de expertos y desarrollo web. Creamos sitios ultra-rapidos optimizados para SEO y conversión.
-            </p>
-
-            {/* CTA Button in #00E5FF */}
-            <div className="pt-3 flex justify-end">
-              <a
-                href="#contacto"
-                className="h-14 px-6 bg-[#00E5FF] hover:bg-white text-black font-poppins font-extrabold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-[0_0_25px_rgba(0,229,255,0.45)] hover:shadow-[0_0_35px_rgba(0,229,255,0.65)] text-sm sm:text-base cursor-pointer"
-              >
-                Solicita tu propuesta gratuita
-                <ArrowRight className="size-4.5 text-black" />
-              </a>
-            </div>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <CtaLink href={hrefSolicitar(formBase)} ubicacion="hero" className={btnPrimary}>
+              Solicitar propuesta
+              <ArrowRight className="size-5" aria-hidden="true" />
+            </CtaLink>
+            <CtaLink href="/planes" ubicacion="hero_paquetes" className={btnSecondary}>
+              Ver paquetes y precios
+            </CtaLink>
           </div>
         </div>
-      </section>
 
-      {/* Desktop Hero (hidden lg:flex) */}
-      <section className="hidden lg:flex relative min-h-screen items-center justify-center pt-36 pb-20 px-6 md:px-12 overflow-hidden bg-[#030303] text-[#F5F7FF]">
-        {/* Background Neon Grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff14_1px,transparent_1px),linear-gradient(to_bottom,#ffffff14_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_60%,transparent_100%)] animate-pulse-slow"></div>
-
-        <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center my-auto">
-          {/* Left Column: Headline & Value Proposition */}
-          <div className="lg:col-span-7 flex flex-col justify-center space-y-6">
-            {/* Top Brand Header Block (Same style as Mobile) */}
-            <div className="w-full max-w-lg">
-              <h2 className="font-orbitron text-5xl md:text-6xl font-black text-[#39FF14] tracking-wider leading-none">
-                DIGICORE
-              </h2>
-              <h2 className="font-orbitron text-5xl md:text-6xl font-black text-[#00E5FF] tracking-wider leading-none mt-1">
-                STUDIO
-              </h2>
-              
-              {/* Divider Line */}
-              <div className="w-full h-[1.5px] bg-[#F5F7FF]/40 my-3" />
-
-              <h1 className="font-poppins text-sm md:text-base font-bold text-[#39FF14] tracking-widest uppercase">
-                AGENCIA DE DESARROLLO WEB
-              </h1>
-            </div>
-
-            <h2 className="font-poppins text-3xl sm:text-4xl md:text-5xl font-black text-[#F5F7FF] leading-[1.15] tracking-tight">
-              Páginas Web Profesionales{" "}
-              <span className="text-[#00E5FF]">
-                y Soluciones a Medida.
-              </span>
-            </h2>
-
-            <p className="font-montserrat text-xl text-[#F5F7FF]/80 max-w-xl leading-relaxed">
-              En DigicoreStudio somos un equipo de expertos y desarrollo web. Creamos sitios ultra-rápidos optimizados para SEO y conversión.
-            </p>
-
-            {/* Quick bullet points */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-              {[
-                "Páginas web optimizadas para conversión",
-                "SEO técnico e infraestructura ultra rápida",
-                "Integraciones de cobro, CRMs e IA 24/7",
-                "Soporte y mantenimiento continuo",
-              ].map((text, idx) => (
-                <div key={idx} className="flex items-center gap-2">
-                  <CheckCircle2 className="size-4.5 text-[#39FF14] shrink-0" />
-                  <span className="font-montserrat text-base font-semibold text-[#F5F7FF]">{text}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Action buttons */}
-            <div className="pt-4">
-              <a
-                href="#contacto"
-                className="h-16 px-8 bg-[#00E5FF] hover:bg-white text-black font-poppins font-extrabold rounded-lg inline-flex items-center justify-center gap-2 transition-all duration-300 shadow-[0_0_30px_rgba(0,229,255,0.45)] hover:shadow-[0_0_40px_rgba(0,229,255,0.65)] hover:-translate-y-0.5 text-base cursor-pointer"
-              >
-                Solicita tu propuesta gratuita
-                <ArrowRight className="size-5 text-black" />
-              </a>
-            </div>
-          </div>
-
-          {/* Right Column: Framed SVG Image with Slide-in Transition */}
-          <div className="lg:col-span-5 relative flex justify-center lg:justify-end animate-slide-in-right">
-            {/* Subtle glow behind the frame */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#00E5FF]/20 to-[#39FF14]/10 blur-3xl rounded-full pointer-events-none"></div>
-
-            {/* White/Cyan Outline Wrap Frame */}
-            <div className="relative w-full max-w-lg bg-[#030303]/60 border-2 border-white/80 rounded-tl-[40px] rounded-br-[20px] rounded-tr-[20px] rounded-bl-[20px] p-3 shadow-[0_20px_50px_rgba(0,0,0,0.8)] backdrop-blur-md overflow-hidden">
-              <img
-                src={heroImageUrl}
-                alt="Diseño Digicore Studio"
-                className="w-full h-auto rounded-tl-[30px] rounded-br-[12px] rounded-tr-[12px] rounded-bl-[12px] object-contain"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
+        <aside
+          aria-label={`Paquete ${presencia.nombre}`}
+          className="rounded-2xl border border-border bg-surface p-6 sm:p-8 lg:col-span-5"
+        >
+          <p className="font-poppins text-sm font-medium text-muted">Paquete {presencia.nombre}, desde</p>
+          <p className="mt-1 font-poppins text-4xl font-bold text-text">
+            {PRECIO_INICIAL} <span className="text-base font-medium text-muted">MXN + IVA</span>
+          </p>
+          <ul className="mt-6 space-y-3">
+            {presencia.resumen.map((t) => (
+              <li key={t} className="flex gap-3 text-base text-text">
+                <Check className="mt-1 size-4 shrink-0 text-success" aria-hidden="true" />
+                <span>{t}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 text-sm leading-relaxed text-muted">
+            El plazo cuenta desde el anticipo, con tus materiales y accesos completos. El dominio se cotiza por
+            separado.
+          </p>
+        </aside>
+      </div>
+    </section>
   );
 }
