@@ -59,14 +59,20 @@ export async function sendLeadNotification(data: ContactLeadData) {
   `;
 
   try {
-    await resend.emails.send({
+    const { data: resData, error: resError } = await resend.emails.send({
       from: fromEmail,
       to: [notificationEmail],
       subject: `🔥 Nuevo Lead: ${data.nombre} (${data.tipoNegocio || "Contacto"})`,
       html: htmlContent,
     });
+
+    if (resError) {
+      console.error("Resend API Error en sendLeadNotification:", resError);
+    } else {
+      console.log("Notificación por correo enviada con éxito:", resData);
+    }
   } catch (error) {
-    console.error("Error al enviar correo con Resend:", error);
+    console.error("Error imprevisto al enviar correo con Resend:", error);
   }
 }
 
@@ -145,13 +151,19 @@ export async function sendQuizNotification(data: QuizSubmissionData) {
   `;
 
   try {
-    await resend.emails.send({
+    const { data: resData, error: resError } = await resend.emails.send({
       from: fromEmail,
       to: [notificationEmail],
       subject: `⚡ Nuevo Diagnóstico Quiz: ${data.nombre}`,
       html: htmlContent,
     });
+
+    if (resError) {
+      console.error("Resend API Error en sendQuizNotification:", resError);
+    } else {
+      console.log("Notificación de diagnóstico enviada con éxito:", resData);
+    }
   } catch (error) {
-    console.error("Error al enviar correo con Resend:", error);
+    console.error("Error imprevisto al enviar correo con Resend:", error);
   }
 }

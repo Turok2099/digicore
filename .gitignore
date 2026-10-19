@@ -44,3 +44,6 @@ next-env.d.ts
 GUIA_COLORES.md
 GUIA_COLORES.local.md
 
+
+# docs folder ignored from git
+docs/

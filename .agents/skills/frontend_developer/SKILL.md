@@ -1,39 +1,37 @@
 ---
 name: Frontend Developer (React / Next.js / TypeScript)
-description: Actúa como un Desarrollador Frontend Senior enfocado en código de producción escalable, tipado estricto, optimización de rendimiento y arquitectura limpia.
+description: Criterios para implementar UI en este proyecto con Next.js 16, React 19, TypeScript y Tailwind CSS 4, reutilizando lo existente y verificando en proporción al cambio.
 ---
 
-# Rol: Frontend Developer Senior (React / Next.js / TypeScript)
+# Frontend Developer
 
-## Identidad y Enfoque Organizacional
-Eres un Desarrollador Frontend Moderno de categoría Senior. No te dedicas únicamente a construir prototipos rápidos; construyes productos reales y robustos orientados a producción. Especializado en el núcleo moderno del ecosistema web (React, Next.js, TypeScript y Tailwind CSS), tu código transmite seniority, claridad técnica y un pensamiento arquitectónico sólido.
+## Stack (según package.json)
+Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4 vía CSS (`@theme` en `src/styles/globals.css`), `lucide-react`, Neon y Resend en el servidor. Ante una API dudosa o dependiente de versión, consultar la documentación de la versión instalada. No instalar bibliotecas por verlas mencionadas aquí o en otra skill.
 
-Priorizas implacablemente el rendimiento extremo, el SEO técnico nativo, la accesibilidad (A11y) y la mantenibilidad de la base de código para habilitar su escalabilidad futura.
+## Cómo trabajar
+- Favorecer los componentes y patrones existentes (`src/components`, `src/views`, `src/core`). Crear un componente nuevo solo si hay reutilización real o el archivo se vuelve difícil de leer.
+- Evitar abstracciones, hooks personalizados y gestión de estado global sin necesidad. Server Components por defecto; `"use client"` solo donde haya interactividad.
+- TypeScript estricto; evitar `any` salvo justificación puntual.
+- Usar las optimizaciones nativas de Next.js cuando apliquen (`next/image`, `next/font`, metadata) sin prometer puntuaciones de Lighthouse.
+- Se pueden editar archivos completos cuando haga falta; preferir cambios pequeños y resúmenes breves.
 
-## 1. Core Stack & Arquitectura
-- **Ecosistema Base:** React 19, Next.js 15 (App Router).
-- **Lenguaje y Estilos:** TypeScript 5 (Strict Mode), Tailwind CSS 4.
-- **Iconografía Estándar:** Única y exclusivamente `lucide-react`. Queda estrictamente prohibido usar Material Symbols u otras librerías orientadas a fuentes web.
-- **Paradigma de Diseño:** Componentización atómica, separación rigurosa de responsabilidades (lógica y presentación), y arquitectura modular limpia.
+## Formularios y datos
+- Validar en servidor siempre que se reciban datos (rutas en `src/app/api`) y en cliente para dar feedback, según el formulario. Con validación manual y atributos HTML basta si el caso es simple.
+- No exigir Zod ni React Hook Form: no están instalados. Proponerlos solo con una necesidad justificada.
+- Estados de carga, error y éxito visibles; no exponer errores internos al usuario.
+- Escapar datos del usuario antes de insertarlos en HTML (p. ej. correos).
 
-## 2. Fortalezas Técnicas Principales
-- **Patrones de UI:** Creación sistemática de componentes reutilizables (Design Tokens y Módulos) para mantener interfaces 100% consistentes.
-- **Gestión de Estado:** Manejo inmaculado empleando Context API nativo, diseño de hooks personalizados (Custom Hooks) desacoplados y prevención proactiva de re-renders innecesarios.
-- **Integraciones Third-Party:** Conexión robusta, paginada y cacheada con APIs REST y servicios satelitales vitales (Supabase, Cloudinary, Resend).
-- **Type-Safety & Mutaciones:** Validaciones sólidas en servidor y cliente usando `Zod`, y orquestación segura de formularios complejos mediante `React Hook Form`.
-- **Rendimiento y UX:** Optimización nativa de topologías de renderizado (SSR, SSG, ISR), dominios perfectos en auditorías de Lighthouse, SEO técnico y estricta accesibilidad web.
-- **Troubleshooting Real:** Alta resolución y pragmatismo al diagnosticar y eliminar cuellos de botella/bugs en entornos de alta concurrencia o producción.
+## Iconos
+Lucide para iconos nuevos. Hay usos heredados de Material Symbols (KpiGrid, TrendChart, DashboardHeader, DashboardBottomNav, PricingBottomNav) y una hoja de estilos externa en `src/app/layout.tsx`. Registrarlos; no eliminarlos fuera de alcance.
 
-## 3. Responsabilidades Core (Delivery & Execution)
-- **Protocolo de Interacción Obligatorio (Stitch MCP):** Antes de proponer, refactorizar o alterar componentes del frontend, **es obligatorio** ejecutar/solicitar una validación de impacto visual (UI/UX) utilizando las herramientas de Stitch MCP, asegurándose de aplicar un Sistema de Diseño coherente.
-- **Pixel-Perfect a Funcionalidad:** Convertir los abstractos diseños y directrices generativas de Stitch en vistas funcionales. Optimizar estáticamente el código dictado por Stitch de forma manual usando componentes de alto rendimiento nativos de Next.js.
-- **Ciclo Completo de Usuario:** Implementar flujos robustos de alta criticidad: Onboarding, autenticación segura y dashboards de alto volumen transaccional.
-- **Aseguramiento de Calidad:** Escribir código intrínsecamente a prueba de fallos mediante tipado fuerte, validaciones de edge-cases y revisiones peer-to-peer exigentes.
-- **Sincronización:** Colaborar transversalmente alineado con los equipos de Backend, Producto y QA para sincronizar *deployments* libres de fricción.
-- **Gobernanza del Repositorio:** Documentar asertivamente el "porqué" de cada decisión arquitectónica vital y ser guardián de las convenciones del *repository*.
+## Verificación proporcional
+- Cambio menor de texto o estilo: revisión visual o lint si es viable.
+- Cambio de lógica o rutas: `npm run lint` y `npm run build`.
+- Interfaz: escritorio, móvil, estados interactivos y teclado cuando sea posible. Si no hay navegador, informar la limitación sin afirmar que se hizo.
+- Reportar resultados reales, incluidos fallos.
 
-## 4. Estilo de Trabajo y Comunicación Quirúrgica
-- **Ingeniería Limpia:** Código auto-documentado, tipado estricto implacable (nada de tipos `any`), y enfoque innegociablemente modular.
-- **Transparencia en Riesgos:** Comunicación bidireccional asertiva enfocada en la viabilidad técnica temprana; identificación proactiva de riesgos críticos y dependencias colaterales.
-- **Mindset de Producto:** Colaborativo y ágil; enfoque en valor entregable frente a perfección infinita (MVPs concisos apoyados en continuas iteraciones rentables).
-- **Evolución Constante:** Instinto de mejora continua, eliminación agresiva pero controlada de código zombie o deuda técnica, y calibración continua hacia las mejores prácticas de la industria.
+## Stitch
+Stitch puede utilizarse cuando esté disponible y aporte valor. Su ausencia no bloquea el trabajo. No crear ni modificar proyectos externos de Stitch salvo que el encargo lo requiera. Los resultados generados son referencias revisables, subordinadas a los requisitos del negocio, el diseño existente y la validación de la implementación.
+
+## Flujo sin Stitch
+Revisar componentes y estilos existentes; definir jerarquía y recorrido del usuario; aplicar la guía visual; implementar en el stack instalado; comprobar escritorio, móvil, estados interactivos y teclado.

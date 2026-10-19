@@ -1,18 +1,31 @@
-# Global AI Context & Token Optimization Rules
+# Contexto técnico del proyecto (Digicore Studio)
 
-## Stack Context
-- Core: Next.js 16 (App Router, Server Components), React 19, TypeScript.
-- Styling: Tailwind CSS v4 (Strictly use CSS-variables/CSS-driven configuration, DO NOT generate tailwind.config.js).
-- Icons: Lucide React.
-- Future Backend: Supabase (Prepare for client/server component architecture, clean service role vs anon client initialization).
+Proyecto mantenido por una sola persona. La fuente de verdad del stack es `package.json` y el código; estas reglas lo resumen y no lo sustituyen.
 
-## Token Optimization & Response Rules
-- DO NOT wrap code blocks in lengthy conversational pleasantries (e.g., "Sure, I can help with that...").
-- DO NOT rewrite entire files. Only output the specific functions, components, or lines that changed. Use comments like `// ... existing code ...` to indicate omitted parts.
-- Keep explanations strictly concise. Prioritize code delivery over prose.
-- When generating UI/UX elements, strictly follow the design tokens and architectural standards established in the project.
+## Stack actual
+- Next.js 16 (App Router), React 19, TypeScript.
+- Tailwind CSS 4 configurado por CSS (`src/styles/globals.css`, bloque `@theme`). No crear `tailwind.config.js`.
+- Iconos nuevos: `lucide-react`. Hay usos heredados de Material Symbols (ver `.agents/skills/frontend_developer/SKILL.md`).
+- Base de datos: Neon (`@neondatabase/serverless`, `src/lib/db.ts`). Correo: Resend (`src/lib/email.ts`).
+- Referencia visual: `GUIA_COLORES.md` (local, ignorado por git) y `src/styles/globals.css`.
+- No instalar dependencias por aparecer mencionadas en una skill o instrucción. Para APIs dudosas o dependientes de versión, consultar la documentación de la versión instalada.
+- No leer ni mostrar valores de archivos `.env*`.
 
-## Agent Orchestration
-- Respect the specialized behaviors defined in `.agents/skills/`. 
-- For frontend tasks and Tailwind v4 styling, align with the `frontend_developer` guidelines.
-- For architectural patterns and database design, defer to `system_architect`.
+## Forma de trabajar
+- Hacer el cambio más pequeño que cumpla el pedido; reutilizar componentes y patrones existentes.
+- Se pueden editar archivos completos cuando haga falta. Preferir cambios focalizados y resúmenes breves; no entregar archivos incompletos con marcadores tipo "...existing code...".
+- Sin prosa innecesaria: explicar qué cambió, qué se comprobó y qué queda pendiente.
+- No exigir delegación, varios agentes ni roles simulados en tareas sencillas. Las skills de `.agents/skills/` son guías de criterio que se consultan según el tema: `digicore_designer` (diseño), `frontend_developer` (código de UI), `seo_specialist` (SEO), `system_architect` (datos, integraciones, infraestructura), `landing_conversion` (consultar al crear o modificar landing, textos comerciales, formularios de captación o medición de oportunidades; no sustituye a las demás).
+- No pedir confirmación para decisiones rutinarias ya autorizadas. Sí confirmar acciones destructivas, migraciones, despliegues o cambios de infraestructura.
+- Si el código contradice estas instrucciones, documentarlo como pendiente; no corregirlo fuera del alcance del encargo.
+- Reportar solo comprobaciones realmente ejecutadas; si algo no se pudo verificar (p. ej. en navegador), decirlo.
+
+## Google Stitch (herramienta opcional)
+- Stitch puede utilizarse cuando esté disponible y aporte valor. Su ausencia no bloquea el trabajo. No crear ni modificar proyectos externos de Stitch salvo que el encargo lo requiera. Los resultados generados son referencias revisables, subordinadas a los requisitos del negocio, el diseño existente y la validación de la implementación.
+- Flujo de diseño/UI sin Stitch:
+  1. Revisar los componentes y estilos existentes.
+  2. Definir jerarquía de contenido y recorrido del usuario.
+  3. Aplicar la guía visual del proyecto.
+  4. Implementar en el stack instalado.
+  5. Comprobar escritorio, móvil, estados interactivos y navegación con teclado.
+  6. Si no es posible la revisión en navegador, informar la limitación sin afirmar que se realizó.
