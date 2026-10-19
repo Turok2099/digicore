@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Logo from "@/components/shared/Logo";
 import { container } from "@/lib/ui";
+import WhatsAppLink from "@/components/ui/WhatsAppLink";
+import { WHATSAPP_VISIBLE } from "@/lib/contacto";
 
 export default function Footer() {
   const anio = new Date().getFullYear();
@@ -39,6 +41,11 @@ export default function Footer() {
             <a href="mailto:contacto@digicorestudio.com" className="hover:text-text">
               contacto@digicorestudio.com
             </a>
+          </p>
+          <p className="mt-2 text-sm text-muted">
+            <WhatsAppLink ubicacion="pie" className="hover:text-text">
+              WhatsApp: {WHATSAPP_VISIBLE}
+            </WhatsAppLink>
           </p>
         </div>
       </div>

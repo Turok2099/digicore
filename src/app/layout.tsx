@@ -4,6 +4,7 @@ import Script from "next/script";
 import "../styles/globals.css";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
+import WhatsAppFloat from "@/components/shared/WhatsAppFloat";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -67,6 +68,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <WhatsAppFloat />
         {gaValido && (
           <>
             <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaValido}`} strategy="afterInteractive" />

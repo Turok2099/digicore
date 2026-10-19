@@ -14,6 +14,9 @@
   --color-on-accent: #0B0F14;
   --color-success: #39FF14;
   --color-danger: #FF8A8A;
+  /* Verde de marca de WhatsApp, solo para el botón de contacto. */
+  --color-whatsapp: #25D366;
+  --color-whatsapp-hover: #4FE08A;
   --color-border: #263140;
   /* Bordes de campos y controles: contraste mínimo 3:1 contra fondo y superficie. */
   --color-border-strong: #5F6F85;

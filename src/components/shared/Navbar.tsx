@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import Logo from "@/components/shared/Logo";
@@ -8,18 +8,31 @@ import CtaLink from "@/components/ui/CtaLink";
 import { btnPrimary } from "@/lib/ui";
 
 const enlaces = [
-  { label: "Paquetes", href: "/planes" },
-  { label: "Ads y marketing", href: "/servicios/ads-marketing-digital" },
-  { label: "Ecommerce", href: "/servicios/ecommerce" },
-  { label: "Preguntas", href: "/sitios-web#preguntas" },
+  { label: "Proyectos", href: "/#proyectos" },
+  { label: "Paquetes", href: "/#paquetes" },
+  { label: "Nuestro proceso", href: "/sitios-web#proceso" },
 ];
 
 export default function Navbar() {
   const [abierto, setAbierto] = useState(false);
+  const boton = useRef<HTMLButtonElement>(null);
+
+  // Escape cierra el menú móvil y devuelve el foco al botón.
+  useEffect(() => {
+    if (!abierto) return;
+    const alTeclear = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setAbierto(false);
+        boton.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", alTeclear);
+    return () => document.removeEventListener("keydown", alTeclear);
+  }, [abierto]);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-bg/95 backdrop-blur">
-      <nav aria-label="Principal" className="mx-auto flex h-16 sm:h-[72px] max-w-6xl items-center justify-between px-5 sm:px-8">
+      <nav aria-label="Principal" className="mx-auto flex h-16 sm:h-[72px] max-w-[1240px] items-center justify-between px-5 sm:px-8">
         <Link href="/" aria-label="DigiCore Studio, inicio" onClick={() => setAbierto(false)}>
           <Logo />
         </Link>
@@ -44,12 +57,13 @@ export default function Navbar() {
             Solicitar propuesta
           </CtaLink>
           <button
+            ref={boton}
             type="button"
             onClick={() => setAbierto((v) => !v)}
             aria-expanded={abierto}
             aria-controls="menu-movil"
             aria-label={abierto ? "Cerrar menú" : "Abrir menú"}
-            className="inline-flex size-11 items-center justify-center rounded-lg text-text hover:bg-surface"
+            className="inline-flex size-11 items-center justify-center rounded-lg text-text hover:bg-surface aria-expanded:bg-surface"
           >
             {abierto ? <X className="size-6" /> : <Menu className="size-6" />}
           </button>
@@ -58,13 +72,13 @@ export default function Navbar() {
 
       {abierto && (
         <div id="menu-movil" className="border-t border-border bg-bg lg:hidden">
-          <ul className="mx-auto flex max-w-6xl flex-col px-5 py-2">
+          <ul className="mx-auto flex max-w-[1240px] flex-col px-5 py-2">
             {enlaces.map((e) => (
               <li key={e.href}>
                 <Link
                   href={e.href}
                   onClick={() => setAbierto(false)}
-                  className="block py-3 font-poppins text-base font-medium text-text"
+                  className="block rounded-lg px-2 py-3 font-poppins text-base font-medium text-text hover:bg-surface"
                 >
                   {e.label}
                 </Link>
