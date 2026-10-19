@@ -16,14 +16,14 @@ export default function Hero({ formBase }: Props) {
       <div className={`${container} grid gap-10 py-14 sm:py-20 lg:grid-cols-12 lg:items-center`}>
         <div className="lg:col-span-7">
           <p className="mb-4 font-poppins text-sm font-medium text-accent">
-            Sitios web para profesionistas y pequeños negocios en México
+            Estrategia · Diseño · Desarrollo
           </p>
           <h1 className="font-poppins text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
             Un sitio web profesional, con alcance y precio claros
           </h1>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
-            Antes de contratar sabrás qué incluye, cuánto cuesta y qué pagarás después. Tu sitio lo diseña y desarrolla
-            Jorge Castro, fundador de Digicore Studio.
+            Somos un estudio de desarrollo web para pequeños negocios y profesionistas en México. Antes de contratar
+            sabrás qué incluye tu sitio, cuánto cuesta y qué pagarás después.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -54,8 +54,8 @@ export default function Hero({ formBase }: Props) {
             ))}
           </ul>
           <p className="mt-6 text-sm leading-relaxed text-muted">
-            El plazo cuenta desde el anticipo, con tus materiales y accesos completos. El dominio se cotiza por
-            separado.
+            Incluye el primer año de alojamiento estándar. El plazo cuenta desde el anticipo, con tus materiales y
+            accesos completos. El dominio se cotiza por separado.
           </p>
         </aside>
       </div>

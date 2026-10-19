@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { container, sectionY } from "@/lib/ui";
 import { PREGUNTAS } from "@/lib/paquetes";
@@ -18,7 +19,17 @@ export default function Faq() {
                   aria-hidden="true"
                 />
               </summary>
-              <p className="mt-3 leading-relaxed text-muted">{q.r}</p>
+              <p className="mt-3 leading-relaxed text-muted">
+                {q.r}
+                {q.href && (
+                  <>
+                    {" "}
+                    <Link href={q.href} className="font-medium text-accent hover:text-accent-hover">
+                      {q.enlace}
+                    </Link>
+                  </>
+                )}
+              </p>
             </details>
           ))}
         </div>

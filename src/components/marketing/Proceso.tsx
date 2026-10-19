@@ -6,9 +6,9 @@ export default function Proceso() {
     <section id="proceso" className={`${sectionY} scroll-mt-20`}>
       <div className={container}>
         <h2 className="font-poppins text-3xl font-semibold tracking-tight sm:text-4xl">
-          Cómo contratas y cómo se entrega
+          Nuestro proceso
         </h2>
-        <p className="mt-3 max-w-2xl text-lg text-muted">Seis pasos, con lo que pasa y lo que pagas en cada uno.</p>
+        <p className="mt-3 max-w-2xl text-lg text-muted">Seis pasos para contratar y recibir tu sitio, con lo que pasa y lo que pagas en cada uno.</p>
 
         <ol className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {PASOS.map((p, i) => (

@@ -15,8 +15,8 @@ export default function CtaBand() {
           <CtaLink href="/contacto#contacto" ubicacion="banda_final" className={btnPrimary}>
             Solicitar propuesta
           </CtaLink>
-          <CtaLink href="/sitios-web" ubicacion="banda_final_detalle" className={btnSecondary}>
-            Ver todo el detalle
+          <CtaLink href="/planes" ubicacion="banda_final_detalle" className={btnSecondary}>
+            Ver paquetes y precios
           </CtaLink>
         </div>
       </div>

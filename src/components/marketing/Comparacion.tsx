@@ -6,6 +6,8 @@ interface Props {
   detalle?: boolean;
 }
 
+const columnas = ["Presencia", "Profesional", "Crecimiento"];
+
 export default function Comparacion({ detalle = false }: Props) {
   const filas = COMPARACION.filter((f) => detalle || !f.detalle);
 
@@ -17,20 +19,37 @@ export default function Comparacion({ detalle = false }: Props) {
           Precios en MXN más IVA. Los plazos cuentan desde el anticipo, con materiales y accesos completos.
         </p>
 
-        <div className="mt-8 overflow-x-auto rounded-2xl border border-border bg-bg">
-          <table className="w-full min-w-[560px] border-collapse text-left text-base">
-            <caption className="sr-only">Comparación entre los paquetes Presencia y Profesional</caption>
+        {/* Móvil: una tarjeta por concepto */}
+        <dl className="mt-8 space-y-4 md:hidden">
+          {filas.map((f) => (
+            <div key={f.concepto} className="rounded-xl border border-border bg-bg p-4">
+              <dt className="font-poppins text-sm font-semibold text-accent">{f.concepto}</dt>
+              <dd className="mt-3 space-y-3">
+                {columnas.map((c, i) => (
+                  <p key={c}>
+                    <span className="block font-poppins text-xs font-semibold text-muted">{c}</span>
+                    {f.valores[i]}
+                  </p>
+                ))}
+              </dd>
+            </div>
+          ))}
+        </dl>
+
+        {/* Escritorio: tabla */}
+        <div className="mt-8 hidden overflow-x-auto rounded-2xl border border-border bg-bg md:block">
+          <table className="w-full border-collapse text-left text-base">
+            <caption className="sr-only">Comparación entre los paquetes Presencia, Profesional y Crecimiento</caption>
             <thead>
               <tr className="border-b border-border">
                 <th scope="col" className="p-4 font-poppins text-sm font-semibold text-muted">
                   Concepto
                 </th>
-                <th scope="col" className="p-4 font-poppins text-base font-semibold">
-                  Presencia
-                </th>
-                <th scope="col" className="p-4 font-poppins text-base font-semibold">
-                  Profesional
-                </th>
+                {columnas.map((c) => (
+                  <th key={c} scope="col" className="p-4 font-poppins text-base font-semibold">
+                    {c}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
@@ -39,8 +58,11 @@ export default function Comparacion({ detalle = false }: Props) {
                   <th scope="row" className="p-4 align-top font-poppins text-sm font-medium text-muted">
                     {f.concepto}
                   </th>
-                  <td className="p-4 align-top">{f.presencia}</td>
-                  <td className="p-4 align-top">{f.profesional}</td>
+                  {f.valores.map((v, i) => (
+                    <td key={columnas[i]} className="p-4 align-top">
+                      {v}
+                    </td>
+                  ))}
                 </tr>
               ))}
             </tbody>

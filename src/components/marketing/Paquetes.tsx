@@ -5,7 +5,7 @@ import { PAQUETES } from "@/lib/paquetes";
 
 interface Props {
   formBase: string;
-  /** Muestra el enlace al detalle en /planes (no aplica dentro de /planes). */
+  /** Muestra el encabezado y el enlace al detalle en /planes (no aplica dentro de /planes). */
   enlaceDetalle?: boolean;
 }
 
@@ -13,15 +13,19 @@ export default function Paquetes({ formBase, enlaceDetalle = true }: Props) {
   return (
     <section id="paquetes" className={`${sectionY} scroll-mt-20`}>
       <div className={container}>
-        <h2 className="font-poppins text-3xl font-semibold tracking-tight sm:text-4xl">
-          Elige el sitio que necesita tu práctica profesional
-        </h2>
-        <p className="mt-3 max-w-2xl text-lg text-muted">
-          Compara el costo inicial, lo que incluye y lo que pagarás después. Los precios son en pesos mexicanos más
-          IVA; el dominio se cotiza por separado.
-        </p>
+        {enlaceDetalle && (
+          <>
+            <h2 className="font-poppins text-3xl font-semibold tracking-tight sm:text-4xl">
+              Tres paquetes de sitio web, con alcance claro
+            </h2>
+            <p className="mt-3 max-w-2xl text-lg text-muted">
+              Los tres ofrecen calidad profesional y adaptación a celular; cambian el alcance y el acompañamiento.
+              Precios en pesos mexicanos más IVA; el dominio se cotiza por separado.
+            </p>
+          </>
+        )}
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
+        <div className={`${enlaceDetalle ? "mt-10" : ""} grid gap-6 lg:grid-cols-3`}>
           {PAQUETES.map((p) => (
             <article
               key={p.id}
@@ -42,9 +46,7 @@ export default function Paquetes({ formBase, enlaceDetalle = true }: Props) {
               <p className="mt-6 font-poppins text-4xl font-bold">
                 {p.creacion} <span className="text-base font-medium text-muted">MXN + IVA</span>
               </p>
-              <p className="mt-1 text-sm text-muted">
-                Creación. Desde el segundo año, renovación de alojamiento y correo: {p.renovacion} + IVA al año.
-              </p>
+              <p className="mt-1 text-sm text-muted">De creación. {p.posterior}</p>
 
               <ul className="mt-6 flex-1 space-y-3">
                 {p.resumen.map((t) => (
@@ -54,13 +56,14 @@ export default function Paquetes({ formBase, enlaceDetalle = true }: Props) {
                   </li>
                 ))}
               </ul>
+              {p.ejemplos && <p className="mt-4 text-sm text-muted">{p.ejemplos}</p>}
 
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-8">
                 <CtaLink
                   href={hrefSolicitar(formBase, p.id)}
                   ubicacion="tarjeta_paquete"
                   paquete={p.id}
-                  className={btnPrimary}
+                  className={`${btnPrimary} w-full`}
                 >
                   Solicitar {p.nombre}
                 </CtaLink>
@@ -71,7 +74,7 @@ export default function Paquetes({ formBase, enlaceDetalle = true }: Props) {
 
         {enlaceDetalle && (
           <p className="mt-8">
-            <CtaLink href="/planes" ubicacion="ver_alcance_completo" className={`${btnSecondary} !min-h-11`}>
+            <CtaLink href="/planes" ubicacion="ver_alcance_completo" className={`${btnSecondary} min-h-11!`}>
               Ver el alcance completo de cada paquete
             </CtaLink>
           </p>

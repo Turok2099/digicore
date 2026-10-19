@@ -46,7 +46,7 @@ export async function sendLeadNotification(data: SolicitudData): Promise<boolean
         ${fila("Correo", data.correo)}
         ${fila("Teléfono", data.telefono)}
         ${fila("Profesión o negocio", data.profesion)}
-        ${fila("Paquete de interés", data.paquete)}
+        ${fila("Servicio o paquete de interés", data.paquete)}
         ${fila("Mensaje", data.mensaje)}
         ${fila("Origen", data.origen)}
       </table>

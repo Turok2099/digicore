@@ -4,13 +4,15 @@ import Proyectos from "@/components/marketing/Proyectos";
 import Paquetes from "@/components/marketing/Paquetes";
 import Comparacion from "@/components/marketing/Comparacion";
 import Incluye from "@/components/marketing/Incluye";
-import Jorge from "@/components/marketing/Jorge";
+import Enfoque from "@/components/marketing/Enfoque";
+import Renovacion from "@/components/marketing/Renovacion";
+import OtrosServicios from "@/components/marketing/OtrosServicios";
 import Proceso from "@/components/marketing/Proceso";
 import Faq from "@/components/marketing/Faq";
 import ContactForm from "@/components/marketing/ContactForm";
 
 export const metadata: Metadata = {
-  title: "Páginas web para profesionistas y pequeños negocios | Digicore Studio",
+  title: "Páginas web para profesionistas | Digicore Studio",
   description:
     "Sitio web profesional desde $5,900 MXN + IVA. Compara paquetes, revisa qué incluye y qué se cotiza aparte, y solicita una propuesta con el total antes de contratar.",
   alternates: { canonical: "/sitios-web" },
@@ -24,9 +26,11 @@ export default function SitiosWebPage() {
       <Paquetes formBase="/sitios-web" />
       <Comparacion />
       <Incluye />
-      <Jorge />
+      <Renovacion />
+      <Enfoque />
       <Proceso />
       <Faq />
+      <OtrosServicios />
       <ContactForm />
     </>
   );

@@ -11,8 +11,7 @@ export default function Footer() {
         <div className="space-y-4">
           <Logo className="h-14 w-auto" />
           <p className="max-w-xs text-sm leading-relaxed text-muted">
-            Sitios web profesionales para profesionistas y pequeños negocios en México, con alcance y costos claros.
-            Desarrollados por Jorge Castro.
+            Estudio de desarrollo web para profesionistas y pequeños negocios en México. Estrategia, diseño y desarrollo con alcance y costos claros.
           </p>
         </div>
 
@@ -23,10 +22,10 @@ export default function Footer() {
               <Link href="/planes" className="hover:text-text">Paquetes y precios</Link>
             </li>
             <li>
-              <Link href="/sitios-web#proceso" className="hover:text-text">Cómo trabajamos</Link>
+              <Link href="/servicios/ads-marketing-digital" className="hover:text-text">Ads y marketing digital</Link>
             </li>
             <li>
-              <Link href="/sitios-web#preguntas" className="hover:text-text">Preguntas frecuentes</Link>
+              <Link href="/servicios/ecommerce" className="hover:text-text">Ecommerce</Link>
             </li>
             <li>
               <Link href="/contacto" className="hover:text-text">Solicitar propuesta</Link>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Check } from "lucide-react";
 import { container, sectionY } from "@/lib/ui";
 import { INCLUIDO_EN_TODOS, SE_COTIZA_APARTE } from "@/lib/paquetes";
@@ -27,7 +28,17 @@ export default function Incluye() {
             {SE_COTIZA_APARTE.map((i) => (
               <div key={i.titulo}>
                 <dt className="font-poppins text-base font-semibold">{i.titulo}</dt>
-                <dd className="mt-1 text-muted">{i.texto}</dd>
+                <dd className="mt-1 text-muted">
+                  {i.texto}
+                  {i.href && (
+                    <>
+                      {" "}
+                      <Link href={i.href} className="font-medium text-accent hover:text-accent-hover">
+                        {i.enlace}
+                      </Link>
+                    </>
+                  )}
+                </dd>
               </div>
             ))}
           </dl>

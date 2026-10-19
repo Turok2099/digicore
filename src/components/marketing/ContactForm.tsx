@@ -4,7 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { btnPrimary, container, sectionY } from "@/lib/ui";
-import { esPaqueteId } from "@/lib/paquetes";
+import { esInteresId } from "@/lib/paquetes";
 import { trackEvent } from "@/lib/analytics";
 
 type Estado = "idle" | "loading" | "success" | "error";
@@ -21,7 +21,7 @@ function Formulario() {
 
   useEffect(() => {
     const p = params.get("paquete");
-    if (esPaqueteId(p)) setPaquete(p);
+    if (esInteresId(p)) setPaquete(p);
   }, [params]);
 
   async function enviar(e: React.FormEvent<HTMLFormElement>) {
@@ -73,7 +73,7 @@ function Formulario() {
         <CheckCircle2 className="mx-auto size-10 text-success" aria-hidden="true" />
         <h3 className="mt-4 font-poppins text-2xl font-semibold">Recibimos tu solicitud</h3>
         <p className="mt-2 text-muted">
-          Jorge revisará tus datos y te escribirá al correo que indicaste con los siguientes pasos.
+          Revisaremos tus datos y te escribiremos al correo que indicaste con los siguientes pasos.
         </p>
       </div>
     );
@@ -121,10 +121,17 @@ function Formulario() {
           />
         </div>
         <div>
-          <label htmlFor="paquete" className={etiqueta}>Paquete de interés</label>
+          <label htmlFor="paquete" className={etiqueta}>Servicio o paquete de interés</label>
           <select id="paquete" name="paquete" value={paquete} onChange={(e) => setPaquete(e.target.value)} className={campo}>
-            <option value="presencia">Presencia: desde $5,900 + IVA</option>
-            <option value="profesional">Profesional: $14,900 + IVA</option>
+            <optgroup label="Sitios web">
+              <option value="presencia">Presencia: $5,900 + IVA</option>
+              <option value="profesional">Profesional: $14,900 + IVA</option>
+              <option value="crecimiento">Crecimiento: $22,900 + IVA y $3,900 + IVA al mes</option>
+            </optgroup>
+            <optgroup label="Otros servicios">
+              <option value="ads-marketing">Ads y marketing digital: cotización según alcance</option>
+              <option value="ecommerce">Ecommerce: cotización según alcance</option>
+            </optgroup>
             <option value="no-se">Aún no lo sé</option>
           </select>
         </div>
@@ -162,15 +169,18 @@ function Formulario() {
   );
 }
 
-export default function ContactForm() {
+export default function ContactForm({
+  titulo = "Solicita tu propuesta",
+  intro = "Cuéntanos qué haces y qué quieres presentar. Te responderemos por correo con el alcance, el total con impuestos y la cotización del dominio.",
+}: {
+  titulo?: string;
+  intro?: string;
+}) {
   return (
     <section id="contacto" className={`${sectionY} scroll-mt-20 border-t border-border`}>
       <div className={`${container} max-w-3xl`}>
-        <h2 className="font-poppins text-3xl font-semibold tracking-tight sm:text-4xl">Solicita tu propuesta</h2>
-        <p className="mt-3 text-lg text-muted">
-          Cuéntanos qué haces y qué quieres presentar. Jorge te responderá por correo con el alcance, el total con
-          impuestos y la cotización del dominio.
-        </p>
+        <h2 className="font-poppins text-3xl font-semibold tracking-tight sm:text-4xl">{titulo}</h2>
+        <p className="mt-3 text-lg text-muted">{intro}</p>
         <div className="mt-8">
           <Suspense fallback={<div className="h-96 rounded-2xl border border-border bg-surface" />}>
             <Formulario />

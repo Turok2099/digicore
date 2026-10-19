@@ -1,150 +1,254 @@
-// Fuente única del contenido comercial. Contrastado con docs/matriz-paquetes-digicore.md
-// y docs/contenido-paquetes-digicore.md (v4). Crecimiento no se publica hasta confirmar su modalidad.
+// Fuente única del contenido comercial de los sitios web (v5).
+// Documentación interna: docs/ (no se publica). No nombrar proveedores de infraestructura en el contenido público.
 
-export type PaqueteId = "presencia" | "profesional";
+export type PaqueteId = "presencia" | "profesional" | "crecimiento";
+export type InteresId = PaqueteId | "ads-marketing" | "ecommerce";
 
 export interface Paquete {
   id: PaqueteId;
   nombre: string;
   para: string;
   creacion: string;
-  renovacion: string;
+  /** Línea de costos posteriores mostrada en la tarjeta. */
+  posterior: string;
   recomendado?: boolean;
   resumen: string[];
+  ejemplos?: string;
 }
 
 export const PRECIO_INICIAL = "$5,900";
+export const RENOVACION = "$2,490";
 
 export const PAQUETES: Paquete[] = [
   {
     id: "presencia",
     nombre: "Presencia",
-    para: "Para tu primera página web profesional.",
+    para: "Para explicar tu oferta en una sola página y facilitar que te consulten.",
     creacion: "$5,900",
-    renovacion: "$2,490",
+    posterior: `Primer año de alojamiento estándar incluido. Desde el segundo año, desde ${RENOVACION} + IVA al año.`,
     resumen: [
       "Una página con hasta 6 secciones",
-      "Alojamiento y 1 correo empresarial durante 12 meses",
-      "WhatsApp y formulario con aviso a tu correo",
-      "Configuración inicial para buscadores",
+      "WhatsApp (si hay número confirmado) y formulario con notificación de solicitudes",
+      "Configuración inicial para buscadores y medición de solicitudes",
+      "Hasta 5 imágenes con licencia adecuada, si se necesitan",
       "Entrega estimada: 7 días hábiles",
     ],
+    ejemplos: "Ejemplos: un consultorio, un negocio local o una selección breve de productos con consultas por WhatsApp.",
   },
   {
     id: "profesional",
     nombre: "Profesional",
-    para: "Para explicar varios servicios por separado.",
+    para: "Para explicar varios servicios en páginas independientes.",
     creacion: "$14,900",
-    renovacion: "$3,490",
+    posterior: `Primer año de alojamiento estándar incluido. Desde el segundo año, desde ${RENOVACION} + IVA al año.`,
     recomendado: true,
     resumen: [
-      "Hasta 5 páginas según tus prioridades",
-      "Alojamiento y 2 correos empresariales durante 12 meses",
+      "Hasta 5 páginas",
+      "Contenido organizado y redactado a partir de tu información",
       "Formulario que identifica el servicio de interés",
-      "Textos redactados con la información que nos compartes",
+      "Optimización inicial de las páginas para buscadores",
+      "Analytics y Search Console cuando existan accesos y datos",
+      "Guía y llamada de entrega de 30 minutos",
       "Entrega estimada: 15 días hábiles",
+    ],
+  },
+  {
+    id: "crecimiento",
+    nombre: "Crecimiento",
+    para: "Para sumar contenido y mejora continua a tu sitio, con acompañamiento mensual.",
+    creacion: "$22,900",
+    posterior:
+      "Más $3,900 + IVA al mes desde la publicación. Alojamiento y mantenimiento técnico rutinario incluidos mientras la mensualidad esté activa.",
+    resumen: [
+      "Hasta 8 páginas, incluido el índice del blog",
+      "3 artículos iniciales y diseño personalizado dentro del alcance acordado",
+      "Cada mes: 2 artículos, revisión de métricas, 1 optimización de una página e informe",
+      "Hasta 1 hora total al mes de cambios de textos e imágenes",
+      "Entrega inicial estimada: 20 días hábiles",
     ],
   },
 ];
 
 export interface FilaComparacion {
   concepto: string;
-  presencia: string;
-  profesional: string;
+  /** Presencia, Profesional, Crecimiento. */
+  valores: [string, string, string];
   detalle?: boolean;
 }
 
 export const COMPARACION: FilaComparacion[] = [
-  { concepto: "Páginas", presencia: "Una página, hasta 6 secciones", profesional: "Hasta 5 páginas" },
-  { concepto: "Costo de creación", presencia: "$5,900 + IVA", profesional: "$14,900 + IVA" },
   {
-    concepto: "Alojamiento y correo",
-    presencia: "12 meses incluidos, 1 correo",
-    profesional: "12 meses incluidos, 2 correos",
+    concepto: "Páginas",
+    valores: ["Una página, hasta 6 secciones", "Hasta 5 páginas", "Hasta 8 páginas, incluido el índice del blog"],
+  },
+  { concepto: "Costo de creación", valores: ["$5,900 + IVA", "$14,900 + IVA", "$22,900 + IVA"] },
+  {
+    concepto: "Acompañamiento mensual",
+    valores: ["No incluido", "No incluido", "$3,900 + IVA al mes desde la publicación"],
+  },
+  {
+    concepto: "Alojamiento",
+    valores: [
+      "Primer año estándar incluido",
+      "Primer año estándar incluido",
+      "Incluido mientras la mensualidad esté activa",
+    ],
   },
   {
     concepto: "Desde el segundo año",
-    presencia: "$2,490 + IVA al año",
-    profesional: "$3,490 + IVA al año",
+    valores: [
+      `Desde ${RENOVACION} + IVA al año`,
+      `Desde ${RENOVACION} + IVA al año`,
+      "Sin renovación anual mientras la mensualidad esté activa",
+    ],
   },
   {
     concepto: "Contacto",
-    presencia: "WhatsApp y formulario con aviso por correo",
-    profesional: "WhatsApp y formulario con selección de servicio y aviso por correo",
+    valores: [
+      "WhatsApp (si hay número confirmado) y formulario con notificación",
+      "Formulario con selección de servicio y notificación",
+      "Formulario con medición de solicitudes",
+    ],
   },
-  { concepto: "Entrega estimada", presencia: "7 días hábiles", profesional: "15 días hábiles" },
+  { concepto: "Entrega estimada", valores: ["7 días hábiles", "15 días hábiles", "20 días hábiles"] },
   {
-    concepto: "Textos",
-    presencia: "Organizamos y corregimos la información que entregas",
-    profesional: "Redactamos a partir de la información que entregas",
+    concepto: "Contenido",
+    valores: [
+      "Organización y corrección del contenido que entregas",
+      "Organización y redacción a partir de tu información",
+      "3 artículos iniciales y 2 al mes, publicados tras tu aprobación",
+    ],
     detalle: true,
   },
-  { concepto: "Imágenes de banco con licencia", presencia: "Hasta 5", profesional: "Hasta 10", detalle: true },
+  {
+    concepto: "Diseño",
+    valores: [
+      "Estructura adaptada a tu identidad y materiales",
+      "Una página independiente por cada servicio prioritario",
+      "Personalizado dentro del alcance acordado",
+    ],
+    detalle: true,
+  },
+  {
+    concepto: "Imágenes con licencia adecuada",
+    valores: ["Hasta 5, si se necesitan", "Hasta 10, si hacen falta", "Hasta 15"],
+    detalle: true,
+  },
   {
     concepto: "Revisiones antes de publicar",
-    presencia: "2 rondas consolidadas",
-    profesional: "2 rondas consolidadas",
+    valores: ["2 rondas consolidadas", "2 rondas consolidadas", "3 rondas consolidadas del sitio"],
     detalle: true,
   },
   {
-    concepto: "Buscadores (SEO inicial)",
-    presencia: "1 servicio y 1 ubicación, página principal",
-    profesional: "Hasta 3 servicios y 1 ubicación, las 5 páginas",
+    concepto: "Buscadores y medición",
+    valores: [
+      "Configuración inicial y medición de solicitudes",
+      "Optimización inicial de las páginas; Analytics y Search Console cuando existan accesos y datos",
+      "Configuración y medición, más revisión mensual de métricas e incidencias",
+    ],
     detalle: true,
   },
   {
     concepto: "Google Business Profile",
-    presencia: "Se cotiza aparte",
-    profesional: "Configuración si tu negocio es elegible",
+    valores: [
+      "No incluido",
+      "Si el negocio es elegible; verificación sujeta a Google",
+      "Si el negocio es elegible; verificación sujeta a Google",
+    ],
     detalle: true,
   },
   {
-    concepto: "Capacitación",
-    presencia: "Guía de correo y medición",
-    profesional: "Guía y llamada de 30 minutos",
+    concepto: "Entrega y capacitación",
+    valores: ["Guía de entrega", "Guía y llamada de 30 minutos", "Guía y llamada de 60 minutos"],
+    detalle: true,
+  },
+  {
+    concepto: "Cambios después de publicar",
+    valores: [
+      "Se cotizan",
+      "Se cotizan",
+      "Hasta 1 hora total al mes, no acumulable, más la optimización mensual de una página",
+    ],
     detalle: true,
   },
   {
     concepto: "Corrección de defectos de entrega",
-    presencia: "30 días",
-    profesional: "30 días",
+    valores: ["30 días", "30 días", "30 días"],
+    detalle: true,
+  },
+  {
+    concepto: "No incluye",
+    valores: [
+      "Carrito, cobros, inventario, reservas, portal, blog ni catálogo extenso",
+      "Ecommerce, cuentas de usuarios, sistemas de gestión, reservas complejas ni integraciones personalizadas",
+      "Administración de Google Ads, inversión publicitaria, redes sociales, ecommerce, nuevas funciones ni integraciones a medida",
+    ],
     detalle: true,
   },
 ];
 
 export const INCLUIDO_EN_TODOS = [
-  "Diseño adaptado a celular, tableta y computadora",
+  "Calidad profesional y diseño adaptado a celular, tableta y computadora",
   "Tus colores, tu logotipo y tus imágenes",
   "Ícono del sitio y vista previa al compartir el enlace",
   "Página de error personalizada",
-  "Medición de clics en WhatsApp y de solicitudes recibidas por formulario, por separado",
+  "Medición separada de clics en WhatsApp (si aplica) y solicitudes recibidas por formulario",
   "Maquetación del aviso de privacidad con el contenido que entregues o valides",
   "Corrección de defectos de entrega durante 30 días",
 ];
 
-export const SE_COTIZA_APARTE = [
+export interface ItemAparte {
+  titulo: string;
+  texto: string;
+  href?: string;
+  enlace?: string;
+}
+
+export const SE_COTIZA_APARTE: ItemAparte[] = [
   {
     titulo: "Dominio",
     texto:
-      "Se registra a tu nombre en Hostinger. Te damos el precio de registro y de renovación antes de pagarlo; pueden ser distintos.",
+      "Registro y renovación se cotizan según el nombre, la extensión y la tarifa vigente. El importe se confirma antes de pagarlo y el dominio queda a tu nombre.",
+  },
+  {
+    titulo: "Correo empresarial",
+    texto:
+      "No viene incluido en los paquetes. Se cotiza como adicional si lo necesitas. El aviso de solicitudes del formulario es independiente de tu correo empresarial.",
   },
   {
     titulo: "Páginas y funciones adicionales",
     texto: "Si necesitas más páginas o funciones de las que incluye tu paquete, te cotizamos antes de empezar.",
   },
   {
-    titulo: "Blog y artículos",
-    texto: "Digicore los redacta y publica por ti. Se cotizan según la cantidad.",
-  },
-  {
     titulo: "Cambios después de la entrega",
     texto: "Pasados los 30 días de corrección de defectos, cada cambio se cotiza antes de hacerse.",
   },
   {
-    titulo: "Tienda en línea, cobros y automatizaciones",
-    texto:
-      "Son ampliaciones para quien las necesita. No están incluidas en Presencia ni en Profesional y se cotizan por separado.",
+    titulo: "Tienda en línea",
+    texto: "Catálogo, carrito y cobros en línea son un proyecto distinto, con cotización según alcance.",
+    href: "/servicios/ecommerce",
+    enlace: "Ver ecommerce",
   },
+  {
+    titulo: "Publicidad y marketing digital",
+    texto: "Campañas, conversiones y seguimiento se definen en una propuesta personalizada.",
+    href: "/servicios/ads-marketing-digital",
+    enlace: "Ver Ads y marketing digital",
+  },
+];
+
+export const RENOVACION_INCLUYE = [
+  "Alojamiento del sitio dentro de los recursos acordados",
+  "Gestión de la configuración del dominio y del certificado HTTPS",
+  "Una revisión técnica anual",
+];
+
+export const RENOVACION_NO_INCLUYE = [
+  "Cambios de contenido",
+  "Rediseño o nuevas funciones",
+  "Mantenimiento evolutivo",
+  "Correo empresarial",
+  "Atención ilimitada",
 ];
 
 export const PASOS = [
@@ -162,7 +266,7 @@ export const PASOS = [
   },
   {
     titulo: "Revisamos juntos",
-    texto: "Ves el avance y consolidas tus comentarios en 2 rondas de revisión.",
+    texto: "Ves el avance y consolidas tus comentarios en las rondas de revisión de tu paquete.",
   },
   {
     titulo: "Aprobación y publicación",
@@ -174,22 +278,29 @@ export const PASOS = [
   },
 ];
 
-export const PREGUNTAS = [
+export interface Pregunta {
+  p: string;
+  r: string;
+  href?: string;
+  enlace?: string;
+}
+
+export const PREGUNTAS: Pregunta[] = [
   {
     p: "¿Cuánto pago en total el primer año?",
-    r: "Presencia: $5,900 + IVA, que incluye alojamiento y un correo durante 12 meses. Profesional: $14,900 + IVA, con alojamiento y dos correos durante 12 meses. A eso se suma el dominio, que se cotiza por separado. En tu propuesta verás el total con impuestos antes de contratar.",
+    r: "Presencia: $5,900 + IVA. Profesional: $14,900 + IVA. Ambos incluyen el primer año de alojamiento estándar. Crecimiento: $22,900 + IVA de creación más $3,900 + IVA al mes desde la publicación. A cualquiera de ellos se suma el dominio, que se cotiza por separado, y el correo empresarial si lo necesitas. En tu propuesta verás el total con impuestos antes de contratar.",
   },
   {
-    p: "¿Y a partir del segundo año?",
-    r: "Renovar el alojamiento y los correos cuesta $2,490 + IVA al año en Presencia y $3,490 + IVA al año en Profesional, más la renovación del dominio. Cualquier otro costo se te explica y se acuerda antes de hacerse.",
+    p: "¿Qué incluye la renovación desde el segundo año?",
+    r: "En Presencia y Profesional, desde $2,490 + IVA al año. Es una tarifa de alojamiento administrado y gestión técnica básica: incluye el alojamiento del sitio dentro de los recursos acordados, la gestión de la configuración del dominio y del certificado HTTPS, y una revisión técnica anual. No incluye cambios de contenido, rediseño, nuevas funciones, mantenimiento evolutivo, correo empresarial ni atención ilimitada. Si tu sitio necesita más recursos, te lo explicamos y cotizamos antes de contratar. En Crecimiento no hay renovación anual mientras la mensualidad esté activa.",
   },
   {
     p: "¿El dominio está incluido?",
-    r: "No. Lo cotizamos en Hostinger según el nombre, la extensión y su disponibilidad, y se registra a tu nombre después de que apruebes el importe. La renovación se cotiza con su precio vigente, que puede ser distinto del de registro.",
+    r: "No. Registro y renovación se cotizan por separado según el nombre, la extensión y la tarifa vigente, y no prometemos un precio fijo de renovación. Se registra a tu nombre después de que apruebes el importe.",
   },
   {
-    p: "¿Quién desarrolla mi sitio?",
-    r: "Jorge Castro, fundador de Digicore Studio. Diseña y desarrolla cada sitio personalmente y es tu contacto directo durante el proyecto.",
+    p: "¿Incluyen correo empresarial?",
+    r: "No. Los paquetes no incluyen buzones de correo. Si lo necesitas, se cotiza como adicional. No lo confundas con el aviso del formulario: las solicitudes de tus clientes se te notifican al correo que indiques, sin necesidad de un buzón empresarial.",
   },
   {
     p: "¿Cuándo empieza a contar el plazo de entrega?",
@@ -197,22 +308,30 @@ export const PREGUNTAS = [
   },
   {
     p: "¿Puedo actualizar los textos yo mismo?",
-    r: "No. Estos paquetes no incluyen un panel de edición. Dentro de los primeros 30 días corregimos defectos de entrega; después, cada cambio se cotiza antes de hacerse.",
+    r: "No. Estos paquetes no incluyen un panel de edición. Dentro de los primeros 30 días corregimos defectos de entrega; después, cada cambio se cotiza antes de hacerse, salvo la hora mensual de cambios que incluye Crecimiento.",
   },
   {
     p: "¿Puedo cambiar de paquete más adelante?",
     r: "Sí. Revisamos qué se puede reutilizar y cotizamos el trabajo adicional antes de empezar. No siempre basta con pagar la diferencia de precios.",
   },
   {
+    p: "¿Qué pasa si cancelo el acompañamiento de Crecimiento?",
+    r: "Se cancela con 30 días de aviso. Al finalizar el periodo pagado cesan los artículos, las optimizaciones, los informes y los cambios. Si quieres que tu sitio siga alojado, la continuidad se ofrece desde $2,490 + IVA al año según los recursos del sitio y el blog, descontando cualquier periodo ya pagado para evitar doble cobro. El dominio se cotiza aparte. También puedes acordar la entrega o migración del sitio.",
+  },
+  {
     p: "¿El sitio garantiza clientes o posiciones en Google?",
     r: "No. Incluye el trabajo técnico y de contenido contratado para que tu sitio se entienda y se use bien. No garantizamos indexación, visitas, posiciones ni ventas.",
   },
   {
-    p: "¿Pueden hacer una tienda en línea o integrar pagos?",
-    r: "Sí, como ampliación. No forman parte de Presencia ni de Profesional y se cotizan por separado según lo que necesites.",
+    p: "¿Hacen tiendas en línea o administran publicidad?",
+    r: "Sí, como servicios independientes con cotización según alcance. No forman parte de ningún paquete de sitio web.",
+    href: "/servicios/ecommerce",
+    enlace: "Ver ecommerce",
   },
 ];
 
-export function esPaqueteId(v: string | null | undefined): v is PaqueteId {
-  return v === "presencia" || v === "profesional";
+const INTERESES: InteresId[] = ["presencia", "profesional", "crecimiento", "ads-marketing", "ecommerce"];
+
+export function esInteresId(v: string | null | undefined): v is InteresId {
+  return !!v && (INTERESES as string[]).includes(v);
 }

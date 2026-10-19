@@ -4,6 +4,9 @@ import { sendLeadNotification } from "@/lib/email";
 const PAQUETES: Record<string, string> = {
   presencia: "Presencia",
   profesional: "Profesional",
+  crecimiento: "Crecimiento",
+  "ads-marketing": "Ads y marketing digital",
+  ecommerce: "Ecommerce",
   "no-se": "Aún no lo sabe",
 };
 
@@ -31,7 +34,7 @@ export async function POST(req: Request) {
   const profesion = texto(body.profesion, 100);
   const telefono = texto(body.telefono, 20);
   const mensaje = texto(body.mensaje, 1000);
-  const paquete = PAQUETES[texto(body.paquete, 20)] ?? PAQUETES["no-se"];
+  const paquete = PAQUETES[texto(body.paquete, 30)] ?? PAQUETES["no-se"];
 
   if (nombre.length < 2) {
     return NextResponse.json({ error: "Escribe tu nombre." }, { status: 400 });

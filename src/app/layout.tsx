@@ -17,9 +17,9 @@ const poppins = Poppins({
   weight: ["500", "600", "700"],
 });
 
-const titulo = "Sitios web para profesionistas desde $5,900 MXN + IVA | Digicore Studio";
+const titulo = "Sitios web desde $5,900 MXN + IVA | Digicore Studio";
 const descripcion =
-  "Sitios web profesionales para profesionistas y pequeños negocios en México. Paquetes con alcance, plazos y costos posteriores claros, desarrollados por Jorge Castro.";
+  "Estudio de desarrollo web para profesionistas y pequeños negocios en México. Paquetes con alcance, plazos y costos posteriores claros.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://digicorestudio.com"),
@@ -55,7 +55,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es-MX">
-      <body className={`${montserrat.variable} ${poppins.variable} bg-bg font-montserrat text-text antialiased`}>
+      <body className={`${montserrat.variable} ${poppins.variable} flex min-h-dvh flex-col bg-bg font-montserrat text-text antialiased`}>
         <a
           href="#contenido"
           className="sr-only z-60 rounded-lg bg-accent px-4 py-2 font-poppins font-semibold text-on-accent focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
@@ -63,7 +63,7 @@ export default function RootLayout({
           Saltar al contenido
         </a>
         <Navbar />
-        <main id="contenido" className="pt-16">
+        <main id="contenido" className="flex-1 pt-16 sm:pt-[72px]">
           {children}
         </main>
         <Footer />
