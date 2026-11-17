@@ -10,10 +10,8 @@ const enlaceSecundario =
 interface Props {
   /** Importe base sin IVA, por ejemplo "$5,900". */
   precio: string;
-  /** Aclaración bajo el precio (dominio y costos posteriores) con su enlace a más detalle. */
+  /** Aclaración bajo el precio (dominio y costos posteriores) con su enlace a más detalle. Solo desde sm: en móvil el detalle vive en la sección de precios. */
   aclaracion: React.ReactNode;
-  /** Versión de una línea para móvil: el detalle completo vive en la sección de precios. */
-  aclaracionMovil?: React.ReactNode;
   cta: { href: string; ubicacion: string };
   secundario: { href: string; ubicacion: string; texto: string };
   /** Contenido extra que solo se muestra desde sm: en móvil resta espacio a la oferta y a la imagen. */
@@ -25,9 +23,9 @@ interface Props {
  * Jerarquía: oferta, explicación breve, precio, acción. El logo vive en el navbar.
  * WhatsAppFloat observa el id para no taparlo en móvil mientras se ve el hero.
  */
-export default function HeroOferta({ precio, aclaracion, aclaracionMovil, cta, secundario, extras }: Props) {
+export default function HeroOferta({ precio, aclaracion, cta, secundario, extras }: Props) {
   return (
-    <section id="hero-oferta" className="relative overflow-hidden border-b border-border">
+    <section id="hero-oferta" className="relative overflow-hidden sm:border-b sm:border-border">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -right-24 -top-24 size-[420px] rounded-full bg-accent/10 blur-3xl sm:size-[560px]"
@@ -35,7 +33,7 @@ export default function HeroOferta({ precio, aclaracion, aclaracionMovil, cta, s
       <div
         className={`${container} relative grid items-center gap-0 py-5 sm:gap-12 sm:py-14 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,1fr)] lg:gap-12 lg:py-20`}
       >
-        <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
+        <div className="flex flex-col items-start text-left">
           <p className="font-poppins text-xs font-medium tracking-[0.2em] text-muted sm:text-sm">
             DESARROLLO WEB EN MÉXICO
           </p>
@@ -52,18 +50,9 @@ export default function HeroOferta({ precio, aclaracion, aclaracionMovil, cta, s
               <span className="text-2xl font-bold text-text sm:text-3xl">{precio}</span> MXN + IVA
             </span>
           </p>
-          <p className="mt-0.5 text-sm text-muted sm:mt-1">
-            {aclaracionMovil ? (
-              <>
-                <span className="sm:hidden">{aclaracionMovil}</span>
-                <span className="hidden sm:inline">{aclaracion}</span>
-              </>
-            ) : (
-              aclaracion
-            )}
-          </p>
+          <p className="mt-1 hidden text-sm text-muted sm:block">{aclaracion}</p>
 
-          <div className="mt-3 flex w-full flex-col items-stretch gap-1 sm:mt-6 sm:w-auto sm:flex-row sm:items-center sm:gap-3">
+          <div className="mt-4 flex w-full flex-col items-stretch gap-1 sm:mt-6 sm:w-auto sm:flex-row sm:items-center sm:gap-3">
             <CtaLink href={cta.href} ubicacion={cta.ubicacion} className={btnPrimary}>
               Solicitar cotización
               <ArrowRight className="size-5" aria-hidden="true" />
@@ -87,6 +76,15 @@ export default function HeroOferta({ precio, aclaracion, aclaracionMovil, cta, s
             className="h-auto w-full"
           />
         </figure>
+      </div>
+
+      {/* Solo móvil: separador con la sección siguiente (en lugar de la línea completa). Decorativo. */}
+      <div aria-hidden="true" className={`${container} pb-2 pt-6 sm:hidden`}>
+        <div className="mx-auto grid max-w-xs grid-cols-[3fr_2fr_3fr] items-center gap-2">
+          <span className="h-px bg-border-strong/60" />
+          <span className="h-[3px] rounded-full bg-accent" />
+          <span className="h-px bg-border-strong/60" />
+        </div>
       </div>
     </section>
   );
