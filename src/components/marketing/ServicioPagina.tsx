@@ -62,7 +62,7 @@ export default function ServicioPagina({ s }: { s: Servicio }) {
           <h2 className="font-poppins text-3xl font-semibold tracking-tight sm:text-4xl">Nuestro proceso</h2>
           <ol className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {s.fases.map((f, i) => (
-              <li key={f.titulo} className="rounded-2xl border border-border bg-bg p-6">
+              <li key={f.titulo} className="revelar rounded-2xl border border-border bg-bg p-6">
                 <span className="font-poppins text-sm font-semibold text-accent">Fase {i + 1}</span>
                 <h3 className="mt-2 font-poppins text-lg font-semibold">{f.titulo}</h3>
                 <p className="mt-2 text-muted">{f.texto}</p>

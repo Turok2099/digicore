@@ -25,7 +25,7 @@ export default function Enfoque() {
         </h2>
         <ul className="mt-10 grid gap-5 md:grid-cols-3">
           {pilares.map((p) => (
-            <li key={p.titulo} className="rounded-2xl border border-border bg-bg p-6">
+            <li key={p.titulo} className="revelar rounded-2xl border border-border bg-bg p-6">
               <h3 className="font-poppins text-xl font-semibold">{p.titulo}</h3>
               <p className="mt-2 text-muted">{p.texto}</p>
             </li>

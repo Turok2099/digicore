@@ -5,9 +5,16 @@ const PAQUETES: Record<string, string> = {
   presencia: "Presencia",
   profesional: "Profesional",
   crecimiento: "Crecimiento",
+  "mayor-alcance": "Proyecto de mayor alcance",
   "ads-marketing": "Ads y marketing digital",
   ecommerce: "Ecommerce",
   "no-se": "Aún no lo sabe",
+};
+
+const SITIO_ACTUAL: Record<string, string> = {
+  no: "No tiene página web",
+  "si-renovar": "Tiene página web y quiere renovarla",
+  "si-ampliar": "Tiene página web y quiere ampliarla",
 };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -35,6 +42,7 @@ export async function POST(req: Request) {
   const telefono = texto(body.telefono, 20);
   const mensaje = texto(body.mensaje, 1000);
   const paquete = PAQUETES[texto(body.paquete, 30)] ?? PAQUETES["no-se"];
+  const sitioActual = SITIO_ACTUAL[texto(body.tiene_web, 20)] ?? "";
 
   if (nombre.length < 2) {
     return NextResponse.json({ error: "Escribe tu nombre." }, { status: 400 });
@@ -62,6 +70,7 @@ export async function POST(req: Request) {
   const detalle = [
     `Paquete: ${paquete}`,
     telefono && `Teléfono: ${telefono}`,
+    sitioActual && `Sitio web actual: ${sitioActual}`,
     mensaje && `Mensaje: ${mensaje}`,
     `Origen: ${origen}`,
   ]
@@ -81,7 +90,7 @@ export async function POST(req: Request) {
     console.error("Error al guardar la solicitud en la base de datos:", err);
   }
 
-  const avisado = await sendLeadNotification({ nombre, correo, telefono, profesion, paquete, mensaje, origen });
+  const avisado = await sendLeadNotification({ nombre, correo, telefono, profesion, paquete, sitioActual, mensaje, origen });
 
   // La solicitud no se pierde en silencio: si falla todo, el visitante lo sabe.
   if (!guardado && !avisado) {

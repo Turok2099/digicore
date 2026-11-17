@@ -29,7 +29,7 @@ export default function Paquetes({ formBase, enlaceDetalle = true }: Props) {
           {PAQUETES.map((p) => (
             <article
               key={p.id}
-              className={`flex flex-col rounded-2xl border bg-surface p-6 sm:p-8 ${
+              className={`flex flex-col revelar rounded-2xl border bg-surface p-6 sm:p-8 ${
                 p.recomendado ? "border-accent" : "border-border"
               }`}
             >

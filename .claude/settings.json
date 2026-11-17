@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e ' *)",
+      "Bash(grep -iE '\\\\.md$')",
+      "Bash(npx -y modern-web-guidance@latest search \"accordion disclosure details\" --skill-version 2026_11_10-47b4c80e)",
+      "Bash(npx -y modern-web-guidance@latest search \"form validation feedback\" --skill-version 2026_11_10-47b4c80e)",
+      "Bash(npx -y modern-web-guidance@latest search \"mobile navigation menu popover\" --skill-version 2026_11_10-47b4c80e)",
+      "Bash(npx -y modern-web-guidance@latest search \"scroll reveal animation\" --skill-version 2026_11_10-47b4c80e)",
+      "Bash(npx -y modern-web-guidance@latest search \"page transition navigation\" --skill-version 2026_11_10-47b4c80e)",
+      "Bash(npx -y modern-web-guidance@latest retrieve \"accordion,navbar,validate-input-after-interaction,accessible-error-announcement,scroll-entry-exit-effects,cross-document-transitions,navigation-drawer,viewport-aware-dropdowns\")",
+      "Bash(npm view *)",
+      "Bash(npx next *)",
+      "Bash(node shot.js despues)",
+      "Bash(node verify.js v)",
+      "Bash(node verify.js chk \"http://localhost:3000/\")",
+      "Bash(grep -c '\"waTapa\":{\"cta\":false,\"sec\":false,\"img\":false}')",
+      "Bash(curl -s -o /dev/null -w \"static 960: %{size_download} bytes\\\\n\" http://localhost:3000/brand/logo-digicore-960.webp)"
+    ]
+  }
+}

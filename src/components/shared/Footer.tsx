@@ -11,7 +11,7 @@ export default function Footer() {
     <footer className="border-t border-border bg-surface">
       <div className={`${container} grid gap-10 py-12 md:grid-cols-3`}>
         <div className="space-y-4">
-          <Logo className="h-14 w-auto" />
+          <Logo className="h-20 w-auto sm:h-24" sizes="(min-width: 640px) 260px, 216px" />
           <p className="max-w-xs text-sm leading-relaxed text-muted">
             Estudio de desarrollo web para profesionistas y pequeños negocios en México. Estrategia, diseño y desarrollo con alcance y costos claros.
           </p>
@@ -21,7 +21,10 @@ export default function Footer() {
           <h2 className="mb-4 font-poppins text-sm font-semibold text-text">Navegación</h2>
           <ul className="space-y-2 text-sm text-muted">
             <li>
-              <Link href="/planes" className="hover:text-text">Paquetes y precios</Link>
+              <Link href="/sitios-web" className="hover:text-text">Diseño de páginas web</Link>
+            </li>
+            <li>
+              <Link href="/planes"className="hover:text-text">Paquetes y precios</Link>
             </li>
             <li>
               <Link href="/servicios/ads-marketing-digital" className="hover:text-text">Ads y marketing digital</Link>

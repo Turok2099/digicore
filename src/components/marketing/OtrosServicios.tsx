@@ -42,7 +42,7 @@ export default function OtrosServicios() {
 
         <ul className="mt-10 grid gap-6 md:grid-cols-2">
           {servicios.map((s) => (
-            <li key={s.href} className="flex flex-col rounded-2xl border border-border bg-surface p-4 sm:p-5">
+            <li key={s.href} className="flex flex-col revelar rounded-2xl border border-border bg-surface p-4 sm:p-5">
               <Image
                 src={s.imagen}
                 alt={s.alt}

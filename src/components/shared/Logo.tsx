@@ -1,11 +1,23 @@
-/* eslint-disable @next/next/no-img-element -- SVG local ya optimizado; next/image no aporta aquí */
-export default function Logo({ className = "h-10 w-auto min-[400px]:h-11 sm:h-14" }: { className?: string }) {
+import Image from "next/image";
+
+// Logo con fondo transparente y letras claras: pensado para fondos oscuros.
+export default function Logo({
+  className = "h-12 w-auto sm:h-14",
+  priority = false,
+  sizes = "(min-width: 640px) 152px, 130px",
+}: {
+  className?: string;
+  priority?: boolean;
+  sizes?: string;
+}) {
   return (
-    <img
-      src="/brand/DigiCore-Studio-transparente.svg"
+    <Image
+      src="/brand/logo-digicore-960.webp"
       alt="DigiCore Studio"
-      width={1210}
-      height={430}
+      width={1989}
+      height={791}
+      sizes={sizes}
+      priority={priority}
       className={className}
     />
   );

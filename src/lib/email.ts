@@ -12,6 +12,7 @@ export interface SolicitudData {
   telefono?: string;
   profesion?: string;
   paquete?: string;
+  sitioActual?: string;
   mensaje?: string;
   origen?: string;
 }
@@ -47,6 +48,7 @@ export async function sendLeadNotification(data: SolicitudData): Promise<boolean
         ${fila("Teléfono", data.telefono)}
         ${fila("Profesión o negocio", data.profesion)}
         ${fila("Servicio o paquete de interés", data.paquete)}
+        ${fila("Sitio web actual", data.sitioActual)}
         ${fila("Mensaje", data.mensaje)}
         ${fila("Origen", data.origen)}
       </table>

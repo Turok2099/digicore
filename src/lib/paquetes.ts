@@ -2,7 +2,7 @@
 // Documentación interna: docs/ (no se publica). No nombrar proveedores de infraestructura en el contenido público.
 
 export type PaqueteId = "presencia" | "profesional" | "crecimiento";
-export type InteresId = PaqueteId | "ads-marketing" | "ecommerce";
+export type InteresId = PaqueteId | "mayor-alcance" | "ads-marketing" | "ecommerce";
 
 export interface Paquete {
   id: PaqueteId;
@@ -330,7 +330,7 @@ export const PREGUNTAS: Pregunta[] = [
   },
 ];
 
-const INTERESES: InteresId[] = ["presencia", "profesional", "crecimiento", "ads-marketing", "ecommerce"];
+const INTERESES: InteresId[] = ["presencia", "profesional", "crecimiento", "mayor-alcance", "ads-marketing", "ecommerce"];
 
 export function esInteresId(v: string | null | undefined): v is InteresId {
   return !!v && (INTERESES as string[]).includes(v);

@@ -17,7 +17,7 @@ export default function Proyectos() {
 
         <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {PROYECTOS.map((p) => (
-            <li key={p.nombre} className="overflow-hidden rounded-2xl border border-border bg-surface">
+            <li key={p.nombre} className="revelar overflow-hidden rounded-2xl border border-border bg-surface">
               <Image
                 src={p.imagen}
                 alt={p.imagenAlt}

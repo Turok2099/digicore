@@ -12,7 +12,7 @@ export default function Proceso() {
 
         <ol className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {PASOS.map((p, i) => (
-            <li key={p.titulo} className="rounded-2xl border border-border bg-surface p-6">
+            <li key={p.titulo} className="revelar rounded-2xl border border-border bg-surface p-6">
               <span className="font-poppins text-sm font-semibold text-accent">Paso {i + 1}</span>
               <h3 className="mt-2 font-poppins text-lg font-semibold">{p.titulo}</h3>
               <p className="mt-2 text-muted">{p.texto}</p>
