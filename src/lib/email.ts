@@ -2,7 +2,9 @@ import { Resend } from "resend";
 
 const resendApiKey = process.env.RESEND_API_KEY;
 const notificationEmail = process.env.NOTIFICATION_EMAIL || "contacto@digicorestudio.com";
-const fromEmail = process.env.FROM_EMAIL || "Digicore Studio <onboarding@resend.dev>";
+// Remitente de las notificaciones. Requiere el dominio digicorestudio.com verificado en Resend (SPF/DKIM).
+// El destinatario (NOTIFICATION_EMAIL) necesita un buzón real: Resend solo envía, no recibe respuestas.
+const fromEmail = process.env.FROM_EMAIL || "Digicore Studio <contacto@digicorestudio.com>";
 
 export const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
@@ -17,6 +19,8 @@ export interface SolicitudData {
   origen?: string;
 }
 
+export type ResultadoEnvio = { ok: true } | { ok: false; motivo: string };
+
 function esc(valor: string | undefined): string {
   return (valor ?? "")
     .replace(/&/g, "&amp;")
@@ -26,12 +30,12 @@ function esc(valor: string | undefined): string {
     .replace(/'/g, "&#39;");
 }
 
-/** Devuelve true solo si Resend confirma el envío. Nunca lanza. */
-export async function sendLeadNotification(data: SolicitudData): Promise<boolean> {
-  if (!resend) {
-    console.warn("RESEND_API_KEY no está configurada. Envío de correo omitido.");
-    return false;
-  }
+/**
+ * Envía la notificación. Solo devuelve `ok` si Resend lo confirma. Nunca lanza y `motivo` no contiene datos
+ * personales. `idempotencia` evita que Resend duplique el correo si se reintenta la misma solicitud.
+ */
+export async function sendLeadNotification(data: SolicitudData, idempotencia?: string): Promise<ResultadoEnvio> {
+  if (!resend) return { ok: false, motivo: "RESEND_API_KEY no configurada" };
 
   const fila = (etiqueta: string, valor: string | undefined) =>
     valor
@@ -40,8 +44,8 @@ export async function sendLeadNotification(data: SolicitudData): Promise<boolean
 
   const html = `
     <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:24px;color:#101828;">
-      <h2 style="margin:0 0 4px;color:#0B0F14;">Nueva solicitud de propuesta</h2>
-      <p style="margin:0 0 20px;color:#667085;font-size:14px;">Recibida desde el sitio de Digicore Studio</p>
+      <h2 style="margin:0 0 4px;color:#0B0F14;">Nueva solicitud de cotización</h2>
+      <p style="margin:0 0 20px;color:#667085;font-size:14px;">Recibida desde el sitio de Digicore Studio. Responder a este correo escribe al prospecto.</p>
       <table style="width:100%;border-collapse:collapse;text-align:left;font-size:15px;">
         ${fila("Nombre", data.nombre)}
         ${fila("Correo", data.correo)}
@@ -56,21 +60,20 @@ export async function sendLeadNotification(data: SolicitudData): Promise<boolean
   `;
 
   try {
-    const { error } = await resend.emails.send({
-      from: fromEmail,
-      to: [notificationEmail],
-      replyTo: data.correo,
-      subject: `Nueva solicitud de propuesta: ${data.nombre}${data.paquete ? ` (${data.paquete})` : ""}`.replace(/[\r\n]+/g, " "),
-      html,
-    });
-
-    if (error) {
-      console.error("Resend API Error en sendLeadNotification:", error);
-      return false;
-    }
-    return true;
+    const { error } = await resend.emails.send(
+      {
+        from: fromEmail,
+        to: [notificationEmail],
+        // Responder desde el buzón llega al correo ya validado del prospecto.
+        replyTo: data.correo,
+        subject: `Nueva solicitud de cotización: ${data.nombre}${data.paquete ? ` (${data.paquete})` : ""}`.replace(/[\r\n]+/g, " "),
+        html,
+      },
+      idempotencia ? { idempotencyKey: idempotencia } : undefined
+    );
+    if (error) return { ok: false, motivo: `Resend: ${error.name ?? "error"}`.slice(0, 100) };
+    return { ok: true };
   } catch (err) {
-    console.error("Error imprevisto al enviar correo con Resend:", err);
-    return false;
+    return { ok: false, motivo: `Excepción: ${err instanceof Error ? err.name : "desconocida"}` };
   }
 }

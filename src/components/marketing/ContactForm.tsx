@@ -7,6 +7,7 @@ import { btnPrimary, container, sectionY } from "@/lib/ui";
 import WhatsAppLink from "@/components/ui/WhatsAppLink";
 import { CORREO_CONTACTO, WHATSAPP_VISIBLE } from "@/lib/contacto";
 import { esInteresId } from "@/lib/paquetes";
+import { obtenerOrigen, paqueteRecordado } from "@/lib/atribucion";
 import { trackEvent } from "@/lib/analytics";
 import { useErroresFormulario } from "@/lib/use-errores-formulario";
 
@@ -37,6 +38,10 @@ function Formulario({ variante }: { variante?: Variante }) {
   const [anuncio, setAnuncio] = useState("");
   const formulario = useRef<HTMLFormElement>(null);
   const exito = useRef<HTMLDivElement>(null);
+  // Bloqueo síncrono contra doble clic (el estado de React tarda un render en reflejarse).
+  const enviando = useRef(false);
+  // Mismo identificador en cada reintento de este envío: el servidor no duplica la solicitud.
+  const idSolicitud = useRef<string | null>(null);
 
   useErroresFormulario(formulario, setAnuncio);
 
@@ -46,24 +51,20 @@ function Formulario({ variante }: { variante?: Variante }) {
   }, [estado]);
 
   useEffect(() => {
-    const p = params.get("paquete");
+    // El parámetro de la URL manda; si no hay, se usa el paquete del último CTA pulsado.
+    const p = params.get("paquete") ?? paqueteRecordado();
     if (esInteresId(p)) setPaquete(p);
   }, [params]);
 
   async function enviar(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (estado === "loading") return;
+    if (enviando.current) return;
+    enviando.current = true;
     const form = new FormData(e.currentTarget);
     setEstado("loading");
     setError(null);
-
-    const origen = {
-      pagina: window.location.pathname,
-      utm_source: params.get("utm_source") ?? "",
-      utm_medium: params.get("utm_medium") ?? "",
-      utm_campaign: params.get("utm_campaign") ?? "",
-      utm_term: params.get("utm_term") ?? "",
-    };
+    idSolicitud.current ??= crypto.randomUUID();
+    const pagina = window.location.pathname;
 
     try {
       const res = await fetch("/api/contacto", {
@@ -78,19 +79,29 @@ function Formulario({ variante }: { variante?: Variante }) {
           paquete,
           mensaje: form.get("mensaje"),
           sitio_web: form.get("sitio_web"),
-          origen,
+          id_solicitud: idSolicitud.current,
+          pagina,
+          atribucion: obtenerOrigen(),
         }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.success) {
-        throw new Error(data.error || "No pudimos enviar tu solicitud. Intenta de nuevo.");
+        throw new Error(
+          res.status === 429 || typeof data.error === "string"
+            ? data.error
+            : "No pudimos enviar tu solicitud. Intenta de nuevo."
+        );
       }
-      // Solo se mide cuando el servidor confirma la recepción. Sin datos personales.
-      trackEvent("generate_lead", { paquete, pagina: origen.pagina });
+      // Conversión solo si el servidor guardó una solicitud válida nueva (no bots, no reintentos). Sin datos personales.
+      if (data.medir === true) trackEvent("generate_lead", { paquete, pagina });
+      idSolicitud.current = null;
       setEstado("success");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "No pudimos enviar tu solicitud. Intenta de nuevo.");
+      // El identificador se conserva: un reintento no duplica la solicitud.
+      setError(err instanceof Error && err.message ? err.message : "No pudimos enviar tu solicitud. Intenta de nuevo.");
       setEstado("error");
+    } finally {
+      enviando.current = false;
     }
   }
 
@@ -225,6 +236,20 @@ function Formulario({ variante }: { variante?: Variante }) {
         </p>
       )}
 
+      <p className="text-sm leading-relaxed text-muted">
+        Usamos tus datos para responder tu solicitud, como se explica en el{" "}
+        {/* Pestaña nueva: así no se pierde lo que ya escribiste en el formulario. */}
+        <a
+          href="/aviso-de-privacidad"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-accent underline underline-offset-2 hover:text-accent-hover"
+        >
+          aviso de privacidad<span className="sr-only"> (se abre en una pestaña nueva)</span>
+        </a>
+        .
+      </p>
+
       <button type="submit" disabled={estado === "loading"} className={`${btnPrimary} w-full disabled:opacity-70`}>
         {estado === "loading" ? (
           <>
@@ -232,13 +257,12 @@ function Formulario({ variante }: { variante?: Variante }) {
             Enviando...
           </>
         ) : (
-          dw ? "Solicitar cotización" : "Solicitar propuesta"
+          "Solicitar cotización"
         )}
       </button>
 
       <p className="text-sm leading-relaxed text-muted">
-        Usamos tus datos únicamente para responder esta solicitud. {dw ? "Recibirás una cotización" : "Recibirás una propuesta"}; no es una cita ni un
-        compromiso de compra.
+        Recibirás una cotización; no es una cita ni un compromiso de compra.
       </p>
     </form>
   );
@@ -248,7 +272,10 @@ export default function ContactForm({
   titulo = "Solicita tu propuesta",
   intro = "Cuéntanos qué haces y qué quieres presentar. Te responderemos por correo con el alcance, el total con impuestos y la cotización del dominio.",
   variante,
+  comoH1 = false,
 }: {
+  /** Convierte el título en el H1 de la página (solo /contacto). En el resto del sitio es un H2. */
+  comoH1?: boolean;
   titulo?: string;
   intro?: string;
   /** Textos y opciones propios de la página de desarrollo web. Sin valor, el formulario no cambia. */
@@ -257,7 +284,11 @@ export default function ContactForm({
   return (
     <section id="contacto" className={`${sectionY} scroll-mt-20 border-t border-border`}>
       <div className={`${container} max-w-3xl`}>
-        <h2 className="font-poppins text-3xl font-semibold tracking-tight sm:text-4xl">{titulo}</h2>
+        {comoH1 ? (
+          <h1 className="font-poppins text-3xl font-semibold tracking-tight sm:text-4xl">{titulo}</h1>
+        ) : (
+          <h2 className="font-poppins text-3xl font-semibold tracking-tight sm:text-4xl">{titulo}</h2>
+        )}
         <p className="mt-3 text-lg text-muted">{intro}</p>
         <div className="mt-8">
           <Suspense fallback={<div className="h-96 rounded-2xl border border-border bg-surface" />}>

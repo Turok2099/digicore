@@ -1,104 +1,90 @@
 import { NextResponse } from "next/server";
-import { sendLeadNotification } from "@/lib/email";
+import { LIMITES, validarSolicitud } from "@/lib/solicitud-schema";
+import {
+  asegurarEsquema,
+  consumirLimite,
+  existente,
+  guardarSolicitud,
+  ipDelVisitante,
+  notificarSolicitud,
+} from "@/lib/solicitudes";
 
-const PAQUETES: Record<string, string> = {
-  presencia: "Presencia",
-  profesional: "Profesional",
-  crecimiento: "Crecimiento",
-  "mayor-alcance": "Proyecto de mayor alcance",
-  "ads-marketing": "Ads y marketing digital",
-  ecommerce: "Ecommerce",
-  "no-se": "Aún no lo sabe",
-};
+export const dynamic = "force-dynamic";
 
-const SITIO_ACTUAL: Record<string, string> = {
-  no: "No tiene página web",
-  "si-renovar": "Tiene página web y quiere renovarla",
-  "si-ampliar": "Tiene página web y quiere ampliarla",
-};
+/**
+ * Contrato de respuesta:
+ *  - 200 { success: true, medir: boolean }  solicitud aceptada. `medir` indica si el cliente debe registrar la
+ *    conversión: solo es true la primera vez que una solicitud válida queda guardada.
+ *  - 400 { error }  datos inválidos · 429 { error, retry_after } límite · 503/500 { error } fallo al guardar.
+ * Las respuestas no incluyen datos personales ni detalles internos.
+ */
+const json = (cuerpo: Record<string, unknown>, status = 200, cabeceras?: HeadersInit) =>
+  NextResponse.json(cuerpo, { status, headers: { "Cache-Control": "no-store", ...cabeceras } });
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
-function texto(valor: unknown, max: number): string {
-  return typeof valor === "string" ? valor.trim().slice(0, max) : "";
-}
+const ERROR_GUARDADO = "No pudimos registrar tu solicitud. Intenta de nuevo en unos minutos o escríbenos a contacto@digicorestudio.com.";
 
 export async function POST(req: Request) {
-  let body: Record<string, unknown>;
+  if (!(req.headers.get("content-type") ?? "").toLowerCase().includes("application/json")) {
+    return json({ error: "Solicitud no válida." }, 415);
+  }
+
+  let cuerpo: unknown;
   try {
-    body = await req.json();
+    const texto = await req.text();
+    if (texto.length > LIMITES.cuerpoBytes) return json({ error: "Solicitud no válida." }, 413);
+    cuerpo = JSON.parse(texto);
   } catch {
-    return NextResponse.json({ error: "Solicitud no válida." }, { status: 400 });
+    return json({ error: "Solicitud no válida." }, 400);
   }
 
-  // Campo trampa: si un bot lo llena, se responde como éxito sin guardar nada.
-  if (texto(body.sitio_web, 200)) {
-    return NextResponse.json({ success: true });
-  }
+  const resultado = validarSolicitud(cuerpo);
 
-  const nombre = texto(body.nombre, 100);
-  const correo = texto(body.correo, 254);
-  const profesion = texto(body.profesion, 100);
-  const telefono = texto(body.telefono, 20);
-  const mensaje = texto(body.mensaje, 1000);
-  const paquete = PAQUETES[texto(body.paquete, 30)] ?? PAQUETES["no-se"];
-  const sitioActual = SITIO_ACTUAL[texto(body.tiene_web, 20)] ?? "";
+  // Bot detectado: respuesta de aceptación sin guardar, sin notificar y sin conversión.
+  if (resultado.tipo === "honeypot") return json({ success: true, medir: false });
+  if (resultado.tipo === "invalida") return json({ error: resultado.error }, 400);
+  const datos = resultado.datos;
 
-  if (nombre.length < 2) {
-    return NextResponse.json({ error: "Escribe tu nombre." }, { status: 400 });
-  }
-  if (!EMAIL_RE.test(correo)) {
-    return NextResponse.json({ error: "Escribe un correo electrónico válido." }, { status: 400 });
-  }
-  if (!profesion) {
-    return NextResponse.json({ error: "Indica tu profesión o negocio." }, { status: 400 });
-  }
-  if (telefono && !/^[\d\s+()-]{7,20}$/.test(telefono)) {
-    return NextResponse.json({ error: "El teléfono solo puede llevar números, espacios y + ( ) -." }, { status: 400 });
-  }
-
-  const o = (body.origen && typeof body.origen === "object" ? body.origen : {}) as Record<string, unknown>;
-  const origen = [
-    `pagina=${texto(o.pagina, 100)}`,
-    `utm_source=${texto(o.utm_source, 100)}`,
-    `utm_medium=${texto(o.utm_medium, 100)}`,
-    `utm_campaign=${texto(o.utm_campaign, 150)}`,
-    `utm_term=${texto(o.utm_term, 150)}`,
-  ].join(" | ");
-
-  // Se reutilizan las columnas existentes de `leads` (sin cambiar el esquema).
-  const detalle = [
-    `Paquete: ${paquete}`,
-    telefono && `Teléfono: ${telefono}`,
-    sitioActual && `Sitio web actual: ${sitioActual}`,
-    mensaje && `Mensaje: ${mensaje}`,
-    `Origen: ${origen}`,
-  ]
-    .filter(Boolean)
-    .join("\n");
-
-  let guardado = false;
   try {
-    const { sql, initDb } = await import("@/lib/db");
-    await initDb();
-    await sql`
-      INSERT INTO leads (nombre, correo, tipo_negocio, obstaculo)
-      VALUES (${nombre}, ${correo}, ${profesion}, ${detalle})
-    `;
-    guardado = true;
+    await asegurarEsquema();
+
+    // Reintento del mismo envío: no crea otra solicitud ni consume cupo; solo reintenta la notificación pendiente.
+    if (await existente(datos.idSolicitud)) {
+      await notificarSolicitud(datos.idSolicitud);
+      return json({ success: true, medir: false });
+    }
   } catch (err) {
-    console.error("Error al guardar la solicitud en la base de datos:", err);
+    console.error("[contacto] Base de datos no disponible:", err instanceof Error ? err.name : "desconocido");
+    return json({ error: ERROR_GUARDADO }, 503);
   }
 
-  const avisado = await sendLeadNotification({ nombre, correo, telefono, profesion, paquete, sitioActual, mensaje, origen });
-
-  // La solicitud no se pierde en silencio: si falla todo, el visitante lo sabe.
-  if (!guardado && !avisado) {
-    return NextResponse.json(
-      { error: "No pudimos registrar tu solicitud. Intenta de nuevo o escríbenos a contacto@digicorestudio.com." },
-      { status: 500 }
-    );
+  // Límite de frecuencia. Si el contador falla no se bloquea al visitante: el guardado decide el resultado.
+  try {
+    const estado = await consumirLimite(ipDelVisitante(req));
+    if (!estado.permitido) {
+      const minutos = Math.ceil(estado.reintentarEnS / 60);
+      return json(
+        {
+          error: `Recibimos varios envíos desde tu conexión en poco tiempo. Intenta de nuevo en ${minutos} ${minutos === 1 ? "minuto" : "minutos"}.`,
+          retry_after: estado.reintentarEnS,
+        },
+        429,
+        { "Retry-After": String(estado.reintentarEnS) }
+      );
+    }
+  } catch (err) {
+    console.error("[contacto] No se pudo evaluar el límite de frecuencia:", err instanceof Error ? err.name : "desconocido");
   }
 
-  return NextResponse.json({ success: true });
+  let nueva: boolean;
+  try {
+    ({ nueva } = await guardarSolicitud(datos));
+  } catch (err) {
+    console.error("[contacto] No se pudo guardar la solicitud:", err instanceof Error ? err.name : "desconocido");
+    return json({ error: ERROR_GUARDADO }, 503);
+  }
+
+  // El correo es solo una notificación: si falla, la solicitud ya está guardada y queda marcada para reintento.
+  await notificarSolicitud(datos.idSolicitud);
+
+  return json({ success: true, medir: nueva });
 }

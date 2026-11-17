@@ -33,7 +33,7 @@ export default function Footer() {
               <Link href="/servicios/ecommerce" className="hover:text-text">Ecommerce</Link>
             </li>
             <li>
-              <Link href="/contacto" className="hover:text-text">Solicitar propuesta</Link>
+              <Link href="/contacto" className="hover:text-text">Contacto</Link>
             </li>
           </ul>
         </nav>
@@ -54,9 +54,12 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-border">
-        <p className={`${container} py-6 text-sm text-muted`}>
-          &copy; {anio} Digicore Studio. Todos los derechos reservados.
-        </p>
+        <div className={`${container} flex flex-col gap-2 py-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between`}>
+          <p>&copy; {anio} Digicore Studio. Todos los derechos reservados.</p>
+          <Link href="/aviso-de-privacidad" className="inline-flex min-h-11 items-center hover:text-text sm:min-h-0">
+            Aviso de privacidad
+          </Link>
+        </div>
       </div>
     </footer>
   );

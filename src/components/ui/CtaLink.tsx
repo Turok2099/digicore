@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
+import { recordarPaquete } from "@/lib/atribucion";
 
 interface Props {
   href: string;
@@ -16,7 +17,10 @@ export default function CtaLink({ href, ubicacion, paquete, className, children 
     <Link
       href={href}
       className={className}
-      onClick={() => trackEvent("cta_click", { ubicacion, ...(paquete ? { paquete } : {}) })}
+      onClick={() => {
+        if (paquete) recordarPaquete(paquete);
+        trackEvent("cta_click", { ubicacion, ...(paquete ? { paquete } : {}) });
+      }}
     >
       {children}
     </Link>

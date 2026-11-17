@@ -47,6 +47,7 @@ export default function Paquetes({ formBase, enlaceDetalle = true }: Props) {
                 {p.creacion} <span className="text-base font-medium text-muted">MXN + IVA</span>
               </p>
               <p className="mt-1 text-sm text-muted">De creación. {p.posterior}</p>
+              <p className="mt-1 text-sm font-medium text-text">Dominio por separado.</p>
 
               <ul className="mt-6 flex-1 space-y-3">
                 {p.resumen.map((t) => (

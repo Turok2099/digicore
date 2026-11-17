@@ -9,5 +9,11 @@ export const metadata: Metadata = {
 };
 
 export default function ContactoPage() {
-  return <ContactForm />;
+  return (
+    <ContactForm
+      comoH1
+      titulo="Cuéntanos sobre tu proyecto"
+      intro="Comparte lo que necesitas y te contactaremos para preparar una cotización."
+    />
+  );
 }

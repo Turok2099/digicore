@@ -5,13 +5,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Check, ChevronDown, Menu, X } from "lucide-react";
 import Logo from "@/components/shared/Logo";
-import CtaLink from "@/components/ui/CtaLink";
-import { btnPrimary } from "@/lib/ui";
 
 const enlaces = [
   { label: "Proyectos", href: "/#proyectos" },
   { label: "Paquetes", href: "/#paquetes" },
   { label: "Nuestro proceso", href: "/sitios-web#proceso" },
+  { label: "Contacto", href: "/contacto" },
 ];
 
 // Servicios: la página de SEO aún no existe, por eso se muestra sin enlace.
@@ -68,9 +67,6 @@ function ItemServicio({ label, href, actual, movil }: { label: string; href?: st
 
 export default function Navbar() {
   const pathname = usePathname();
-  // En las páginas con hero de oferta, el botón del navbar dice igual que el del hero.
-  const conHeroOferta = pathname === "/" || pathname === "/sitios-web";
-  const textoCta = conHeroOferta ? "Solicitar cotización" : "Solicitar propuesta";
   const enServicio = servicios.some((s) => s.href === pathname);
 
   const menuServicios = useRef<HTMLUListElement>(null);
@@ -151,25 +147,15 @@ export default function Navbar() {
             <Link
               key={e.href}
               href={e.href}
-              className="font-poppins text-sm font-medium text-muted transition-colors hover:text-text"
+              aria-current={e.href === pathname ? "page" : undefined}
+              className="font-poppins text-sm font-medium text-muted transition-colors hover:text-text aria-[current=page]:text-text aria-[current=page]:underline aria-[current=page]:decoration-accent aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8"
             >
               {e.label}
             </Link>
           ))}
-          <CtaLink href="/contacto" ubicacion="navbar" className={`${btnPrimary} !min-h-10 !px-4 !py-2 !text-sm`}>
-            {textoCta}
-          </CtaLink>
         </div>
 
         <div className="ml-auto flex items-center gap-1 lg:hidden">
-          {/* Con hero de oferta, en móvil el único botón principal es el del hero; aquí vive en el menú. */}
-          <CtaLink
-            href="/contacto"
-            ubicacion="navbar_movil"
-            className={`${btnPrimary} !min-h-10 !px-3 !py-2 !text-sm whitespace-nowrap ${conHeroOferta ? "max-sm:hidden" : ""}`}
-          >
-            {textoCta}
-          </CtaLink>
           <button
             type="button"
             popoverTarget="menu-movil"
@@ -203,19 +189,14 @@ export default function Navbar() {
                   <Link
                     href={e.href}
                     onClick={cerrarMenu}
-                    className="block rounded-lg px-2 py-3 font-poppins text-base font-medium text-text hover:bg-surface"
+                    aria-current={e.href === pathname ? "page" : undefined}
+                    className="flex items-center justify-between gap-3 rounded-lg px-2 py-3 font-poppins text-base font-medium text-text hover:bg-surface aria-[current=page]:bg-surface aria-[current=page]:font-semibold aria-[current=page]:text-accent"
                   >
                     {e.label}
+                    {e.href === pathname && <Check className="size-4 shrink-0" aria-hidden="true" />}
                   </Link>
                 </li>
               ))}
-              {conHeroOferta && (
-                <li className="pb-2 pt-3 sm:hidden">
-                  <CtaLink href="/contacto" ubicacion="navbar_movil" className={`${btnPrimary} w-full`}>
-                    {textoCta}
-                  </CtaLink>
-                </li>
-              )}
             </ul>
           </div>
         </div>

@@ -13,7 +13,7 @@ export default function CtaBand() {
         </div>
         <div className="flex flex-col gap-3 sm:flex-row">
           <CtaLink href="/contacto#contacto" ubicacion="banda_final" className={btnPrimary}>
-            Solicitar propuesta
+            Solicitar cotización
           </CtaLink>
           <CtaLink href="/planes" ubicacion="banda_final_detalle" className={btnSecondary}>
             Ver paquetes y precios
