@@ -52,10 +52,11 @@ export default function HeroOferta({ precio, aclaracion, cta, secundario, extras
           </p>
           <p className="mt-1 hidden text-sm text-muted sm:block">{aclaracion}</p>
 
-          <div className="mt-4 flex w-full flex-col items-stretch gap-1 sm:mt-6 sm:w-auto sm:flex-row sm:items-center sm:gap-3">
-            <CtaLink href={cta.href} ubicacion={cta.ubicacion} className={btnPrimary}>
+          <div className="mt-4 flex w-full flex-wrap items-center gap-x-3 gap-y-1 sm:mt-6 sm:w-auto sm:flex-nowrap sm:gap-x-3">
+            {/* En móvil el botón es compacto (44 px, sin flecha) y el enlace secundario va en la misma línea si cabe. */}
+            <CtaLink href={cta.href} ubicacion={cta.ubicacion} className={`${btnPrimary} max-sm:min-h-11 max-sm:px-4 max-sm:py-2 max-sm:text-sm`}>
               Solicitar cotización
-              <ArrowRight className="size-5" aria-hidden="true" />
+              <ArrowRight className="hidden size-5 sm:block" aria-hidden="true" />
             </CtaLink>
             <CtaLink href={secundario.href} ubicacion={secundario.ubicacion} className={enlaceSecundario}>
               {secundario.texto}
