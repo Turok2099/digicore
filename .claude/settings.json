@@ -15,7 +15,8 @@
       "Bash(node verify.js v)",
       "Bash(node verify.js chk \"http://localhost:3000/\")",
       "Bash(grep -c '\"waTapa\":{\"cta\":false,\"sec\":false,\"img\":false}')",
-      "Bash(curl -s -o /dev/null -w \"static 960: %{size_download} bytes\\\\n\" http://localhost:3000/brand/logo-digicore-960.webp)"
+      "Bash(curl -s -o /dev/null -w \"static 960: %{size_download} bytes\\\\n\" http://localhost:3000/brand/logo-digicore-960.webp)",
+      "Bash(npx -y modern-web-guidance@latest retrieve \"content-first-noise-reduction\")"
     ]
   }
 }

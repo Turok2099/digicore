@@ -10,8 +10,10 @@ const enlaceSecundario =
 interface Props {
   /** Importe base sin IVA, por ejemplo "$5,900". */
   precio: string;
-  /** Aclaración corta bajo el precio (dominio y costos posteriores) con su enlace a más detalle. */
+  /** Aclaración bajo el precio (dominio y costos posteriores) con su enlace a más detalle. */
   aclaracion: React.ReactNode;
+  /** Versión de una línea para móvil: el detalle completo vive en la sección de precios. */
+  aclaracionMovil?: React.ReactNode;
   cta: { href: string; ubicacion: string };
   secundario: { href: string; ubicacion: string; texto: string };
   /** Contenido extra que solo se muestra desde sm: en móvil resta espacio a la oferta y a la imagen. */
@@ -23,7 +25,7 @@ interface Props {
  * Jerarquía: oferta, explicación breve, precio, acción. El logo vive en el navbar.
  * WhatsAppFloat observa el id para no taparlo en móvil mientras se ve el hero.
  */
-export default function HeroOferta({ precio, aclaracion, cta, secundario, extras }: Props) {
+export default function HeroOferta({ precio, aclaracion, aclaracionMovil, cta, secundario, extras }: Props) {
   return (
     <section id="hero-oferta" className="relative overflow-hidden border-b border-border">
       <div
@@ -31,28 +33,37 @@ export default function HeroOferta({ precio, aclaracion, cta, secundario, extras
         className="pointer-events-none absolute -right-24 -top-24 size-[420px] rounded-full bg-accent/10 blur-3xl sm:size-[560px]"
       />
       <div
-        className={`${container} relative grid items-center gap-4 py-6 sm:gap-12 sm:py-14 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,1fr)] lg:gap-12 lg:py-20`}
+        className={`${container} relative grid items-center gap-0 py-5 sm:gap-12 sm:py-14 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,1fr)] lg:gap-12 lg:py-20`}
       >
         <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
           <p className="font-poppins text-xs font-medium tracking-[0.2em] text-muted sm:text-sm">
             DESARROLLO WEB EN MÉXICO
           </p>
-          <h1 className="mt-3 text-balance font-poppins text-[2rem] font-bold leading-[1.1] tracking-tight min-[400px]:text-4xl sm:mt-4 sm:text-5xl lg:text-[2.5rem] xl:text-[3.25rem]">
+          <h1 className="mt-2 text-balance font-poppins text-[2rem] font-bold leading-[1.1] tracking-tight min-[400px]:text-4xl sm:mt-4 sm:text-5xl lg:text-[2.5rem] xl:text-[3.25rem]">
             <span className="text-accent">Páginas web</span> para tu negocio
           </h1>
-          <p className="mt-3 max-w-xl text-pretty text-base leading-relaxed text-muted sm:mt-5 sm:text-lg">
+          <p className="mt-2 max-w-xl text-pretty text-base leading-normal text-muted sm:mt-5 sm:text-lg sm:leading-relaxed">
             Presenta tus servicios con un sitio profesional, adaptado a celular.
           </p>
 
-          <p className="mt-3 font-poppins text-base text-muted sm:mt-6 sm:text-lg">
+          <p className="mt-2 font-poppins text-base text-muted sm:mt-6 sm:text-lg">
             Desde{" "}
             <span className="whitespace-nowrap">
               <span className="text-2xl font-bold text-text sm:text-3xl">{precio}</span> MXN + IVA
             </span>
           </p>
-          <p className="mt-1 text-sm text-muted">{aclaracion}</p>
+          <p className="mt-0.5 text-sm text-muted sm:mt-1">
+            {aclaracionMovil ? (
+              <>
+                <span className="sm:hidden">{aclaracionMovil}</span>
+                <span className="hidden sm:inline">{aclaracion}</span>
+              </>
+            ) : (
+              aclaracion
+            )}
+          </p>
 
-          <div className="mt-4 flex w-full flex-col items-stretch gap-1 sm:mt-6 sm:w-auto sm:flex-row sm:items-center sm:gap-3">
+          <div className="mt-3 flex w-full flex-col items-stretch gap-1 sm:mt-6 sm:w-auto sm:flex-row sm:items-center sm:gap-3">
             <CtaLink href={cta.href} ubicacion={cta.ubicacion} className={btnPrimary}>
               Solicitar cotización
               <ArrowRight className="size-5" aria-hidden="true" />
@@ -65,7 +76,7 @@ export default function HeroOferta({ precio, aclaracion, cta, secundario, extras
           {extras && <div className="hidden w-full sm:block">{extras}</div>}
         </div>
 
-        <figure className="mx-auto w-full max-w-2xl lg:-ml-10 lg:-mr-6 lg:w-auto lg:max-w-none">
+        <figure className="mx-auto mt-1 w-full max-w-2xl sm:mt-0 lg:-ml-10 lg:-mr-6 lg:w-auto lg:max-w-none">
           <Image
             src="/images/hero-demo-arquitectura-ajustada.webp"
             alt="Ejemplo ilustrativo de un sitio de arquitectura adaptado a escritorio y celular"

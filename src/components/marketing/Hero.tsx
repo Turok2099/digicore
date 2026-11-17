@@ -23,6 +23,15 @@ export default function Hero({ formBase }: Props) {
           </Link>
         </>
       }
+      // En móvil basta una línea: el detalle (dominio por separado y renovación) está en la sección de precios.
+      aclaracionMovil={
+        <>
+          Dominio por separado.{" "}
+          <a href="#paquetes" className="underline underline-offset-2 hover:text-text">
+            Ver detalles
+          </a>
+        </>
+      }
       cta={{ href: hrefSolicitar(formBase), ubicacion: "hero" }}
       secundario={{ href: "#paquetes", ubicacion: "hero_paquetes", texto: "Ver opciones y precios" }}
       extras={

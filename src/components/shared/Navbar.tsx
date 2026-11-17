@@ -69,7 +69,8 @@ function ItemServicio({ label, href, actual, movil }: { label: string; href?: st
 export default function Navbar() {
   const pathname = usePathname();
   // En las páginas con hero de oferta, el botón del navbar dice igual que el del hero.
-  const textoCta = pathname === "/" || pathname === "/sitios-web" ? "Solicitar cotización" : "Solicitar propuesta";
+  const conHeroOferta = pathname === "/" || pathname === "/sitios-web";
+  const textoCta = conHeroOferta ? "Solicitar cotización" : "Solicitar propuesta";
   const enServicio = servicios.some((s) => s.href === pathname);
 
   const menuServicios = useRef<HTMLUListElement>(null);
@@ -83,6 +84,17 @@ export default function Navbar() {
       import("@oddbird/popover-polyfill");
     }
   }, []);
+
+  // El navbar persiste entre páginas: al cambiar de ruta (por ejemplo desde el botón del menú) se cierran los menús.
+  useEffect(() => {
+    for (const menu of [menuMovil.current, menuServicios.current]) {
+      try {
+        menu?.hidePopover();
+      } catch {
+        // Sin popover: no hay nada que cerrar.
+      }
+    }
+  }, [pathname]);
 
   // Al pasar a escritorio el menú móvil queda oculto con su padre; se cierra para no reaparecer.
   useEffect(() => {
@@ -103,9 +115,9 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-bg/95 backdrop-blur">
       <nav aria-label="Principal" className="mx-auto flex h-16 sm:h-[72px] max-w-[1240px] items-center justify-between px-5 sm:px-8">
-        {/* shrink-0 y altura propia: con el botón más largo, el logo no debe comprimirse ni deformarse a 360 px. */}
+        {/* shrink-0 y altura propia: el logo no debe comprimirse ni deformarse en pantallas estrechas. */}
         <Link href="/" aria-label="DigiCore Studio, inicio" className="shrink-0">
-          <Logo priority className="h-10 w-auto min-[400px]:h-12 sm:h-14" />
+          <Logo priority className="h-10 w-auto sm:h-14" />
         </Link>
 
         <div className="ml-auto hidden items-center gap-8 lg:flex">
@@ -150,7 +162,12 @@ export default function Navbar() {
         </div>
 
         <div className="ml-auto flex items-center gap-1 lg:hidden">
-          <CtaLink href="/contacto" ubicacion="navbar_movil" className={`${btnPrimary} !min-h-10 !px-3 !py-2 !text-sm whitespace-nowrap`}>
+          {/* Con hero de oferta, en móvil el único botón principal es el del hero; aquí vive en el menú. */}
+          <CtaLink
+            href="/contacto"
+            ubicacion="navbar_movil"
+            className={`${btnPrimary} !min-h-10 !px-3 !py-2 !text-sm whitespace-nowrap ${conHeroOferta ? "max-sm:hidden" : ""}`}
+          >
             {textoCta}
           </CtaLink>
           <button
@@ -192,6 +209,13 @@ export default function Navbar() {
                   </Link>
                 </li>
               ))}
+              {conHeroOferta && (
+                <li className="pb-2 pt-3 sm:hidden">
+                  <CtaLink href="/contacto" ubicacion="navbar_movil" className={`${btnPrimary} w-full`}>
+                    {textoCta}
+                  </CtaLink>
+                </li>
+              )}
             </ul>
           </div>
         </div>
