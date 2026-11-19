@@ -4,9 +4,11 @@
 //  - Último clic con parámetros: si la URL trae utm_* o gclid/gbraid/wbraid, ese origen reemplaza al guardado.
 //  - Una visita sin parámetros (navegación interna, visita directa) NUNCA borra el origen guardado.
 //  - Duración: 30 días desde la captura; pasado ese plazo se descarta.
-//  - Almacenamiento: solo en el navegador, sin cookies. Con Global Privacy Control o "No rastrear" activos se usa
-//    sessionStorage (se borra al cerrar la pestaña) en lugar de localStorage.
+//  - Almacenamiento: solo en el navegador, sin cookies. Con consentimiento aceptado se usa localStorage (30 días);
+//    sin decisión, con rechazo o con Global Privacy Control se usa sessionStorage (se borra al cerrar la pestaña).
 //  - Nada de esto se envía a Analytics; solo viaja con la solicitud que la persona decide enviar.
+
+import { medicionPermitida } from "@/lib/consentimiento";
 
 export const DURACION_DIAS = 30;
 const CLAVE = "dc_origen";
@@ -26,9 +28,7 @@ interface Guardado {
 
 function almacen(): Storage | null {
   try {
-    const nav = navigator as Navigator & { globalPrivacyControl?: boolean };
-    const limitado = nav.globalPrivacyControl === true || navigator.doNotTrack === "1";
-    return limitado ? window.sessionStorage : window.localStorage;
+    return medicionPermitida() ? window.localStorage : window.sessionStorage;
   } catch {
     return null; // Almacenamiento bloqueado: se sigue sin persistir.
   }
@@ -77,6 +77,16 @@ export function capturarOrigen(): void {
     almacen()?.setItem(CLAVE, JSON.stringify(g));
   } catch {
     // Sin almacenamiento disponible: el origen de la URL actual aún se usa al enviar.
+  }
+}
+
+/** Al aceptar la medición, el origen de la sesión pasa a guardarse 30 días. */
+export function persistirOrigenDeSesion(): void {
+  try {
+    const bruto = window.sessionStorage.getItem(CLAVE);
+    if (bruto) window.localStorage.setItem(CLAVE, bruto);
+  } catch {
+    // Sin almacenamiento.
   }
 }
 

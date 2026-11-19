@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat, Poppins } from "next/font/google";
-import Script from "next/script";
 import "../styles/globals.css";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
 import WhatsAppFloat from "@/components/shared/WhatsAppFloat";
 import CapturaOrigen from "@/components/shared/CapturaOrigen";
+import BannerConsentimiento from "@/components/shared/BannerConsentimiento";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -46,7 +46,7 @@ export const viewport: Viewport = {
   themeColor: "#0B0F14",
 };
 
-// Medición opcional: solo se carga si existe el identificador y tiene formato de GA4.
+// Medición opcional: Google Analytics solo se carga si existe el identificador, tiene formato de GA4 y la persona acepta.
 const gaId = process.env.NEXT_PUBLIC_GA_ID;
 const gaValido = gaId && /^G-[A-Z0-9]{4,}$/.test(gaId) ? gaId : null;
 
@@ -71,14 +71,7 @@ export default function RootLayout({
         <Footer />
         <WhatsAppFloat />
         <CapturaOrigen />
-        {gaValido && (
-          <>
-            <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaValido}`} strategy="afterInteractive" />
-            <Script id="ga-init" strategy="afterInteractive">
-              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','${gaValido}');`}
-            </Script>
-          </>
-        )}
+        <BannerConsentimiento gaId={gaValido} />
       </body>
     </html>
   );

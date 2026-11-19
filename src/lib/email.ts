@@ -77,3 +77,45 @@ export async function sendLeadNotification(data: SolicitudData, idempotencia?: s
     return { ok: false, motivo: `Excepción: ${err instanceof Error ? err.name : "desconocida"}` };
   }
 }
+
+export interface AgotadaAviso {
+  id: number;
+  nombre: string;
+  correo: string;
+  telefono: string | null;
+  paquete: string;
+  creada: string;
+  ultimoError: string | null;
+}
+
+/** Resumen para el equipo: solicitudes guardadas cuya notificación individual no pudo enviarse tras varios intentos. */
+export async function sendAgotadasAviso(items: AgotadaAviso[], dia: string): Promise<ResultadoEnvio> {
+  if (!resend) return { ok: false, motivo: "RESEND_API_KEY no configurada" };
+  const celda = "padding:6px 8px 6px 0;";
+  const filas = items
+    .map(
+      (i) =>
+        `<tr><td style="${celda}">#${i.id}</td><td style="${celda}">${esc(i.creada.slice(0, 16).replace("T", " "))} UTC</td><td style="${celda}">${esc(i.nombre)}</td><td style="${celda}">${esc(i.correo)}</td><td style="${celda}">${esc(i.telefono ?? "")}</td><td style="padding:6px 0;">${esc(i.paquete)}</td></tr>`
+    )
+    .join("");
+  const html = `
+    <div style="font-family:Arial,sans-serif;max-width:700px;margin:0 auto;padding:24px;color:#101828;">
+      <h2 style="margin:0 0 8px;">${items.length} solicitud(es) pendiente(s) de atender</h2>
+      <p style="color:#667085;font-size:14px;">Están guardadas en la base de datos, pero su aviso individual falló varias veces (último error: ${esc(items[0]?.ultimoError ?? "desconocido")}). Contáctalas a mano. Tras corregir la causa, reactívalas con POST /api/cron/notificaciones.</p>
+      <table style="width:100%;border-collapse:collapse;font-size:14px;text-align:left;">${filas}</table>
+    </div>`;
+  try {
+    const { error } = await resend.emails.send(
+      {
+        from: fromEmail,
+        to: [notificationEmail],
+        subject: `Atención: ${items.length} solicitud(es) sin notificar`,
+        html,
+      },
+      { idempotencyKey: `agotadas-${dia}-${items.map((i) => i.id).join("-")}`.slice(0, 256) }
+    );
+    return error ? { ok: false, motivo: `Resend: ${error.name ?? "error"}` } : { ok: true };
+  } catch (err) {
+    return { ok: false, motivo: `Excepción: ${err instanceof Error ? err.name : "desconocida"}` };
+  }
+}

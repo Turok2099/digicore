@@ -1,7 +1,7 @@
 // Registro de solicitudes (fuente de verdad), cola de notificaciones y límite de frecuencia.
 // Todo vive en Postgres (Neon): sirve entre instancias serverless y no depende de tareas en segundo plano.
 import { createHash } from "node:crypto";
-import { sendLeadNotification } from "@/lib/email";
+import { sendAgotadasAviso, sendLeadNotification, type AgotadaAviso } from "@/lib/email";
 import type { SolicitudValida } from "@/lib/solicitud-schema";
 
 type Sql = typeof import("@/lib/db").sql;
@@ -233,10 +233,56 @@ export async function reintentarPendientes(limite = 20) {
   }
   // Limpieza de ventanas de límite de frecuencia caducadas.
   await sql`DELETE FROM limite_frecuencia WHERE ventana < ${Math.floor(Date.now() / 1000) - 86_400}`;
-  const [{ total }] = (await sql`
-    SELECT count(*)::int AS total FROM solicitudes WHERE notificacion_estado = 'agotada'
-  `) as unknown as { total: number }[];
-  return { revisadas: ids.length, enviadas, agotadas: total };
+  const agotadas = await listarAgotadas();
+  let avisoAgotadas = false;
+  if (agotadas.length > 0) {
+    // Alerta estándar: registro en logs (apto para alertas de Vercel) y un resumen por correo con los datos
+    // necesarios para atender cada solicitud a mano. Se repite en cada cron hasta que se reactiven o atiendan.
+    console.error(
+      `[ALERTA] ${agotadas.length} solicitud(es) sin notificar tras ${MAX_INTENTOS} intentos. IDs: ${agotadas.map((a) => a.id).join(", ")}`
+    );
+    avisoAgotadas = (await sendAgotadasAviso(agotadas, new Date().toISOString().slice(0, 10))).ok;
+  }
+  return { revisadas: ids.length, enviadas, agotadas: agotadas.length, avisoAgotadas };
+}
+
+/** Solicitudes cuya notificación se agotó. Ya están guardadas: solo falta que alguien las atienda. */
+export async function listarAgotadas(): Promise<AgotadaAviso[]> {
+  const sql = await getSql();
+  const filas = (await sql`
+    SELECT id, nombre, correo, telefono, paquete, created_at, notificacion_ultimo_error
+    FROM solicitudes WHERE notificacion_estado = 'agotada' ORDER BY created_at
+  `) as unknown as {
+    id: number;
+    nombre: string;
+    correo: string;
+    telefono: string | null;
+    paquete: string;
+    created_at: string;
+    notificacion_ultimo_error: string | null;
+  }[];
+  return filas.map((f) => ({
+    id: f.id,
+    nombre: f.nombre,
+    correo: f.correo,
+    telefono: f.telefono,
+    paquete: f.paquete,
+    creada: new Date(f.created_at).toISOString(),
+    ultimoError: f.notificacion_ultimo_error,
+  }));
+}
+
+/** Devuelve las agotadas a la cola con el contador en cero (tras corregir la causa, p. ej. dominio o API key). */
+export async function reactivarAgotadas(): Promise<number> {
+  await asegurarEsquema();
+  const sql = await getSql();
+  const filas = await sql`
+    UPDATE solicitudes
+    SET notificacion_estado = 'fallida', notificacion_intentos = 0, notificacion_proximo_intento = now()
+    WHERE notificacion_estado = 'agotada'
+    RETURNING id
+  `;
+  return filas.length;
 }
 
 // ---------------------------------------------------------------------------------------------------------------

@@ -2,6 +2,7 @@ import Link from "next/link";
 import Logo from "@/components/shared/Logo";
 import { container } from "@/lib/ui";
 import WhatsAppLink from "@/components/ui/WhatsAppLink";
+import PreferenciasCookies from "@/components/shared/PreferenciasCookies";
 import { WHATSAPP_VISIBLE } from "@/lib/contacto";
 
 export default function Footer() {
@@ -56,9 +57,12 @@ export default function Footer() {
       <div className="border-t border-border">
         <div className={`${container} flex flex-col gap-2 py-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between`}>
           <p>&copy; {anio} Digicore Studio. Todos los derechos reservados.</p>
-          <Link href="/aviso-de-privacidad" className="inline-flex min-h-11 items-center hover:text-text sm:min-h-0">
-            Aviso de privacidad
-          </Link>
+          <div className="flex flex-col gap-x-6 gap-y-1 sm:flex-row sm:items-center">
+            <Link href="/aviso-de-privacidad" className="inline-flex min-h-11 items-center hover:text-text sm:min-h-0">
+              Aviso de privacidad
+            </Link>
+            <PreferenciasCookies className="inline-flex min-h-11 items-center text-left hover:text-text sm:min-h-0" />
+          </div>
         </div>
       </div>
     </footer>

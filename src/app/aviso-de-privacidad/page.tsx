@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/aviso-de-privacidad" },
 };
 
-const FECHA_ACTUALIZACION = "17 de noviembre de 2026";
+const FECHA_ACTUALIZACION = "18 de noviembre de 2026";
 
 const h2 = "mt-10 font-poppins text-xl font-semibold tracking-tight sm:text-2xl";
 const p = "mt-3 leading-relaxed text-muted";
@@ -67,7 +67,14 @@ export default function AvisoPrivacidadPage() {
           <li>
             <strong className="font-semibold text-text">Origen de la solicitud:</strong> la página desde la que
             enviaste el formulario y, si llegaste desde un anuncio o enlace de campaña, sus parámetros de campaña
-            (fuente, medio, campaña y término).
+            (fuente, medio, campaña, término y contenido), los identificadores publicitarios de Google (gclid, gbraid
+            o wbraid), la primera página que visitaste con esos parámetros y el sitio desde el que llegaste. Estos
+            datos solo se adjuntan a tu solicitud si decides enviarla.
+          </li>
+          <li>
+            <strong className="font-semibold text-text">Datos técnicos del envío:</strong> para evitar abusos del
+            formulario usamos un código irreversible derivado de tu dirección IP (no guardamos la IP en claro) y el
+            número de envíos recientes, que se borra en pocas horas.
           </li>
           <li>
             <strong className="font-semibold text-text">Correo o WhatsApp:</strong> los datos que nos compartas al
@@ -75,7 +82,7 @@ export default function AvisoPrivacidadPage() {
           </li>
           <li>
             <strong className="font-semibold text-text">Medición del sitio:</strong> datos técnicos y de uso (por
-            ejemplo, páginas vistas, tipo de dispositivo y clics en botones) cuando la medición está activa. Ver el
+            ejemplo, páginas vistas, tipo de dispositivo y clics en botones) solo si aceptas la medición. Ver el
             apartado 7.
           </li>
         </ul>
@@ -100,7 +107,8 @@ export default function AvisoPrivacidadPage() {
         <ul className={ul}>
           <li>
             Análisis estadístico del sitio y de las campañas, para saber de dónde llegan las solicitudes y mejorar el
-            sitio.
+            sitio. La medición con Google Analytics y el guardado del origen por 30 días dependen de que la aceptes
+            en el aviso de cookies.
           </li>
         </ul>
         <p className={p}>
@@ -162,12 +170,33 @@ export default function AvisoPrivacidadPage() {
           cualquier momento, según el apartado 5.
         </p>
 
-        <h2 className={h2}>7. Medición del sitio y cookies</h2>
+        <h2 id="medicion" className={`${h2} scroll-mt-24`}>7. Medición del sitio y cookies</h2>
         <p className={p}>
-          Este sitio puede usar Google Analytics para medir visitas y acciones, como clics en botones o el envío del
-          formulario. Los eventos que enviamos no incluyen tu nombre, correo, teléfono ni el contenido de tu mensaje.
-          Google puede recopilar datos técnicos de tu dispositivo y usar cookies o tecnologías similares. Puedes
-          bloquearlas o eliminarlas desde la configuración de tu navegador.
+          Al entrar al sitio te preguntamos si aceptas la medición. Hasta que decidas, y si la rechazas, no cargamos
+          Google Analytics ni enviamos eventos de medición. Si activas Global Privacy Control en tu navegador lo
+          tratamos como un rechazo.
+        </p>
+        <ul className={ul}>
+          <li>
+            <strong className="font-semibold text-text">Si aceptas:</strong> cargamos Google Analytics para medir
+            visitas y acciones, como clics en botones o el envío del formulario. Los eventos no incluyen tu nombre,
+            correo, teléfono ni el contenido de tu mensaje, ni tus parámetros de campaña. Google puede recopilar datos
+            técnicos de tu dispositivo y usar cookies o tecnologías similares. Además, guardamos en tu navegador (no en
+            una cookie) de qué anuncio o enlace llegaste durante 30 días, para saber qué campañas generan solicitudes.
+          </li>
+          <li>
+            <strong className="font-semibold text-text">Si rechazas o no decides:</strong> el origen de campaña solo
+            se guarda mientras la pestaña esté abierta y se usa únicamente si envías el formulario. Al rechazar,
+            eliminamos el origen que hubiéramos guardado antes por 30 días.
+          </li>
+          <li>
+            <strong className="font-semibold text-text">Datos necesarios para el funcionamiento:</strong> recordamos tu
+            decisión sobre este aviso y el paquete que elegiste, en el almacenamiento de tu navegador.
+          </li>
+        </ul>
+        <p className={p}>
+          Puedes cambiar tu decisión en cualquier momento desde «Preferencias de cookies», al pie de cada página, y
+          borrar los datos del sitio desde la configuración de tu navegador.
         </p>
 
         <h2 className={h2}>8. Seguridad</h2>

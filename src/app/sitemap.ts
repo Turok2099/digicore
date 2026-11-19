@@ -10,8 +10,8 @@ const routes: { path: string; priority: number; ultimaModificacion?: string }[] 
   { path: "/planes", priority: 0.9, ultimaModificacion: "2026-11-17" },
   { path: "/servicios/ads-marketing-digital", priority: 0.8, ultimaModificacion: "2026-11-17" },
   { path: "/servicios/ecommerce", priority: 0.8, ultimaModificacion: "2026-11-17" },
-  { path: "/contacto", priority: 0.7, ultimaModificacion: "2026-11-17" },
-  { path: "/aviso-de-privacidad", priority: 0.3, ultimaModificacion: "2026-11-17" },
+  { path: "/contacto", priority: 0.7, ultimaModificacion: "2026-11-18" },
+  { path: "/aviso-de-privacidad", priority: 0.3, ultimaModificacion: "2026-11-18" },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
